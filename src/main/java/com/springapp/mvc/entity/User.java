@@ -12,13 +12,13 @@ public class User {
     int id;
     String firstname;
     String lastname;
-    /*String mobile;
+    String mobile;
     String landline;
     String refferedBy;
     String dependent;
     String sex;
     String address;
-    int age;*/
+    int age;
 
     @Id
     @GeneratedValue
@@ -45,7 +45,7 @@ public class User {
         this.lastname = lastname;
     }
 
-    /*@Column(name="mobile")
+    @Column(name="mobile")
     public String getMobile() {
         return mobile;
     }
@@ -100,7 +100,4 @@ public class User {
     public void setAge(int age) {
         this.age = age;
     }
-*/
-
-
 }

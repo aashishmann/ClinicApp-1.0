@@ -12,7 +12,7 @@
     <context:component-scan base-package="com.springapp.mvc"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="prefix" value="/static/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
@@ -39,7 +39,7 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
             </props>
         </property>
         <property name="annotatedClasses">
@@ -50,8 +50,8 @@
         </property>
     </bean>
 
-    <!--<mvc:resources mapping="/css/**" location="/css/" />
-    <mvc:resources mapping="/js/**" location="/js/" />-->
+    <mvc:resources mapping="/css/**" location="/static/css/" />
+    <mvc:resources mapping="/js/**" location="/static/js/" />
     <mvc:annotation-driven />
 
 </beans>

@@ -1,0 +1,46 @@
+
+body{
+	background: url("images/back2.jpg");
+}
+
+td{
+	padding: 10px 50px;
+}
+
+.add_patient_header,.search_details_header{
+	text-shadow:0 0 10px #0cf;
+}
+
+.add_patient,.search_details{
+	background: #fff;
+	padding: 10px 25px;
+	border-radius: 20px;
+	box-shadow: 0 0 10px #0cf;
+	opacity: 0.9;
+	display: none;
+}
+
+.add-patient-form,.search-details-form{
+	font:normal 20px "arial";
+}
+
+.inputfield{
+	border-radius: 2px;
+	border:0;
+	box-shadow: 0 0 5px #09F;
+	padding: 5px;
+	color: #3366FF;
+}
+
+.inputfield:focus{
+	border:1px solid #0cf;
+}
+
+.form-label{
+	color: #5CADFF;
+}
+
+/* fixed textarea */
+#dependent,#address{
+        resize: none;
+}

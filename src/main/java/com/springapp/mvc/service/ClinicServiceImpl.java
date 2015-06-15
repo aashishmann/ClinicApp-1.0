@@ -1,11 +1,14 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.dao.IClinicDao;
+import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by aashish on 3/6/15.
@@ -28,7 +31,15 @@ public class ClinicServiceImpl implements IClinicService{
         return clinicDao.validateLogin(login.getUsername(),login.getPassword());
     }
 
+    @Transactional
+    @Override
+    public Boolean persistPatientDetails(User user) {
+        return clinicDao.persistPatientDetails(user);
+    }
 
-
-
+    @Transactional(readOnly=true)
+    @Override
+    public List<User> findPatient(SearchForm search) {
+        return clinicDao.findPatient(search);
+    }
 }
