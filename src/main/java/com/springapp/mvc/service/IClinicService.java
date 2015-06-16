@@ -18,5 +18,7 @@ public interface IClinicService {
     Boolean persistPatientDetails(User user);
 
     List<User> findPatient(SearchForm search);
+    
+    public void deletePatient(int id);
 
 }

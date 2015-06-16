@@ -42,4 +42,10 @@ public class ClinicServiceImpl implements IClinicService{
     public List<User> findPatient(SearchForm search) {
         return clinicDao.findPatient(search);
     }
+
+	@Transactional
+    @Override
+	public void deletePatient(int id) {
+		clinicDao.deletePatient(id);
+	}
 }

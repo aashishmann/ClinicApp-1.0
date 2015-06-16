@@ -18,5 +18,9 @@ public interface IClinicDao {
     Boolean persistPatientDetails(User user);
 
     public List<User> findPatient(SearchForm search);
+    
+    public void deletePatient(int id);
+    
+    public User findPatientById(int id);
 
 }

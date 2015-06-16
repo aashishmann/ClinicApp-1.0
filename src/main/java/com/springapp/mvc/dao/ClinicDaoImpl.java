@@ -81,4 +81,23 @@ public class ClinicDaoImpl implements IClinicDao {
 
         return patientList;
     }
+
+	@Override
+	public void deletePatient(int id) {
+		try {
+            User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
+            sessionFactory.getCurrentSession().delete(user);
+            System.out.println("Patient {} {} deleted from db." + user.getFirstname() + user.getLastname());
+            LOG.info("Patient {} {} deleted from db." , user.getFirstname() , user.getLastname());
+        } catch (Exception e) {
+            LOG.error("An error occured while deleting Patient details : {}", e);
+        }
+	}
+
+	@Override
+	public User findPatientById(int id) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("id", id));
+		return (User) criteria.uniqueResult();
+	}
 }
