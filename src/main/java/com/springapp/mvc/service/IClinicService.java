@@ -22,5 +22,7 @@ public interface IClinicService {
 	public void deletePatient(int id);
 
 	public void updatePatientDetails(User user);
+	
+	public User findPatientById(int id);
 
 }

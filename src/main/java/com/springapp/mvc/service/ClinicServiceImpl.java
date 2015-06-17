@@ -54,4 +54,9 @@ public class ClinicServiceImpl implements IClinicService{
 	public void updatePatientDetails(User user) {
 		clinicDao.updatePatientDetails(user);
 	}
+
+	@Override
+	public User findPatientById(int id) {
+		return clinicDao.findPatientById(id);
+	}
 }
