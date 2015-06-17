@@ -26,7 +26,7 @@ public class Login {
         this.id = id;
     }
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     public String getUsername() {
         return username;
     }
@@ -35,7 +35,7 @@ public class Login {
         this.username = username;
     }
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }

@@ -48,4 +48,10 @@ public class ClinicServiceImpl implements IClinicService{
 	public void deletePatient(int id) {
 		clinicDao.deletePatient(id);
 	}
+
+	@Transactional
+	@Override
+	public void updatePatientDetails(User user) {
+		clinicDao.updatePatientDetails(user);
+	}
 }

@@ -21,7 +21,8 @@ public class User {
     int age;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return id;
     }
@@ -29,7 +30,7 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "firstname")
+    @Column(name = "firstname", nullable = false)
     public String getFirstname() {
         return firstname;
     }
@@ -37,7 +38,7 @@ public class User {
         this.firstname = firstname;
     }
 
-    @Column(name="lastname")
+    @Column(name="lastname", nullable = false)
     public String getLastname() {
         return lastname;
     }
@@ -77,7 +78,7 @@ public class User {
         this.dependent = dependent;
     }
 
-    @Column(name="sex")
+    @Column(name="sex", nullable = false)
     public String getSex() {
         return sex;
     }
