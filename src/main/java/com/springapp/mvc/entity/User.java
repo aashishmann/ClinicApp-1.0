@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by aashish on 3/6/15.
  */
 @Entity
-@Table(name="user_credential")
+@Table(name = "user_credential")
 public class User {
 
     int id;
@@ -98,7 +98,17 @@ public class User {
     public int getAge() {
         return age;
     }
+
     public void setAge(int age) {
         this.age = age;
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", mobile=" + mobile + ", landline=" + landline
+				+ ", refferedBy=" + refferedBy + ", dependent=" + dependent
+				+ ", sex=" + sex + ", address=" + address + ", age=" + age
+				+ "]";
+	}
 }
