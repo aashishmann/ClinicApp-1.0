@@ -19,7 +19,7 @@ public interface IClinicService {
 
 	List<User> findPatient(SearchForm search);
 
-	public void deletePatient(int id);
+	public boolean deletePatient(int id);
 
 	public void updatePatientDetails(User user);
 	

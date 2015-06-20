@@ -1,21 +1,22 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.User;
-import com.springapp.mvc.service.IClinicService;
-import com.springapp.mvc.utils.ClinicUtils;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import com.springapp.mvc.dto.SearchForm;
+import com.springapp.mvc.entity.Login;
+import com.springapp.mvc.entity.User;
+import com.springapp.mvc.service.IClinicService;
+import com.springapp.mvc.utils.ClinicUtils;
 
 /**
  * Created by aashish on 13/6/15.
@@ -44,6 +45,11 @@ public class ClinicController {
     public String userLogin() {
         return "index";
     }
+    
+    @RequestMapping(value = "receptionist", method = {RequestMethod.GET,RequestMethod.HEAD})
+    public String receptionist() {
+        return "receptionist";
+    }
 
     //to validate login
     @RequestMapping(value = "validateLogin", method = RequestMethod.GET)
@@ -51,6 +57,7 @@ public class ClinicController {
         LOG.info("username : {} , password : {}", login.getUsername(),
                 login.getPassword());
         Login validUser = clinicService.validateLogin(login);
+        System.out.println("validation done now checking");
         if (validUser == null) {
             model.addAttribute("error", "Incorrect Username/Password!!");
             return "index";
@@ -85,12 +92,22 @@ public class ClinicController {
 
         //if nothing is entered and button is pressed, reload page again.
         if (ClinicUtils.isEmpty(search)) {
+			System.out.println("Nothing entered");
             return "receptionist";
         }
         //fetch details of all the patients as a list.
         List<User> patientList = clinicService.findPatient(search);
-
+        System.out.println("Printing data to be searched");
+		System.out.println(search);
         model.addAttribute("patientList",patientList);
         return "searchResults";
+    }
+    
+    @RequestMapping(value="deletePatient/{id}",method=RequestMethod.GET)
+    public String deletePatient(@PathVariable("id") int id,Model model){
+    	//System.out.println(clinicService.findPatientById(id));
+    	//User user=clinicService.findPatientById(id);
+    	clinicService.deletePatient(id);
+    	return "receptionist";
     }
 }

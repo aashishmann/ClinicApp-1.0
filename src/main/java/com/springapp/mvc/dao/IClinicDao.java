@@ -19,7 +19,7 @@ public interface IClinicDao {
 
 	public List<User> findPatient(SearchForm search);
 
-	public void deletePatient(int id);
+	public boolean deletePatient(int id);
 
 	public User findPatientById(int id);
 

@@ -69,3 +69,9 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+/bin/
+
+# target folders
+/target/*
+.gitignore
+/target/

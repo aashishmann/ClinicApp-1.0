@@ -58,7 +58,8 @@
 							<td><label for="firstname" class="form-label">Firstname
 									:</label></td>
 							<td><input type="text" id="search-firstname"
-								class="inputfield" size="30" name="firstname" placeholder="Enter Firstname"></td>
+								class="inputfield" size="30" name="firstname"
+								placeholder="Enter Firstname"></td>
 						</div>
 					</tr>
 
@@ -67,7 +68,8 @@
 							<td><label for="lastname" class="form-label">Lastname
 									:</label></td>
 							<td><input type="text" id="search-lastname"
-								class="inputfield" size="30" name="lastname" placeholder="Enter Lastname"></td>
+								class="inputfield" size="30" name="lastname"
+								placeholder="Enter Lastname"></td>
 						</div>
 					</tr>
 
@@ -84,7 +86,8 @@
 							<td><label for="dependent" class="form-label">Dependent(s)
 									:</label></td>
 							<td><input type="text" id="search-dependent"
-								class="inputfield" size="30" name="dependent" placeholder="Dependent name"></td>
+								class="inputfield" size="30" name="dependent"
+								placeholder="Dependent name"></td>
 						</div>
 					</tr>
 
@@ -93,7 +96,8 @@
 							<td><label for="refferedby" class="form-label">Reffered
 									By :</label></td>
 							<td><input type="text" id="search-refferedby"
-								class="inputfield" size="30" name="refferedBy" placeholder="Person who reffered"></td>
+								class="inputfield" size="30" name="refferedBy"
+								placeholder="Person who reffered"></td>
 						</div>
 					</tr>
 
@@ -110,14 +114,16 @@
 				<h2>Add New Patient</h2>
 			</div>
 			<hr>
-			<form class="add-patient-form" action="addPatientDetails" method="post">
+			<form class="add-patient-form" action="addPatientDetails"
+				method="post">
 				<table class="add-patient-table">
 					<tr>
 						<div class="form-group">
 							<td><label for="firstname" class="form-label">Firstname
 									:</label></td>
 							<td><input type="text" id="firstname" class="inputfield"
-								size="30" name="firstname" placeholder="Enter Firstname" required></td>
+								size="30" name="firstname" placeholder="Enter Firstname"
+								required></td>
 						</div>
 					</tr>
 
@@ -169,7 +175,8 @@
 							<td><label for="dependent" class="form-label">Dependent(s)
 									:</label></td>
 							<td><textarea id="dependent" class="inputfield"
-									name="dependent" placeholder="Dependent name" rows="2" cols="33"></textarea></td>
+									name="dependent" placeholder="Dependent name" rows="2"
+									cols="33"></textarea></td>
 						</div>
 					</tr>
 
@@ -177,8 +184,8 @@
 						<div class="form-group">
 							<td><label for="address" class="form-label">Address
 									:</label></td>
-							<td><textarea id="address" class="inputfield"
-									name="address" placeholder="Enter Address" rows="5" cols="33"></textarea></td>
+							<td><textarea id="address" class="inputfield" name="address"
+									placeholder="Enter Address" rows="5" cols="33"></textarea></td>
 						</div>
 					</tr>
 

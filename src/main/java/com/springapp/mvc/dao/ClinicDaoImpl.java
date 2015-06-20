@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -21,6 +23,9 @@ import com.springapp.mvc.entity.User;
 /**
  * Created by aashish on 3/6/15.
  */
+// With @Transactional in your @Repository Spring is able to apply transactional
+// support into your repository.
+@Transactional
 @Repository
 public class ClinicDaoImpl implements IClinicDao {
 	private static final Logger LOG = LoggerFactory
@@ -88,7 +93,7 @@ public class ClinicDaoImpl implements IClinicDao {
 	}
 
 	@Override
-	public void deletePatient(int id) {
+	public boolean deletePatient(int id) {
 		try {
 			User user = (User) sessionFactory.getCurrentSession().load(
 					User.class, id);
@@ -97,17 +102,16 @@ public class ClinicDaoImpl implements IClinicDao {
 					+ user.getFirstname() + user.getLastname());
 			LOG.info("Patient {} {} deleted from db.", user.getFirstname(),
 					user.getLastname());
+			return true;
 		} catch (Exception e) {
 			LOG.error("An error occured while deleting Patient details : {}", e);
+			return false;
 		}
 	}
 
 	@Override
 	public User findPatientById(int id) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				User.class);
-		criteria.add(Restrictions.eq("id", id));
-		return (User) criteria.uniqueResult();
+		return (User) sessionFactory.getCurrentSession().get(User.class, id);
 	}
 
 	@Override

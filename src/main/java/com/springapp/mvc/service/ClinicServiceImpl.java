@@ -4,6 +4,7 @@ import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +46,8 @@ public class ClinicServiceImpl implements IClinicService{
 
 	@Transactional
     @Override
-	public void deletePatient(int id) {
-		clinicDao.deletePatient(id);
+	public boolean deletePatient(int id) {
+		return clinicDao.deletePatient(id);
 	}
 
 	@Transactional

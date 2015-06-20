@@ -10,6 +10,19 @@
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
 <link rel="stylesheet" type="text/css" href="css/search.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
+<script>
+	function deletePatient(id){
+		jQuery.ajax({
+		    'type': 'GET',
+		    'url': "deletePatient/"+id,
+		    'contentType': 'application/json',
+		    'success': function(data) {
+		    	alert("Patient Record Deleted!");
+		    	window.location.replace("receptionist");
+		    	}
+		});
+	}
+</script>
 </head>
 <body>
 
@@ -223,7 +236,7 @@
 							<button type="button" class="btn btn-success">View</button>
 						</td>
 						<td>
-							<button type="button" class="btn btn-danger">Delete</button>
+							<button type="button" class="btn btn-danger" onclick="deletePatient(${patientList.id})">Delete</button>
 						</td>
 					</tr>
 				</c:forEach>
