@@ -11,18 +11,18 @@ import com.springapp.mvc.entity.User;
  */
 public interface IClinicService {
 
-	public User getdetails();
+    public User getdetails();
 
-	public Login validateLogin(Login login);
+    public Login validateLogin(Login login);
 
-	Boolean persistPatientDetails(User user);
+    Boolean persistPatientDetails(User user);
 
-	List<User> findPatient(SearchForm search);
+    List<User> findPatient(SearchForm search);
 
-	public boolean deletePatient(int id);
+    public boolean deletePatient(int id);
 
-	public void updatePatientDetails(User user);
-	
-	public User findPatientById(int id);
+    public void updatePatientDetails(User user);
+
+    public User findPatientById(int id);
 
 }

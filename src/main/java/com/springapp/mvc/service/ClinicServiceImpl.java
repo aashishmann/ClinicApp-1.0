@@ -15,7 +15,7 @@ import java.util.List;
  * Created by aashish on 3/6/15.
  */
 @Service
-public class ClinicServiceImpl implements IClinicService{
+public class ClinicServiceImpl implements IClinicService {
 
     @Autowired
     IClinicDao clinicDao;
@@ -26,10 +26,10 @@ public class ClinicServiceImpl implements IClinicService{
         return clinicDao.getdetails();
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public Login validateLogin(Login login) {
-        return clinicDao.validateLogin(login.getUsername(),login.getPassword());
+        return clinicDao.validateLogin(login.getUsername(), login.getPassword());
     }
 
     @Transactional
@@ -38,26 +38,26 @@ public class ClinicServiceImpl implements IClinicService{
         return clinicDao.persistPatientDetails(user);
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public List<User> findPatient(SearchForm search) {
         return clinicDao.findPatient(search);
     }
 
-	@Transactional
+    @Transactional
     @Override
-	public boolean deletePatient(int id) {
-		return clinicDao.deletePatient(id);
-	}
+    public boolean deletePatient(int id) {
+        return clinicDao.deletePatient(id);
+    }
 
-	@Transactional
-	@Override
-	public void updatePatientDetails(User user) {
-		clinicDao.updatePatientDetails(user);
-	}
+    @Transactional
+    @Override
+    public void updatePatientDetails(User user) {
+        clinicDao.updatePatientDetails(user);
+    }
 
-	@Override
-	public User findPatientById(int id) {
-		return clinicDao.findPatientById(id);
-	}
+    @Override
+    public User findPatientById(int id) {
+        return clinicDao.findPatientById(id);
+    }
 }

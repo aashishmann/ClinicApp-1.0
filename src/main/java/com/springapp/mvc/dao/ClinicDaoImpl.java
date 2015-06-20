@@ -28,101 +28,89 @@ import com.springapp.mvc.entity.User;
 @Transactional
 @Repository
 public class ClinicDaoImpl implements IClinicDao {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(ClinicDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClinicDaoImpl.class);
 
-	@Autowired
-	SessionFactory sessionFactory;
+    @Autowired
+    SessionFactory              sessionFactory;
 
-	@Override
-	public User getdetails() {
-		Query query = sessionFactory.getCurrentSession().createQuery(
-				"from User where id=1");
-		return (User) query.uniqueResult();
+    @Override
+    public User getdetails() {
+        Query query = sessionFactory.getCurrentSession().createQuery("from User where id=1");
+        return (User) query.uniqueResult();
 
-	}
+    }
 
-	@Override
-	public Login validateLogin(String username, String password) {
-		Criteria cr = sessionFactory.getCurrentSession().createCriteria(
-				Login.class);
-		cr.add(Restrictions.like("username", username));
-		cr.add(Restrictions.like("password", password));
-		return (Login) cr.uniqueResult();
-	}
+    @Override
+    public Login validateLogin(String username, String password) {
+        Criteria cr = sessionFactory.getCurrentSession().createCriteria(Login.class);
+        cr.add(Restrictions.like("username", username));
+        cr.add(Restrictions.like("password", password));
+        return (Login) cr.uniqueResult();
+    }
 
-	@Override
-	public Boolean persistPatientDetails(User user) {
-		try {
-			sessionFactory.getCurrentSession().persist(user);
-			System.out.println(user);
-			LOG.info("Data inserted into db");
-			return Boolean.TRUE;
-		} catch (Exception e) {
-			LOG.error("Some error occured while adding data into db", e);
-			return Boolean.FALSE;
-		}
-	}
+    @Override
+    public Boolean persistPatientDetails(User user) {
+        try {
+            sessionFactory.getCurrentSession().persist(user);
+            System.out.println(user);
+            LOG.info("Data inserted into db");
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            LOG.error("Some error occured while adding data into db", e);
+            return Boolean.FALSE;
+        }
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> findPatient(SearchForm search) {
-		List<User> patientList = new ArrayList<User>();
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> findPatient(SearchForm search) {
+        List<User> patientList = new ArrayList<User>();
 
-		Criteria cr = sessionFactory.getCurrentSession().createCriteria(
-				User.class);
+        Criteria cr = sessionFactory.getCurrentSession().createCriteria(User.class);
 
-		Disjunction orExpression = Restrictions.disjunction();
+        Disjunction orExpression = Restrictions.disjunction();
 
-		orExpression
-				.add(Property.forName("firstname").eq(search.getFirstname()))
-				.add(Property.forName("lastname").eq(search.getLastname()))
-				.add(Property.forName("mobile").eq(search.getMobile()))
-				.add(Property.forName("dependent").eq(search.getDependent()))
-				.add(Property.forName("refferedBy").eq(search.getRefferedBy()));
+        orExpression.add(Property.forName("firstname").eq(search.getFirstname())).add(Property.forName("lastname").eq(search.getLastname())).add(
+                Property.forName("mobile").eq(search.getMobile())).add(Property.forName("dependent").eq(search.getDependent())).add(
+                Property.forName("refferedBy").eq(search.getRefferedBy()));
 
-		cr.add(orExpression);
+        cr.add(orExpression);
 
-		patientList = (List<User>) cr.list();
+        patientList = (List<User>) cr.list();
 
-		for (User user : patientList) {
-			System.out.println(user);
-		}
+        for (User user : patientList) {
+            System.out.println(user);
+        }
 
-		return patientList;
-	}
+        return patientList;
+    }
 
-	@Override
-	public boolean deletePatient(int id) {
-		try {
-			User user = (User) sessionFactory.getCurrentSession().load(
-					User.class, id);
-			sessionFactory.getCurrentSession().delete(user);
-			System.out.println("Patient {} {} deleted from db."
-					+ user.getFirstname() + user.getLastname());
-			LOG.info("Patient {} {} deleted from db.", user.getFirstname(),
-					user.getLastname());
-			return true;
-		} catch (Exception e) {
-			LOG.error("An error occured while deleting Patient details : {}", e);
-			return false;
-		}
-	}
+    @Override
+    public boolean deletePatient(int id) {
+        try {
+            User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
+            sessionFactory.getCurrentSession().delete(user);
+            System.out.println("Patient {} {} deleted from db." + user.getFirstname() + user.getLastname());
+            LOG.info("Patient {} {} deleted from db.", user.getFirstname(), user.getLastname());
+            return true;
+        } catch (Exception e) {
+            LOG.error("An error occured while deleting Patient details : {}", e);
+            return false;
+        }
+    }
 
-	@Override
-	public User findPatientById(int id) {
-		return (User) sessionFactory.getCurrentSession().get(User.class, id);
-	}
+    @Override
+    public User findPatientById(int id) {
+        return (User) sessionFactory.getCurrentSession().get(User.class, id);
+    }
 
-	@Override
-	public void updatePatientDetails(User user) {
-		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(user);
-			LOG.info("Patient {} deatails updated.", user.getFirstname());
-		} catch (Exception e) {
-			LOG.error(
-					"An error occured while updating patient {} details : {}",
-					user.getFirstname(), e);
-		}
-	}
+    @Override
+    public void updatePatientDetails(User user) {
+        try {
+            sessionFactory.getCurrentSession().saveOrUpdate(user);
+            LOG.info("Patient {} deatails updated.", user.getFirstname());
+        } catch (Exception e) {
+            LOG.error("An error occured while updating patient {} details : {}", user.getFirstname(), e);
+        }
+    }
 }

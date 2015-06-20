@@ -9,8 +9,7 @@ import javax.persistence.*;
 @Table(name = "login_detail")
 public class Login {
 
-
-    private int id;
+    private int    id;
     private String username;
     private String password;
     // private RoleType roleType;
@@ -54,10 +53,9 @@ public class Login {
         this.roleType = roleType;
     }
 
-	@Override
-	public String toString() {
-		return "Login [id=" + id + ", username=" + username + ", password="
-				+ password + ", roleType=" + roleType + "]";
-	}
+    @Override
+    public String toString() {
+        return "Login [id=" + id + ", username=" + username + ", password=" + password + ", roleType=" + roleType + "]";
+    }
 
 }

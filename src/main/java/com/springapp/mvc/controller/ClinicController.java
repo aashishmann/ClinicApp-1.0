@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -23,48 +24,36 @@ import com.springapp.mvc.utils.ClinicUtils;
  */
 @Controller
 @RequestMapping("/")
+@SessionAttributes("validUser")
 public class ClinicController {
     private static final Logger LOG = LoggerFactory.getLogger(ClinicController.class);
 
     @Autowired
-    private IClinicService clinicService;
-
-/*    @RequestMapping(method = {RequestMethod.GET,RequestMethod.HEAD})
-    public String printWelcome(ModelMap model) {
-        model.addAttribute("message", "DahiyaClinic");
-
-        User user = clinicService.getdetails();
-        System.out.println("Clinic Controller User : " + user.getFirstname());
-        LOG.info("Clinic Controller User {} " + user.getFirstname());
-        model.addAttribute("user",user.getFirstname()+" "+ user.getLastname());
-        return "hello";
-    }*/
+    private IClinicService      clinicService;
 
     //To take to the login screen
-    @RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.HEAD})
+    @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.HEAD })
     public String userLogin() {
         return "index";
     }
-    
-    @RequestMapping(value = "receptionist", method = {RequestMethod.GET,RequestMethod.HEAD})
+
+    @RequestMapping(value = "receptionist", method = { RequestMethod.GET, RequestMethod.HEAD })
     public String receptionist() {
         return "receptionist";
     }
 
     //to validate login
     @RequestMapping(value = "validateLogin", method = RequestMethod.GET)
-    public String validateLogin(@ModelAttribute("loginDetails") Login login,Model model) {
-        LOG.info("username : {} , password : {}", login.getUsername(),
-                login.getPassword());
+    public String validateLogin(@ModelAttribute("loginDetails") Login login, Model model) {
+        LOG.info("username : {} , password : {}", login.getUsername(), login.getPassword());
         Login validUser = clinicService.validateLogin(login);
         System.out.println("validation done now checking");
         if (validUser == null) {
             model.addAttribute("error", "Incorrect Username/Password!!");
             return "index";
-        } else if("REC".equals(validUser.getRoleType())){
+        } else if ("REC".equals(validUser.getRoleType())) {
             return "receptionist";
-        }
-        else {
+        } else {
             //dummy jsp success to test the things
             model.addAttribute("username", login.getUsername());
             model.addAttribute("password", login.getPassword());
@@ -73,13 +62,12 @@ public class ClinicController {
     }
 
     //to add patient details in the db
-    @RequestMapping(value="addPatientDetails",method=RequestMethod.POST)
-    public String addPatientDetails(@ModelAttribute("userDetails")User user,Model model){
-        System.out.println("Name: " + user.getFirstname()+" Age:"+user.getAge()+ " Sex:" + user.getSex());
-        if(clinicService.persistPatientDetails(user)){
+    @RequestMapping(value = "addPatientDetails", method = RequestMethod.POST)
+    public String addPatientDetails(@ModelAttribute("userDetails") User user, Model model) {
+        System.out.println("Name: " + user.getFirstname() + " Age:" + user.getAge() + " Sex:" + user.getSex());
+        if (clinicService.persistPatientDetails(user)) {
             System.out.println("data inserted");
-        }
-        else{
+        } else {
             System.out.println("some error occured");
         }
         //display hidden div whether data inserted successfully or not
@@ -87,27 +75,27 @@ public class ClinicController {
     }
 
     //to search for patient in the db
-    @RequestMapping(value="findPatient",method=RequestMethod.POST)
-    public String findPatient(@ModelAttribute("searchForm") SearchForm search,Model model){
+    @RequestMapping(value = "findPatient", method = RequestMethod.POST)
+    public String findPatient(@ModelAttribute("searchForm") SearchForm search, Model model) {
 
         //if nothing is entered and button is pressed, reload page again.
         if (ClinicUtils.isEmpty(search)) {
-			System.out.println("Nothing entered");
+            System.out.println("Nothing entered");
             return "receptionist";
         }
         //fetch details of all the patients as a list.
         List<User> patientList = clinicService.findPatient(search);
         System.out.println("Printing data to be searched");
-		System.out.println(search);
-        model.addAttribute("patientList",patientList);
+        System.out.println(search);
+        model.addAttribute("patientList", patientList);
         return "searchResults";
     }
-    
-    @RequestMapping(value="deletePatient/{id}",method=RequestMethod.GET)
-    public String deletePatient(@PathVariable("id") int id,Model model){
-    	//System.out.println(clinicService.findPatientById(id));
-    	//User user=clinicService.findPatientById(id);
-    	clinicService.deletePatient(id);
-    	return "receptionist";
+
+    @RequestMapping(value = "deletePatient/{id}", method = RequestMethod.GET)
+    public String deletePatient(@PathVariable("id") int id, Model model) {
+        //System.out.println(clinicService.findPatientById(id));
+        //User user=clinicService.findPatientById(id);
+        clinicService.deletePatient(id);
+        return "receptionist";
     }
 }
