@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
+import com.springapp.mvc.entity.PatientHistory;
 import com.springapp.mvc.entity.User;
 
 /**
@@ -11,18 +12,20 @@ import com.springapp.mvc.entity.User;
  */
 public interface IClinicService {
 
-    public User getdetails();
+	public User getdetails();
 
-    public Login validateLogin(Login login);
+	public Login validateLogin(Login login);
 
-    Boolean persistPatientDetails(User user);
+	Boolean persistPatientDetails(User user);
 
-    List<User> findPatient(SearchForm search);
+	List<User> findPatient(SearchForm search);
 
-    public boolean deletePatient(int id);
+	public boolean deletePatient(int id);
 
-    public void updatePatientDetails(User user);
+	public void updatePatientDetails(User user);
 
-    public User findPatientById(int id);
+	public User findPatientById(int id);
+
+	public Boolean persistPatientHistory(PatientHistory patientHistory);
 
 }
