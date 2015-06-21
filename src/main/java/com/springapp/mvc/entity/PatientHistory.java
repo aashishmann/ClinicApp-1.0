@@ -17,19 +17,19 @@ import javax.persistence.Table;
 @Table(name = "patient_history")
 public class PatientHistory {
 
-	long id;
-	User user;
-	Date dateOfVisit;
-	String purposeOfVisit;
-	String chiefComplaints;
-	String mentalSymptoms;
-	String physicalSymptoms;
-	String investigation;
-	String familyHistory;
-	String pastHistory;
-	String thermal;
-	String desire;
-	String aversion;
+	private long id;
+	private User user;
+	private Date dateOfVisit;
+	private String purposeOfVisit;
+	private String chiefComplaints;
+	private String mentalSymptoms;
+	private String physicalSymptoms;
+	private String investigation;
+	private String familyHistory;
+	private String pastHistory;
+	private String thermal;
+	private String desire;
+	private String aversion;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
