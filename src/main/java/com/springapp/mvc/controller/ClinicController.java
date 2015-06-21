@@ -2,6 +2,8 @@ package com.springapp.mvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +99,12 @@ public class ClinicController {
         //User user=clinicService.findPatientById(id);
         clinicService.deletePatient(id);
         return "receptionist";
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        System.out.println("logging out");
+        session.invalidate();
+        return "index";
     }
 }

@@ -38,7 +38,7 @@
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Log Out</a></li>
+						<li><a href="logout">Log Out</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -207,7 +207,7 @@
 			</form>
 		</div>
 		<!-- addpatient -->
-
+		<h2><%=session.getAttribute("validUser")%></h2>
 	</div>
 	<!-- /container -->
 
