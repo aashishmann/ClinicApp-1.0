@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
 
 /**
@@ -136,6 +137,20 @@ public class ClinicDaoImpl implements IClinicDao {
 		} catch (Exception e) {
 			LOG.error(
 					"Some error occured while adding patient history into db",
+					e);
+			return Boolean.FALSE;
+		}
+	}
+
+	@Override
+	public Boolean addPrescription(Prescription prescription) {
+		try {
+			sessionFactory.getCurrentSession().persist(prescription);
+			LOG.info("Prescription added into db.");
+			return Boolean.TRUE;
+		} catch (Exception e) {
+			LOG.error(
+					"Some error occured while adding prescription for patient :",
 					e);
 			return Boolean.FALSE;
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
 
 /**
@@ -27,5 +28,7 @@ public interface IClinicDao {
     public void updatePatientDetails(User user);
     
     public Boolean persistPatientHistory(PatientHistory patientHistory);
+    
+    public Boolean addPrescription(Prescription prescription);
 
 }

@@ -10,6 +10,7 @@ import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
 
 /**
@@ -68,5 +69,11 @@ public class ClinicServiceImpl implements IClinicService {
 	@Override
 	public Boolean persistPatientHistory(PatientHistory patientHistory) {
 		return clinicDao.persistPatientHistory(patientHistory);
+	}
+
+	@Transactional
+	@Override
+	public Boolean addPrescription(Prescription prescription) {
+		return clinicDao.addPrescription(prescription);
 	}
 }
