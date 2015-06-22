@@ -8,11 +8,6 @@
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
-<script>
-if('${message}'!=null){
-	alert("hi : "+'${message}');
-}
-</script>
 </head>
 <body>
 
@@ -29,7 +24,6 @@ if('${message}'!=null){
 						<!-- <li class="active"><a href="#">Home</a></li> -->
 						<li><a href="#" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
-						<li><a href="#" id="patient_queue">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -213,11 +207,7 @@ if('${message}'!=null){
 			</form>
 		</div>
 		<!-- addpatient -->
-
-		<div class="patient_queue" id="patient_queue">Queue data will be
-			here</div>
-
-		<!--  -->
+		<h2><%=session.getAttribute("validUser")%></h2>
 	</div>
 	<!-- /container -->
 

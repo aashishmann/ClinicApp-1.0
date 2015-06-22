@@ -55,6 +55,8 @@ public class ClinicController {
             return "index";
         } else if ("REC".equals(validUser.getRoleType())) {
             return "receptionist";
+        } else if ("DOC".equals(validUser.getRoleType())) {
+            return "doctor";
         } else {
             //dummy jsp success to test the things
             model.addAttribute("username", login.getUsername());
@@ -68,12 +70,14 @@ public class ClinicController {
     public String addPatientDetails(@ModelAttribute("userDetails") User user, Model model) {
         System.out.println("Name: " + user.getFirstname() + " Age:" + user.getAge() + " Sex:" + user.getSex());
         if (clinicService.persistPatientDetails(user)) {
+            model.addAttribute("message","Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {
+            model.addAttribute("message","Some error occured while adding data. Please try again later.");
             System.out.println("some error occured");
         }
         //display hidden div whether data inserted successfully or not
-        return "success";
+        return "receptionist";
     }
 
     //to search for patient in the db
