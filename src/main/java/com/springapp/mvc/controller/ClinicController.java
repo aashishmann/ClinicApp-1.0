@@ -111,4 +111,10 @@ public class ClinicController {
         session.invalidate();
         return "index";
     }
+    
+    @RequestMapping(value = "getQueueInfo", method = RequestMethod.GET)
+    public String getQueueInfo(Model model){
+        List<User> patientQueue = clinicService.getQueueInfo();
+        return null;
+    }
 }

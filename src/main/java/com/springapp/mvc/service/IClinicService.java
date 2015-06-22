@@ -30,4 +30,6 @@ public interface IClinicService {
 	public Boolean persistPatientHistory(PatientHistory patientHistory);
 
 	public Boolean addPrescription(Prescription prescription);
+
+    public List<User> getQueueInfo();
 }
