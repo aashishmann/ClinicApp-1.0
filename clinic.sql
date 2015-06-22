@@ -63,7 +63,7 @@ CREATE TABLE `patient` (
   `occupation` varchar(40) DEFAULT NULL,
   `marital_status` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (1,'Nakul','kumar','9999999999','','',0,'m','','',NULL,NULL,NULL),(2,'aashish','man','888888888',NULL,'dad',28,'m','jahangir','arti',NULL,NULL,NULL),(3,'imam','hussain','777777777',NULL,'saumya',23,'m','noida','alex',NULL,NULL,NULL),(4,'akshit','gupta','6666666666',NULL,'vivek',24,'m','delhi','deepan',NULL,NULL,NULL),(15,'abcd','xyz','','','',23,NULL,NULL,NULL,NULL,NULL,NULL),(19,'abcd','xyz','1234','','haha',24,'m','hihi','hehe',NULL,NULL,NULL),(21,'test','test2','','','',NULL,'m','','',23,NULL,NULL),(22,'a','v','','','',NULL,'m','','',234,NULL,NULL),(23,'ssh','koi h','','','',NULL,'m','','',22,NULL,NULL),(24,'visual','basic','','','',0,'m','','',12,NULL,NULL);
+INSERT INTO `patient` VALUES (1,'Nakul','kumar','9999999999','','',0,'m','','',NULL,NULL,NULL),(2,'aashish','man','888888888',NULL,'dad',28,'m','jahangir','arti',NULL,NULL,NULL),(3,'imam','hussain','777777777',NULL,'saumya',23,'m','noida','alex',NULL,NULL,NULL),(4,'akshit','gupta','6666666666',NULL,'vivek',24,'m','delhi','deepan',NULL,NULL,NULL),(15,'abcd','xyz','','','',23,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,6 +111,32 @@ LOCK TABLES `patient_history` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `patient_queue`
+--
+
+DROP TABLE IF EXISTS `patient_queue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patient_queue` (
+  `id` int(11) NOT NULL,
+  `patient_int` int(11) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patient_queue`
+--
+
+LOCK TABLES `patient_queue` WRITE;
+/*!40000 ALTER TABLE `patient_queue` DISABLE KEYS */;
+INSERT INTO `patient_queue` VALUES (1,1,'nakul','kumar');
+/*!40000 ALTER TABLE `patient_queue` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `prescription`
 --
 
@@ -144,7 +170,31 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user_credential`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_credential` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `dependent` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `landline` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `reffered_by` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `user_credential`
+--
+
+LOCK TABLES `user_credential` WRITE;
+/*!40000 ALTER TABLE `user_credential` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_credential` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -155,4 +205,4 @@ DROP TABLE IF EXISTS `user_credential`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-22 17:43:50
+-- Dump completed on 2015-06-23  1:18:31
