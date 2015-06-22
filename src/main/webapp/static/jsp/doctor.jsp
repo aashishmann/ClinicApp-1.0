@@ -24,6 +24,7 @@
 						<!-- <li class="active"><a href="#">Home</a></li> -->
 						<li><a href="#" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
+						<li><a href="#" id="patient_queue">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -199,6 +200,27 @@
 					</tr>
 
 					<tr>
+						<div class="form-group">
+							<td><label for="refferedby" class="form-label">Marital
+									Status :</label></td>
+							<td><select name="maritalStatus">
+    								<option value="" disabled="disabled" selected="selected">Please select status</option>							
+									<option value="unmarried">Unmarried</option>
+									<option value="married">Married</option>
+							</select></td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="form-group">
+							<td><label for="refferedby" class="form-label">Occupation
+									:</label></td>
+							<td><input type="text" id="occupation" class="inputfield"
+								size="30" name="occupation" placeholder="Occupation"></td>
+						</div>
+					</tr>
+
+					<tr>
 						<td></td>
 						<td><input type="submit" value="Submit" class="btn btn-info"></td>
 					</tr>
@@ -207,7 +229,14 @@
 			</form>
 		</div>
 		<!-- addpatient -->
-		<h2><%=session.getAttribute("validUser")%></h2>
+
+		<div class="patient_queue" id="patient_queue">Queue data will be
+			here</div>
+
+		<!-- Queue information -->
+
+		<p class="patient_added" style="color: red; text-align: center;">${addRecord}</p>
+
 	</div>
 	<!-- /container -->
 
