@@ -8,6 +8,13 @@
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
+<script type="text/javascript">
+	var check='${addRecord}';
+	if(check.length!=0){
+		/* console.log("1: "+check.length); */
+		alert('${addRecord}');
+	}
+</script>
 <style type="text/css">
 .patient_added {
 	color: red;
@@ -19,6 +26,7 @@
 	box-shadow: 0 0 10px #0cF;
 	opacity: 0.9;
 	margin-top: 20px;
+	display: none;
 }
 </style>
 </head>

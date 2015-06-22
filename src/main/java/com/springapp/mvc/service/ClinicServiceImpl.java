@@ -19,61 +19,60 @@ import com.springapp.mvc.entity.User;
 @Service
 public class ClinicServiceImpl implements IClinicService {
 
-	@Autowired
-	IClinicDao clinicDao;
+    @Autowired
+    IClinicDao clinicDao;
 
-	@Transactional
-	@Override
-	public User getdetails() {
-		return clinicDao.getdetails();
-	}
+    @Transactional
+    @Override
+    public User getdetails() {
+        return clinicDao.getdetails();
+    }
 
-	@Transactional(readOnly = true)
-	@Override
-	public Login validateLogin(Login login) {
-		return clinicDao
-				.validateLogin(login.getUsername(), login.getPassword());
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public Login validateLogin(Login login) {
+        return clinicDao.validateLogin(login.getUsername(), login.getPassword());
+    }
 
-	@Transactional
-	@Override
-	public Boolean persistPatientDetails(User user) {
-		return clinicDao.persistPatientDetails(user);
-	}
+    @Transactional
+    @Override
+    public Boolean persistPatientDetails(User user) {
+        return clinicDao.persistPatientDetails(user);
+    }
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<User> findPatient(SearchForm search) {
-		return clinicDao.findPatient(search);
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> findPatient(SearchForm search) {
+        return clinicDao.findPatient(search);
+    }
 
-	@Transactional
-	@Override
-	public boolean deletePatient(int id) {
-		return clinicDao.deletePatient(id);
-	}
+    @Transactional
+    @Override
+    public boolean deletePatient(int id) {
+        return clinicDao.deletePatient(id);
+    }
 
-	@Transactional
-	@Override
-	public void updatePatientDetails(User user) {
-		clinicDao.updatePatientDetails(user);
-	}
+    @Transactional
+    @Override
+    public void updatePatientDetails(User user) {
+        clinicDao.updatePatientDetails(user);
+    }
 
-	@Transactional(readOnly = true)
-	@Override
-	public User findPatientById(int id) {
-		return clinicDao.findPatientById(id);
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public User findPatientById(int id) {
+        return clinicDao.findPatientById(id);
+    }
 
-	@Transactional
-	@Override
-	public Boolean persistPatientHistory(PatientHistory patientHistory) {
-		return clinicDao.persistPatientHistory(patientHistory);
-	}
+    @Transactional
+    @Override
+    public Boolean persistPatientHistory(PatientHistory patientHistory) {
+        return clinicDao.persistPatientHistory(patientHistory);
+    }
 
-	@Transactional
-	@Override
-	public Boolean addPrescription(Prescription prescription) {
-		return clinicDao.addPrescription(prescription);
-	}
+    @Transactional
+    @Override
+    public Boolean addPrescription(Prescription prescription) {
+        return clinicDao.addPrescription(prescription);
+    }
 }
