@@ -19,6 +19,8 @@ public class User {
     String sex;
     String address;
     int    age;
+    String maritalStatus;
+    String occupation;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -112,9 +114,28 @@ public class User {
         this.age = age;
     }
 
+    @Column(name = "marital_status")
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    @Column(name = "occupation")
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", mobile=" + mobile + ", landline=" + landline + ", refferedBy=" + refferedBy
-                + ", dependent=" + dependent + ", sex=" + sex + ", address=" + address + ", age=" + age + "]";
+                + ", dependent=" + dependent + ", sex=" + sex + ", address=" + address + ", age=" + age + ", maritalStatus=" + maritalStatus + ", occupation=" + occupation + "]";
     }
+
 }

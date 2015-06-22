@@ -8,11 +8,6 @@
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
-<script>
-if('${message}'!=null){
-	alert("hi : "+'${message}');
-}
-</script>
 </head>
 <body>
 
@@ -214,10 +209,14 @@ if('${message}'!=null){
 		</div>
 		<!-- addpatient -->
 
-		<div class="patient_queue" id="patient_queue">Queue data will be
-			here</div>
+		<div class="patient_queue" id="patient_queue">
+			Queue data will be here
+		</div>
 
-		<!--  -->
+		<!-- Queue information -->
+		
+		<p class="patient_added" style="color: red; text-align: center;">${addRecord}</p>
+		
 	</div>
 	<!-- /container -->
 

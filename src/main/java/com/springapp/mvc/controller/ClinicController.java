@@ -70,10 +70,10 @@ public class ClinicController {
     public String addPatientDetails(@ModelAttribute("userDetails") User user, Model model) {
         System.out.println("Name: " + user.getFirstname() + " Age:" + user.getAge() + " Sex:" + user.getSex());
         if (clinicService.persistPatientDetails(user)) {
-            model.addAttribute("message","Patient Record Successfully Added.");
+            model.addAttribute("addRecord","Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {
-            model.addAttribute("message","Some error occured while adding data. Please try again later.");
+            model.addAttribute("addRecord","Some error occured while adding data. Please try again later.");
             System.out.println("some error occured");
         }
         //display hidden div whether data inserted successfully or not
