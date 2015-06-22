@@ -44,9 +44,9 @@ public class ClinicServiceImpl implements IClinicService {
             return id;
         }
         PatientQueue patientQueue = new PatientQueue();
-        patientQueue.setPatientId(id);
+        /*patientQueue.setPatientId(id);
         patientQueue.setFirstname(user.getFirstname());
-        patientQueue.setLastname(user.getLastname());
+        patientQueue.setLastname(user.getLastname());*/
         if(addToQueue(patientQueue)){
             System.out.println("Patient details added to queue");
             return id;

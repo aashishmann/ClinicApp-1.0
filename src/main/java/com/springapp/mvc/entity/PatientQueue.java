@@ -1,19 +1,14 @@
 package com.springapp.mvc.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "patient_queue")
 public class PatientQueue {
     private int    id;
-    private int    patientId;
-    private String firstname;
-    private String lastname;
+    private User    patient;
+    /*private String firstname;
+    private String lastname;*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +21,16 @@ public class PatientQueue {
         this.id = id;
     }
 
-    @Column(name = "patient_id")
-    public int getPatientId() {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "patient_id",nullable = false)
+    public User getPatient() {
+        return patient;
+    }
+
+    public void setPatient(User patient) {
+        this.patient = patient;
+    }
+    /*public int getPatientId() {
         return patientId;
     }
 
@@ -56,6 +59,6 @@ public class PatientQueue {
     @Override
     public String toString() {
         return "PatientQueue [id=" + id + ", patient_id=" + patientId + ", firstname=" + firstname + ", lastname=" + lastname + "]";
-    }
+    }*/
 
 }

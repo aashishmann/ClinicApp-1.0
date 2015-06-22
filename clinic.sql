@@ -117,11 +117,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `patient_queue`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `patient_queue` (
+/*CREATE TABLE `patient_queue` (
   `id` int(11) NOT NULL,
-  `patient_int` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;*/
+CREATE TABLE `patient_queue` (
+  `id` int(11) unsigned NOT NULL,
+  `patient_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -132,7 +137,8 @@ CREATE TABLE `patient_queue` (
 
 LOCK TABLES `patient_queue` WRITE;
 /*!40000 ALTER TABLE `patient_queue` DISABLE KEYS */;
-INSERT INTO `patient_queue` VALUES (1,1,'nakul','kumar');
+/*INSERT INTO `patient_queue` VALUES (1,1,'nakul','kumar');*/
+INSERT INTO `patient_queue` VALUES (1,1);
 /*!40000 ALTER TABLE `patient_queue` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,31 +176,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user_credential`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_credential` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `dependent` varchar(255) DEFAULT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `landline` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
-  `mobile` varchar(255) DEFAULT NULL,
-  `reffered_by` varchar(255) DEFAULT NULL,
-  `sex` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_credential`
---
-
-LOCK TABLES `user_credential` WRITE;
-/*!40000 ALTER TABLE `user_credential` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_credential` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

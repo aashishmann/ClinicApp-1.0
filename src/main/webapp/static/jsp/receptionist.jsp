@@ -267,9 +267,9 @@
 				</tr>
 				<c:forEach items="${patientQueue}" var="patientQueue">
 					<tr>
-						<td>${patientQueue.id}</td>
-						<td>${patientQueue.firstname}</td>
-						<td>${patientQueue.lastname}</td>
+						<td>${patientQueue.patient.id}</td>
+						<td>${patientQueue.patient.firstname}</td>
+						<td>${patientQueue.patient.lastname}</td>
 						<td>
 							<button type="button" class="btn btn-success">View</button>
 						</td>
