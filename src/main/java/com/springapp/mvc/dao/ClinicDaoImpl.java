@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.PatientQueue;
 import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
 
@@ -50,15 +51,15 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     @Override
-    public Boolean persistPatientDetails(User user) {
+    public int persistPatientDetails(User user) {
         try {
             sessionFactory.getCurrentSession().persist(user);
             System.out.println(user);
             LOG.info("Data inserted into db");
-            return Boolean.TRUE;
+            return user.getId();
         } catch (Exception e) {
             LOG.error("Some error occured while adding data into db", e);
-            return Boolean.FALSE;
+            return -1;
         }
     }
 
@@ -141,12 +142,28 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     @Override
-    public List<User> getQueueInfo() {
-        List<User> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue").list();
+    public List<PatientQueue> getQueueInfo() {
+        System.out.println("get queue info at dao");
+        List<PatientQueue> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue").list();
         /*for(User patient : patientQueue){
             LOG.info("Person List::"+patient);
         }*/
         return patientQueue;
+    }
+
+    @Override
+    public boolean addToQueue(PatientQueue patientQueue) {
+        try {
+            sessionFactory.getCurrentSession().persist(patientQueue);
+            System.out.println(patientQueue);
+            LOG.info("Patient added to queue in DB.");
+            System.out.println("Patient added to queue in DB.");
+            return true;
+        } catch (Exception e) {
+            LOG.error("Some error occured while adding patient to queue in db", e);
+            System.out.println("Some error occured while adding patient to queue in db");
+            return false;
+        }
     }
 
 }

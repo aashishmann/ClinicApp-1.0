@@ -10,6 +10,7 @@ import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.PatientQueue;
 import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
 
@@ -36,8 +37,22 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional
     @Override
-    public Boolean persistPatientDetails(User user) {
-        return clinicDao.persistPatientDetails(user);
+    public int persistPatientDetails(User user) {
+        int id = clinicDao.persistPatientDetails(user);
+        if(id<0){
+            System.out.println("Unable to persist user details in patient table");
+            return id;
+        }
+        PatientQueue patientQueue = new PatientQueue();
+        patientQueue.setPatientId(id);
+        patientQueue.setFirstname(user.getFirstname());
+        patientQueue.setLastname(user.getLastname());
+        if(addToQueue(patientQueue)){
+            System.out.println("Patient details added to queue");
+            return id;
+        }
+        System.out.println("Some error occured while adding patient details to queue");
+        return -1;
     }
 
     @Transactional(readOnly = true)
@@ -77,7 +92,12 @@ public class ClinicServiceImpl implements IClinicService {
     }
 
     @Override
-    public List<User> getQueueInfo() {
+    public List<PatientQueue> getQueueInfo() {
         return clinicDao.getQueueInfo();
+    }
+
+    @Override
+    public boolean addToQueue(PatientQueue patientQueue) {
+        return clinicDao.addToQueue(patientQueue);
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
+import com.springapp.mvc.entity.PatientQueue;
 import com.springapp.mvc.entity.User;
 import com.springapp.mvc.service.IClinicService;
 import com.springapp.mvc.utils.ClinicUtils;
@@ -69,7 +70,7 @@ public class ClinicController {
     @RequestMapping(value = "addPatientDetails", method = RequestMethod.POST)
     public String addPatientDetails(@ModelAttribute("userDetails") User user, Model model) {
         System.out.println("Name: " + user.getFirstname() + " Age:" + user.getAge() + " Sex:" + user.getSex());
-        if (clinicService.persistPatientDetails(user)) {
+        if (clinicService.persistPatientDetails(user)!=-1) {
             model.addAttribute("addRecord","Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {
@@ -114,7 +115,9 @@ public class ClinicController {
     
     @RequestMapping(value = "getQueueInfo", method = RequestMethod.GET)
     public String getQueueInfo(Model model){
-        List<User> patientQueue = clinicService.getQueueInfo();
-        return null;
+        System.out.println("get queue info at controller");
+        List<PatientQueue> patientQueue = clinicService.getQueueInfo();
+        model.addAttribute("patientQueue",patientQueue);
+        return "receptionist";
     }
 }

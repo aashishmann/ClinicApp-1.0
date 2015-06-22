@@ -5,6 +5,7 @@ import java.util.List;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.PatientQueue;
 import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
 
@@ -17,7 +18,7 @@ public interface IClinicService {
 
 	public Login validateLogin(Login login);
 
-	Boolean persistPatientDetails(User user);
+	int persistPatientDetails(User user);
 
 	List<User> findPatient(SearchForm search);
 
@@ -31,5 +32,7 @@ public interface IClinicService {
 
 	public Boolean addPrescription(Prescription prescription);
 
-    public List<User> getQueueInfo();
+    public List<PatientQueue> getQueueInfo();
+    
+    public boolean addToQueue(PatientQueue patientQueue);
 }

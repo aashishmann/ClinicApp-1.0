@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
 						<!-- <li class="active"><a href="#">Home</a></li> -->
 						<li><a href="#" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
-						<li><a href="#" id="patient_queue">Queue</a></li>
+						<li><a href="getQueueInfo" id="patient_queue">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -252,9 +253,33 @@
 		</div>
 		<!-- addpatient -->
 
-		<div class="patient_queue" id="patient_queue">Queue data will be
-			here</div>
-
+		<!-- Displaying Queue -->
+		<div class="patient_queue" id="patient_queue">
+			<div class="add_patient_header">
+				<h2>Daily Patient Queue</h2>
+			</div>
+			<hr>
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Firstname</th>
+					<th>Lastname</th>
+				</tr>
+				<c:forEach items="${patientQueue}" var="patientQueue">
+					<tr>
+						<td>${patientQueue.id}</td>
+						<td>${patientQueue.firstname}</td>
+						<td>${patientQueue.lastname}</td>
+						<td>
+							<button type="button" class="btn btn-success">View</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-danger" onclick="deletePatient(${patientQueue.id})">Delete</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 		<!-- Queue information -->
 
 		<p class="patient_added">${addRecord}</p>
