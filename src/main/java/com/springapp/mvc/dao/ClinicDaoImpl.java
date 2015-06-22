@@ -140,4 +140,13 @@ public class ClinicDaoImpl implements IClinicDao {
         }
     }
 
+    @Override
+    public List<User> getQueueInfo() {
+        List<User> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue").list();
+        /*for(User patient : patientQueue){
+            LOG.info("Person List::"+patient);
+        }*/
+        return patientQueue;
+    }
+
 }

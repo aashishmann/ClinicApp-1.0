@@ -75,4 +75,9 @@ public class ClinicServiceImpl implements IClinicService {
     public Boolean addPrescription(Prescription prescription) {
         return clinicDao.addPrescription(prescription);
     }
+
+    @Override
+    public List<User> getQueueInfo() {
+        return clinicDao.getQueueInfo();
+    }
 }

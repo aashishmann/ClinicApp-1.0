@@ -31,4 +31,6 @@ public interface IClinicDao {
     
     public Boolean addPrescription(Prescription prescription);
 
+    public List<User> getQueueInfo();
+
 }
