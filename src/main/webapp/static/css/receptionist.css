@@ -1,17 +1,16 @@
-
-body{
+body {
 	background: url("images/back2.jpg");
 }
 
-td{
+td {
 	padding: 10px 50px;
 }
 
-.add_patient_header,.search_details_header{
-	text-shadow:0 0 10px #0cf;
+.add_patient_header, .search_details_header {
+	text-shadow: 0 0 10px #0cf;
 }
 
-.add_patient,.search_details{
+.add_patient, .search_details {
 	background: #fff;
 	padding: 10px 25px;
 	border-radius: 20px;
@@ -20,27 +19,27 @@ td{
 	display: none;
 }
 
-.add-patient-form,.search-details-form{
-	font:normal 20px "arial";
+.add-patient-form, .search-details-form {
+	font: normal 20px "arial";
 }
 
-.inputfield{
+.inputfield {
 	border-radius: 2px;
-	border:0;
+	border: 0;
 	box-shadow: 0 0 5px #09F;
 	padding: 5px;
 	color: #3366FF;
 }
 
-.inputfield:focus{
-	border:1px solid #0cf;
+.inputfield:focus {
+	border: 1px solid #0cf;
 }
 
-.form-label{
+.form-label {
 	color: #5CADFF;
 }
 
 /* fixed textarea */
-#dependent,#address{
-        resize: none;
+#dependent, #address {
+	resize: none;
 }

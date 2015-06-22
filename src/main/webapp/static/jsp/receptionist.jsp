@@ -8,6 +8,19 @@
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
+<style type="text/css">
+.patient_added {
+	color: red;
+	text-align: center;
+	background: #fff;
+	border-radius: 15px;
+	padding: 30px 25px;
+	font: 25px bold arial;
+	box-shadow: 0 0 10px #0cF;
+	opacity: 0.9;
+	margin-top: 20px;
+}
+</style>
 </head>
 <body>
 
@@ -204,7 +217,8 @@
 							<td><label for="refferedby" class="form-label">Marital
 									Status :</label></td>
 							<td><select name="maritalStatus">
-    								<option value="" disabled="disabled" selected="selected">Please select status</option>							
+									<option value="" disabled="disabled" selected="selected">Please
+										select status</option>
 									<option value="unmarried">Unmarried</option>
 									<option value="married">Married</option>
 							</select></td>
@@ -235,7 +249,7 @@
 
 		<!-- Queue information -->
 
-		<p class="patient_added" style="color: red; text-align: center;">${addRecord}</p>
+		<p class="patient_added">${addRecord}</p>
 
 	</div>
 	<!-- /container -->
