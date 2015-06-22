@@ -21,6 +21,7 @@ public class User {
     int    age;
     String maritalStatus;
     String occupation;
+    int    birthYear;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -132,10 +133,20 @@ public class User {
         this.occupation = occupation;
     }
 
+    @Column(name = "birth_year")
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", mobile=" + mobile + ", landline=" + landline + ", refferedBy=" + refferedBy
-                + ", dependent=" + dependent + ", sex=" + sex + ", address=" + address + ", age=" + age + ", maritalStatus=" + maritalStatus + ", occupation=" + occupation + "]";
+                + ", dependent=" + dependent + ", sex=" + sex + ", address=" + address + ", age=" + age + ", maritalStatus=" + maritalStatus + ", occupation=" + occupation
+                + ", birthYear=" + birthYear + "]";
     }
 
 }
