@@ -18,10 +18,10 @@ public class User {
     String dependent;
     String sex;
     String address;
-    int    age;
+    Integer    age;
     String maritalStatus;
     String occupation;
-    int    birthYear;
+    Integer    birthYear;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,11 +107,11 @@ public class User {
     }
 
     @Column(name = "age")
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -134,11 +134,11 @@ public class User {
     }
 
     @Column(name = "birth_year")
-    public int getBirthYear() {
+    public Integer getBirthYear() {
         return birthYear;
     }
 
-    public void setBirthYear(int birthYear) {
+    public void setBirthYear(Integer birthYear) {
         this.birthYear = birthYear;
     }
 

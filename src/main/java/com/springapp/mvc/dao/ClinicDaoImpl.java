@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
@@ -20,6 +21,7 @@ import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
 import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.entity.User;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by aashish on 3/6/15.
@@ -69,13 +71,18 @@ public class ClinicDaoImpl implements IClinicDao {
 
         Criteria cr = sessionFactory.getCurrentSession().createCriteria(User.class);
 
-        Disjunction orExpression = Restrictions.disjunction();
-
-        orExpression.add(Property.forName("firstname").eq(search.getFirstname())).add(Property.forName("lastname").eq(search.getLastname())).add(
-                Property.forName("mobile").eq(search.getMobile())).add(Property.forName("dependent").eq(search.getDependent())).add(
-                Property.forName("refferedBy").eq(search.getRefferedBy()));
-
-        cr.add(orExpression);
+        Disjunction disjunction = Restrictions.disjunction();
+        if(!StringUtils.isEmpty(search.getFirstname()))
+            disjunction.add(Property.forName("firstname").eq(search.getFirstname()));
+        if(!StringUtils.isEmpty(search.getLastname()))
+            disjunction.add(Property.forName("lastname").eq(search.getLastname()));
+        if(!StringUtils.isEmpty(search.getMobile()))
+            disjunction.add(Property.forName("mobile").eq(search.getMobile()));
+        if(!StringUtils.isEmpty(search.getDependent()))
+            disjunction.add(Property.forName("dependent").eq(search.getDependent()));
+        if(!StringUtils.isEmpty(search.getRefferedBy()))
+            disjunction.add(Property.forName("refferedBy").eq(search.getRefferedBy()));
+        cr.add(disjunction);
 
         patientList = (List<User>) cr.list();
 
