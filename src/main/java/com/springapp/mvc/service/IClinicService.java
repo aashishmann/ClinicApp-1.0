@@ -11,19 +11,19 @@ import com.springapp.mvc.entity.Patient;
  */
 public interface IClinicService {
 
-	public Patient getdetails();
+    public Patient getdetails();
 
     public Login validateLogin(Login login);
 
-	int persistPatientDetails(Patient patient);
+    int persistPatientDetails(Patient patient);
 
-	List<Patient> findPatient(SearchForm search);
+    List<Patient> findPatient(SearchForm search);
 
     public boolean deletePatient(int id);
 
-	public void updatePatientDetails(Patient patient);
+    public void updatePatientDetails(Patient patient);
 
-	public Patient findPatientById(int id);
+    public Patient findPatientById(int id);
 
     public Boolean persistPatientHistory(PatientHistory patientHistory);
 
@@ -32,6 +32,6 @@ public interface IClinicService {
     public List<PatientQueue> getQueueInfo();
 
     public boolean addToQueue(PatientQueue patientQueue);
-    
+
     public int savePatientAndAddToQueue(Patient patient);
 }

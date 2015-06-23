@@ -71,7 +71,7 @@ public class ClinicController {
     public String addPatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
         System.out.println("Name: " + patient.getFirstname() + " Age:" + patient.getAge() + " Sex:" + patient.getSex());
         if (clinicService.savePatientAndAddToQueue(patient) != -1) {
-            model.addAttribute("addRecord","Patient Record Successfully Added.");
+            model.addAttribute("addRecord", "Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {
             model.addAttribute("addRecord", "Some error occured while adding data. Please try again later.");

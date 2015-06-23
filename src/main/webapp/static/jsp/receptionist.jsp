@@ -8,6 +8,7 @@
 <!-- custom css for this file -->
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
+<link rel="stylesheet" type="text/css" href="css/queue.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
 <script type="text/javascript">
 	var check='${addRecord}';

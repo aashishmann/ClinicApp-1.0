@@ -1,0 +1,13 @@
+td, th {
+	text-align: center;
+}
+
+.patient_queue {
+	background: #fff none repeat scroll 0 0;
+	border-radius: 20px;
+	box-shadow: 0 0 10px #0cf;
+	opacity: 0.9;
+	padding: 10px 25px;
+	margin: 30px;
+	/* display: none; */ /* to be added later */
+}

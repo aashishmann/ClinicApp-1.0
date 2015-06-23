@@ -87,16 +87,15 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public int savePatientAndAddToQueue(Patient patient) {
         int id = persistPatientDetails(patient);
-        if(id<0){
+        if (id < 0) {
             System.out.println("Unable to persist patient details in patient table");
             return id;
         }
 
-
         PatientQueue patientQueue = new PatientQueue();
         patientQueue.setPatient(findPatientById(id));
-        
-        if(addToQueue(patientQueue)){
+
+        if (addToQueue(patientQueue)) {
             System.out.println("Patient details added to queue");
         }
         System.out.println("Some error occured while adding patient details to queue");
