@@ -27,7 +27,7 @@ import com.springapp.mvc.utils.ClinicUtils;
  */
 @Controller
 @RequestMapping("/")
-@SessionAttributes("validUser")
+@SessionAttributes("validUser") //for maintaining session will be used later
 public class ClinicController {
     private static final Logger LOG = LoggerFactory.getLogger(ClinicController.class);
 

@@ -22,6 +22,10 @@
 		    	}
 		});
 	}
+	
+	function addPatient(){
+		//alert("called yayy");
+	}
 </script>
 </head>
 <body>
@@ -36,7 +40,7 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="#" id="patient">Add New Patient</a></li>
+						<li><a href="javascript:addPatient();" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
 						<li><a href="getQueueInfo" id="patient_queue">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
