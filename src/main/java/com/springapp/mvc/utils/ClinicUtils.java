@@ -7,9 +7,8 @@ public class ClinicUtils {
 
     //Checks if SearchForm is empty or not
     public static boolean isEmpty(SearchForm search) {
-        if (StringUtils.isEmpty(search.getFirstname()) && StringUtils.isEmpty(search.getLastname())
-                && StringUtils.isEmpty(search.getMobile()) && StringUtils.isEmpty(search.getDependent())
-                && StringUtils.isEmpty(search.getRefferedBy())) {
+        if (StringUtils.isEmpty(search.getFirstname()) && StringUtils.isEmpty(search.getLastname()) && StringUtils.isEmpty(search.getMobile())
+                && StringUtils.isEmpty(search.getDependent()) && StringUtils.isEmpty(search.getRefferedBy())) {
             return true;
         }
         return false;

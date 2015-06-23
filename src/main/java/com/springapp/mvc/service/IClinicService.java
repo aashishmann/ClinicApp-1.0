@@ -14,25 +14,25 @@ import com.springapp.mvc.entity.User;
  */
 public interface IClinicService {
 
-	public User getdetails();
+    public User getdetails();
 
-	public Login validateLogin(Login login);
+    public Login validateLogin(Login login);
 
-	int persistPatientDetails(User user);
+    int persistPatientDetails(User user);
 
-	List<User> findPatient(SearchForm search);
+    List<User> findPatient(SearchForm search);
 
-	public boolean deletePatient(int id);
+    public boolean deletePatient(int id);
 
-	public void updatePatientDetails(User user);
+    public void updatePatientDetails(User user);
 
-	public User findPatientById(int id);
+    public User findPatientById(int id);
 
-	public Boolean persistPatientHistory(PatientHistory patientHistory);
+    public Boolean persistPatientHistory(PatientHistory patientHistory);
 
-	public Boolean addPrescription(Prescription prescription);
+    public Boolean addPrescription(Prescription prescription);
 
     public List<PatientQueue> getQueueInfo();
-    
+
     public boolean addToQueue(PatientQueue patientQueue);
 }

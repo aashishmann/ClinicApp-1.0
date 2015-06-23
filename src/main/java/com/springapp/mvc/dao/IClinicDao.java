@@ -27,9 +27,9 @@ public interface IClinicDao {
     public User findPatientById(int id);
 
     public void updatePatientDetails(User user);
-    
+
     public Boolean persistPatientHistory(PatientHistory patientHistory);
-    
+
     public Boolean addPrescription(Prescription prescription);
 
     public List<PatientQueue> getQueueInfo();

@@ -39,7 +39,7 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public int persistPatientDetails(User user) {
         int id = clinicDao.persistPatientDetails(user);
-        if(id<0){
+        if (id < 0) {
             System.out.println("Unable to persist user details in patient table");
             return id;
         }
@@ -47,7 +47,7 @@ public class ClinicServiceImpl implements IClinicService {
         /*patientQueue.setPatientId(id);
         patientQueue.setFirstname(user.getFirstname());
         patientQueue.setLastname(user.getLastname());*/
-        if(addToQueue(patientQueue)){
+        if (addToQueue(patientQueue)) {
             System.out.println("Patient details added to queue");
             return id;
         }
