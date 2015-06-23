@@ -7,26 +7,26 @@ import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientHistory;
 import com.springapp.mvc.entity.PatientQueue;
 import com.springapp.mvc.entity.Prescription;
-import com.springapp.mvc.entity.User;
+import com.springapp.mvc.entity.Patient;
 
 /**
  * Created by aashish on 3/6/15.
  */
 public interface IClinicDao {
 
-    public User getdetails();
+    public Patient getdetails();
 
     public Login validateLogin(String username, String password);
 
-    int persistPatientDetails(User user);
+    int persistPatientDetails(Patient patient);
 
-    public List<User> findPatient(SearchForm search);
+    public List<Patient> findPatient(SearchForm search);
 
     public boolean deletePatient(int id);
 
-    public User findPatientById(int id);
+    public Patient findPatientById(int id);
 
-    public void updatePatientDetails(User user);
+    public void updatePatientDetails(Patient patient);
     
     public Boolean persistPatientHistory(PatientHistory patientHistory);
     

@@ -45,7 +45,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.springapp.mvc.entity.Login</value>
-                <value>com.springapp.mvc.entity.User</value>
+                <value>com.springapp.mvc.entity.Patient</value>
                 <value>com.springapp.mvc.entity.PatientQueue</value>
             </list>
         </property>

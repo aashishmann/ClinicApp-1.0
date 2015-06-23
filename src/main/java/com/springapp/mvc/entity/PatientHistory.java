@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class PatientHistory {
 
 	private long id;
-	private User user;
+	private Patient patient;
 	private Date dateOfVisit;
 	private String purposeOfVisit;
 	private String chiefComplaints;
@@ -44,12 +44,12 @@ public class PatientHistory {
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", insertable = true, updatable = true, nullable = false, unique = true)
-	public User getUser() {
-		return user;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 	@Column(name = "date_of_visit", nullable = false)

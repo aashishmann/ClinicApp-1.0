@@ -3,10 +3,10 @@ package com.springapp.mvc.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.springapp.mvc.entity.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
@@ -17,11 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
-import com.springapp.mvc.entity.User;
+import com.springapp.mvc.entity.Patient;
 import org.springframework.util.StringUtils;
 
 /**
@@ -38,9 +34,9 @@ public class ClinicDaoImpl implements IClinicDao {
     SessionFactory              sessionFactory;
 
     @Override
-    public User getdetails() {
+    public Patient getdetails() {
         Query query = sessionFactory.getCurrentSession().createQuery("from User where id=1");
-        return (User) query.uniqueResult();
+        return (Patient) query.uniqueResult();
 
     }
 
@@ -53,12 +49,12 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     @Override
-    public int persistPatientDetails(User user) {
+    public int persistPatientDetails(Patient patient) {
         try {
-            sessionFactory.getCurrentSession().persist(user);
-            System.out.println(user);
+            sessionFactory.getCurrentSession().persist(patient);
+            System.out.println(patient);
             LOG.info("Data inserted into db");
-            return user.getId();
+            return patient.getId();
         } catch (Exception e) {
             LOG.error("Some error occured while adding data into db", e);
             return -1;
@@ -67,10 +63,10 @@ public class ClinicDaoImpl implements IClinicDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> findPatient(SearchForm search) {
-        List<User> patientList = new ArrayList<User>();
+    public List<Patient> findPatient(SearchForm search) {
+        List<Patient> patientList = new ArrayList<Patient>();
 
-        Criteria cr = sessionFactory.getCurrentSession().createCriteria(User.class);
+        Criteria cr = sessionFactory.getCurrentSession().createCriteria(Patient.class);
 
         Disjunction disjunction = Restrictions.disjunction();
         if(!StringUtils.isEmpty(search.getFirstname()))
@@ -85,10 +81,10 @@ public class ClinicDaoImpl implements IClinicDao {
             disjunction.add(Property.forName("refferedBy").eq(search.getRefferedBy()));
         cr.add(disjunction);
 
-        patientList = (List<User>) cr.list();
+        patientList = (List<Patient>) cr.list();
 
-        for (User user : patientList) {
-            System.out.println(user);
+        for (Patient patient : patientList) {
+            System.out.println(patient);
         }
 
         return patientList;
@@ -97,10 +93,10 @@ public class ClinicDaoImpl implements IClinicDao {
     @Override
     public boolean deletePatient(int id) {
         try {
-            User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
-            sessionFactory.getCurrentSession().delete(user);
-            System.out.println("Patient {} {} deleted from db." + user.getFirstname() + user.getLastname());
-            LOG.info("Patient {} {} deleted from db.", user.getFirstname(), user.getLastname());
+            Patient patient = (Patient) sessionFactory.getCurrentSession().load(Patient.class, id);
+            sessionFactory.getCurrentSession().delete(patient);
+            System.out.println("Patient {} {} deleted from db." + patient.getFirstname() + patient.getLastname());
+            LOG.info("Patient {} {} deleted from db.", patient.getFirstname(), patient.getLastname());
             return true;
         } catch (Exception e) {
             LOG.error("An error occured while deleting Patient details : {}", e);
@@ -109,17 +105,17 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     @Override
-    public User findPatientById(int id) {
-        return (User) sessionFactory.getCurrentSession().get(User.class, id);
+    public Patient findPatientById(int id) {
+        return (Patient) sessionFactory.getCurrentSession().get(Patient.class, id);
     }
 
     @Override
-    public void updatePatientDetails(User user) {
+    public void updatePatientDetails(Patient patient) {
         try {
-            sessionFactory.getCurrentSession().saveOrUpdate(user);
-            LOG.info("Patient {} deatails updated.", user.getFirstname());
+            sessionFactory.getCurrentSession().saveOrUpdate(patient);
+            LOG.info("Patient {} deatails updated.", patient.getFirstname());
         } catch (Exception e) {
-            LOG.error("An error occured while updating patient {} details : {}", user.getFirstname(), e);
+            LOG.error("An error occured while updating patient {} details : {}", patient.getFirstname(), e);
         }
     }
 
@@ -152,7 +148,7 @@ public class ClinicDaoImpl implements IClinicDao {
     public List<PatientQueue> getQueueInfo() {
         System.out.println("get queue info at dao");
         List<PatientQueue> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue").list();
-        /*for(User patient : patientQueue){
+        /*for(Patient patient : patientQueue){
             LOG.info("Person List::"+patient);
         }*/
         return patientQueue;

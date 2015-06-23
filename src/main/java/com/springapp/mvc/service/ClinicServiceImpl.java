@@ -2,17 +2,14 @@ package com.springapp.mvc.service;
 
 import java.util.List;
 
+import com.springapp.mvc.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
-import com.springapp.mvc.entity.User;
+import com.springapp.mvc.entity.Patient;
 
 /**
  * Created by aashish on 3/6/15.
@@ -25,7 +22,7 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional
     @Override
-    public User getdetails() {
+    public Patient getdetails() {
         return clinicDao.getdetails();
     }
 
@@ -37,16 +34,16 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional
     @Override
-    public int persistPatientDetails(User user) {
-        int id = clinicDao.persistPatientDetails(user);
+    public int persistPatientDetails(Patient patient) {
+        int id = clinicDao.persistPatientDetails(patient);
         if(id<0){
-            System.out.println("Unable to persist user details in patient table");
+            System.out.println("Unable to persist patient details in patient table");
             return id;
         }
         PatientQueue patientQueue = new PatientQueue();
         /*patientQueue.setPatientId(id);
-        patientQueue.setFirstname(user.getFirstname());
-        patientQueue.setLastname(user.getLastname());*/
+        patientQueue.setFirstname(patient.getFirstname());
+        patientQueue.setLastname(patient.getLastname());*/
         if(addToQueue(patientQueue)){
             System.out.println("Patient details added to queue");
             return id;
@@ -57,7 +54,7 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<User> findPatient(SearchForm search) {
+    public List<Patient> findPatient(SearchForm search) {
         return clinicDao.findPatient(search);
     }
 
@@ -69,13 +66,13 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional
     @Override
-    public void updatePatientDetails(User user) {
-        clinicDao.updatePatientDetails(user);
+    public void updatePatientDetails(Patient patient) {
+        clinicDao.updatePatientDetails(patient);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public User findPatientById(int id) {
+    public Patient findPatientById(int id) {
         return clinicDao.findPatientById(id);
     }
 

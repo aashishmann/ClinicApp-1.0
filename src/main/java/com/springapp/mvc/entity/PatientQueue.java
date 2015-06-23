@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "patient_queue")
 public class PatientQueue {
     private int    id;
-    private User    patient;
+    private Patient patient;
     /*private String firstname;
     private String lastname;*/
 
@@ -23,11 +23,11 @@ public class PatientQueue {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id",nullable = false)
-    public User getPatient() {
+    public Patient getPatient() {
         return patient;
     }
 
-    public void setPatient(User patient) {
+    public void setPatient(Patient patient) {
         this.patient = patient;
     }
     /*public int getPatientId() {

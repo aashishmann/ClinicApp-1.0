@@ -3,30 +3,27 @@ package com.springapp.mvc.service;
 import java.util.List;
 
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
-import com.springapp.mvc.entity.User;
+import com.springapp.mvc.entity.*;
+import com.springapp.mvc.entity.Patient;
 
 /**
  * Created by aashish on 3/6/15.
  */
 public interface IClinicService {
 
-	public User getdetails();
+	public Patient getdetails();
 
 	public Login validateLogin(Login login);
 
-	int persistPatientDetails(User user);
+	int persistPatientDetails(Patient patient);
 
-	List<User> findPatient(SearchForm search);
+	List<Patient> findPatient(SearchForm search);
 
 	public boolean deletePatient(int id);
 
-	public void updatePatientDetails(User user);
+	public void updatePatientDetails(Patient patient);
 
-	public User findPatientById(int id);
+	public Patient findPatientById(int id);
 
 	public Boolean persistPatientHistory(PatientHistory patientHistory);
 

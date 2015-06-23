@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.springapp.mvc.entity.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.User;
 import com.springapp.mvc.service.IClinicService;
 import com.springapp.mvc.utils.ClinicUtils;
 
@@ -68,9 +68,9 @@ public class ClinicController {
 
     //to add patient details in the db
     @RequestMapping(value = "addPatientDetails", method = RequestMethod.POST)
-    public String addPatientDetails(@ModelAttribute("userDetails") User user, Model model) {
-        System.out.println("Name: " + user.getFirstname() + " Age:" + user.getAge() + " Sex:" + user.getSex());
-        if (clinicService.persistPatientDetails(user)!=-1) {
+    public String addPatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
+        System.out.println("Name: " + patient.getFirstname() + " Age:" + patient.getAge() + " Sex:" + patient.getSex());
+        if (clinicService.persistPatientDetails(patient)!=-1) {
             model.addAttribute("addRecord","Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {
@@ -91,7 +91,7 @@ public class ClinicController {
             return "receptionist";
         }
         //fetch details of all the patients as a list.
-        List<User> patientList = clinicService.findPatient(search);
+        List<Patient> patientList = clinicService.findPatient(search);
         System.out.println("Printing data to be searched");
         System.out.println(search);
         model.addAttribute("patientList", patientList);
@@ -101,7 +101,7 @@ public class ClinicController {
     @RequestMapping(value = "deletePatient/{id}", method = RequestMethod.GET)
     public String deletePatient(@PathVariable("id") int id, Model model) {
         //System.out.println(clinicService.findPatientById(id));
-        //User user=clinicService.findPatientById(id);
+        //Patient patient=clinicService.findPatientById(id);
         clinicService.deletePatient(id);
         return "receptionist";
     }
