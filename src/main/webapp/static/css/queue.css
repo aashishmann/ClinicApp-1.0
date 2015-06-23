@@ -5,5 +5,9 @@
 	opacity: 0.9;
 	padding: 10px 25px;
 	margin: 30px;
-	/* display: none; */ /* to be added later */
+	/* display: none; */
+}
+
+.queue-row{
+	text-align: center;
 }

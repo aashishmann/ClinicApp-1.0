@@ -17,20 +17,6 @@
 		alert('${addRecord}');
 	}
 </script>
-<style type="text/css">
-.patient_added {
-	color: red;
-	text-align: center;
-	background: #fff;
-	border-radius: 15px;
-	padding: 30px 25px;
-	font: 25px bold arial;
-	box-shadow: 0 0 10px #0cF;
-	opacity: 0.9;
-	margin-top: 20px;
-	display: none;
-}
-</style>
 </head>
 <body>
 
@@ -260,21 +246,19 @@
 				<h2>Daily Patient Queue</h2>
 			</div>
 			<hr>
-			<table>
+			<table class="add-patient-table">
 				<tr>
-					<th>ID</th>
-					<th>Firstname</th>
-					<th>Lastname</th>
+					<th class="queue-row">ID</th>
+					<th class="queue-row">Name</th>
 				</tr>
 				<c:forEach items="${patientQueue}" var="patientQueue">
 					<tr>
-						<td>${patientQueue.patient.id}</td>
-						<td>${patientQueue.patient.firstname}</td>
-						<td>${patientQueue.patient.lastname}</td>
-						<td>
+						<td class="queue-row">${patientQueue.patient.id}</td>
+						<td class="queue-row">${patientQueue.patient.firstname} ${patientQueue.patient.lastname}</td>
+						<td class="queue-row">
 							<button type="button" class="btn btn-success">View</button>
 						</td>
-						<td>
+						<td class="queue-row">
 							<button type="button" class="btn btn-danger" onclick="deletePatient(${patientQueue.id})">Delete</button>
 						</td>
 					</tr>
@@ -282,8 +266,6 @@
 			</table>
 		</div>
 		<!-- Queue information -->
-
-		<p class="patient_added">${addRecord}</p>
 
 	</div>
 	<!-- /container -->
