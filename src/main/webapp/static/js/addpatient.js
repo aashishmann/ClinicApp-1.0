@@ -11,7 +11,7 @@ $(document).ready(function(){
 		$("#patient_queue").hide();
 	});
 	
-	$("#patient_queue").click(function(){
+	$("#patient_queue_tab").click(function(){
 		$("#patient_queue").show();
 		$('.search_details').hide();
 		$("#add_patient").hide();
