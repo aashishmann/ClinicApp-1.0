@@ -88,12 +88,14 @@ public class ClinicController {
         //if nothing is entered and button is pressed, reload page again.
         if (ClinicUtils.isEmpty(search)) {
             System.out.println("Nothing entered");
+            LOG.warn("Nothing entered for Searching Patient");
             return "receptionist";
         }
         //fetch details of all the patients as a list.
         List<Patient> patientList = clinicService.findPatient(search);
         System.out.println("Printing data to be searched");
         System.out.println(search);
+        LOG.info("Search Query params {}",search);
         model.addAttribute("patientList", patientList);
         return "searchResults";
     }
