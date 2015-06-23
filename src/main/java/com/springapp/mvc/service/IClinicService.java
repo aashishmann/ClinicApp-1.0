@@ -3,8 +3,11 @@ package com.springapp.mvc.service;
 import java.util.List;
 
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.*;
+import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
+import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.PatientQueue;
+import com.springapp.mvc.entity.Prescription;
 
 /**
  * Created by aashish on 3/6/15.
@@ -34,4 +37,8 @@ public interface IClinicService {
     public boolean addToQueue(PatientQueue patientQueue);
 
     public int savePatientAndAddToQueue(Patient patient);
+
+    public void updatePatientHistory(PatientHistory patientHistory);
+
+    public void updatePrescription(Prescription prescription);
 }
