@@ -9,19 +9,19 @@ import javax.persistence.*;
 @Table(name = "patient")
 public class User {
 
-    int    id;
-    String firstname;
-    String lastname;
-    String mobile;
-    String landline;
-    String refferedBy;
-    String dependent;
-    String sex;
-    String address;
-    Integer    age;
-    String maritalStatus;
-    String occupation;
-    Integer    birthYear;
+    int     id;
+    String  firstname;
+    String  lastname;
+    String  mobile;
+    String  landline;
+    String  refferedBy;
+    String  dependent;
+    String  sex;
+    String  address;
+    Integer age;
+    String  maritalStatus;
+    String  occupation;
+    Integer birthYear;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

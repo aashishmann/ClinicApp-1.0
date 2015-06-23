@@ -70,11 +70,11 @@ public class ClinicController {
     @RequestMapping(value = "addPatientDetails", method = RequestMethod.POST)
     public String addPatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
         System.out.println("Name: " + patient.getFirstname() + " Age:" + patient.getAge() + " Sex:" + patient.getSex());
-        if (clinicService.persistPatientDetails(patient)!=-1) {
+        if (clinicService.persistPatientDetails(patient) != -1) {
             model.addAttribute("addRecord","Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {
-            model.addAttribute("addRecord","Some error occured while adding data. Please try again later.");
+            model.addAttribute("addRecord", "Some error occured while adding data. Please try again later.");
             System.out.println("some error occured");
         }
         //display hidden div whether data inserted successfully or not
@@ -112,12 +112,12 @@ public class ClinicController {
         session.invalidate();
         return "index";
     }
-    
+
     @RequestMapping(value = "getQueueInfo", method = RequestMethod.GET)
-    public String getQueueInfo(Model model){
+    public String getQueueInfo(Model model) {
         System.out.println("get queue info at controller");
         List<PatientQueue> patientQueue = clinicService.getQueueInfo();
-        model.addAttribute("patientQueue",patientQueue);
+        model.addAttribute("patientQueue", patientQueue);
         return "receptionist";
     }
 }

@@ -69,15 +69,15 @@ public class ClinicDaoImpl implements IClinicDao {
         Criteria cr = sessionFactory.getCurrentSession().createCriteria(Patient.class);
 
         Disjunction disjunction = Restrictions.disjunction();
-        if(!StringUtils.isEmpty(search.getFirstname()))
+        if (!StringUtils.isEmpty(search.getFirstname()))
             disjunction.add(Property.forName("firstname").eq(search.getFirstname()));
-        if(!StringUtils.isEmpty(search.getLastname()))
+        if (!StringUtils.isEmpty(search.getLastname()))
             disjunction.add(Property.forName("lastname").eq(search.getLastname()));
-        if(!StringUtils.isEmpty(search.getMobile()))
+        if (!StringUtils.isEmpty(search.getMobile()))
             disjunction.add(Property.forName("mobile").eq(search.getMobile()));
-        if(!StringUtils.isEmpty(search.getDependent()))
+        if (!StringUtils.isEmpty(search.getDependent()))
             disjunction.add(Property.forName("dependent").eq(search.getDependent()));
-        if(!StringUtils.isEmpty(search.getRefferedBy()))
+        if (!StringUtils.isEmpty(search.getRefferedBy()))
             disjunction.add(Property.forName("refferedBy").eq(search.getRefferedBy()));
         cr.add(disjunction);
 

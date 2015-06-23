@@ -40,7 +40,10 @@ public class ClinicServiceImpl implements IClinicService {
             System.out.println("Unable to persist patient details in patient table");
             return id;
         }
+
+
         PatientQueue patientQueue = new PatientQueue();
+        patientQueue.setPatient(clinicDao.findPatientById(id));
         /*patientQueue.setPatientId(id);
         patientQueue.setFirstname(patient.getFirstname());
         patientQueue.setLastname(patient.getLastname());*/

@@ -29,7 +29,7 @@ public interface IClinicDao {
     public void updatePatientDetails(Patient patient);
     
     public Boolean persistPatientHistory(PatientHistory patientHistory);
-    
+
     public Boolean addPrescription(Prescription prescription);
 
     public List<PatientQueue> getQueueInfo();
