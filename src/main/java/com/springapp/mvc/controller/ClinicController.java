@@ -70,7 +70,7 @@ public class ClinicController {
     @RequestMapping(value = "addPatientDetails", method = RequestMethod.POST)
     public String addPatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
         System.out.println("Name: " + patient.getFirstname() + " Age:" + patient.getAge() + " Sex:" + patient.getSex());
-        if (clinicService.persistPatientDetails(patient) != -1) {
+        if (clinicService.savePatientAndAddToQueue(patient) != -1) {
             model.addAttribute("addRecord","Patient Record Successfully Added.");
             System.out.println("data inserted");
         } else {

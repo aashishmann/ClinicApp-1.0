@@ -35,24 +35,7 @@ public class ClinicServiceImpl implements IClinicService {
     @Transactional
     @Override
     public int persistPatientDetails(Patient patient) {
-        int id = clinicDao.persistPatientDetails(patient);
-        if(id<0){
-            System.out.println("Unable to persist patient details in patient table");
-            return id;
-        }
-
-
-        PatientQueue patientQueue = new PatientQueue();
-        patientQueue.setPatient(clinicDao.findPatientById(id));
-        /*patientQueue.setPatientId(id);
-        patientQueue.setFirstname(patient.getFirstname());
-        patientQueue.setLastname(patient.getLastname());*/
-        if(addToQueue(patientQueue)){
-            System.out.println("Patient details added to queue");
-            return id;
-        }
-        System.out.println("Some error occured while adding patient details to queue");
-        return -1;
+        return clinicDao.persistPatientDetails(patient);
     }
 
     @Transactional(readOnly = true)
@@ -99,5 +82,24 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public boolean addToQueue(PatientQueue patientQueue) {
         return clinicDao.addToQueue(patientQueue);
+    }
+
+    @Override
+    public int savePatientAndAddToQueue(Patient patient) {
+        int id = persistPatientDetails(patient);
+        if(id<0){
+            System.out.println("Unable to persist patient details in patient table");
+            return id;
+        }
+
+
+        PatientQueue patientQueue = new PatientQueue();
+        patientQueue.setPatient(findPatientById(id));
+        
+        if(addToQueue(patientQueue)){
+            System.out.println("Patient details added to queue");
+        }
+        System.out.println("Some error occured while adding patient details to queue");
+        return id;
     }
 }

@@ -157,7 +157,7 @@ public class ClinicDaoImpl implements IClinicDao {
     @Override
     public boolean addToQueue(PatientQueue patientQueue) {
         try {
-            sessionFactory.getCurrentSession().persist(patientQueue);
+            sessionFactory.getCurrentSession().merge(patientQueue);
             System.out.println(patientQueue);
             LOG.info("Patient added to queue in DB.");
             System.out.println("Patient added to queue in DB.");
