@@ -75,3 +75,6 @@ crashlytics-build.properties
 /target/*
 .gitignore
 /target/
+.project
+.classpath
+.settings/
