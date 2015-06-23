@@ -112,4 +112,10 @@ public class ClinicServiceImpl implements IClinicService {
     public void updatePatientHistory(PatientHistory patientHistory) {
         clinicDao.updatePatientHistory(patientHistory);
     }
+
+    @Transactional
+    @Override
+    public void updatePrescription(Prescription prescription) {
+        clinicDao.updatePrescription(prescription);
+    }
 }

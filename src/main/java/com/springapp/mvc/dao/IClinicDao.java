@@ -38,4 +38,6 @@ public interface IClinicDao {
 
     public void updatePatientHistory(PatientHistory patientHistory);
 
+    public void updatePrescription(Prescription prescription);
+
 }

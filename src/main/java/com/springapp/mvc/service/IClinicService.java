@@ -39,4 +39,6 @@ public interface IClinicService {
     public int savePatientAndAddToQueue(Patient patient);
 
     public void updatePatientHistory(PatientHistory patientHistory);
+
+    public void updatePrescription(Prescription prescription);
 }
