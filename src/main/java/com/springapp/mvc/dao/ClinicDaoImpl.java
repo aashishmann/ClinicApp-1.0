@@ -3,7 +3,6 @@ package com.springapp.mvc.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.springapp.mvc.entity.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -15,10 +14,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.springapp.mvc.dto.SearchForm;
+import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
-import org.springframework.util.StringUtils;
+import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.PatientQueue;
+import com.springapp.mvc.entity.Prescription;
 
 /**
  * Created by aashish on 3/6/15.
@@ -113,7 +116,7 @@ public class ClinicDaoImpl implements IClinicDao {
     public void updatePatientDetails(Patient patient) {
         try {
             sessionFactory.getCurrentSession().saveOrUpdate(patient);
-            LOG.info("Patient {} deatails updated.", patient.getFirstname());
+            LOG.info("Patient {} details updated.", patient.getFirstname());
         } catch (Exception e) {
             LOG.error("An error occured while updating patient {} details : {}", patient.getFirstname(), e);
         }
@@ -166,6 +169,16 @@ public class ClinicDaoImpl implements IClinicDao {
             LOG.error("Some error occured while adding patient to queue in db", e);
             System.out.println("Some error occured while adding patient to queue in db");
             return false;
+        }
+    }
+
+    @Override
+    public void updatePatientHistory(PatientHistory patientHistory) {
+        try {
+            sessionFactory.getCurrentSession().saveOrUpdate(patientHistory);
+            LOG.info("Patient history updated for patient ID {}.", patientHistory.getPatient().getId());
+        } catch (Exception e) {
+            LOG.error("An error occured while updating patient history details for patient ID {} : {}", patientHistory.getPatient().getId(), e);
         }
     }
 
