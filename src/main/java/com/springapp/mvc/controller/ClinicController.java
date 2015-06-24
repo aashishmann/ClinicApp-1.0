@@ -93,11 +93,19 @@ public class ClinicController {
         }
         //fetch details of all the patients as a list.
         List<Patient> patientList = clinicService.findPatient(search);
-        System.out.println("Printing data to be searched");
-        System.out.println(search);
+        //System.out.println("Printing data to be searched");
+        //System.out.println(search);
         LOG.info("Search Query params {}",search);
-        model.addAttribute("patientList", patientList);
-        return "searchResults";
+        if(patientList!=null){
+            LOG.info("Message : {}",patientList);
+            model.addAttribute("patientList", patientList);
+            return "searchResults";
+        }
+        else{
+            model.addAttribute("patientList","No Results Found");
+            System.out.println("No results");
+            return "receptionist";
+        }
     }
 
     @RequestMapping(value = "deletePatient/{id}", method = RequestMethod.GET)

@@ -35,9 +35,10 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="javascript:addPatient();" id="patient">Add New Patient</a></li>
+						<li><a href="javascript:addPatient();" id="patient">Add
+								New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
-						<li><a href="#" id="patient_queue" style="display:block;">Queue</a></li>
+						<li><a href="#" id="patient_queue" style="display: block;">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -229,12 +230,14 @@
 				<c:forEach items="${patientList}" var="patientList">
 					<tr>
 						<td class="queue-row">${patientList.id}</td>
-						<td class="queue-row">${patientList.firstname} ${patientList.lastname}</td>
+						<td class="queue-row">${patientList.firstname}
+							${patientList.lastname}</td>
 						<td class="queue-row">
 							<button type="button" class="btn btn-success">View</button>
 						</td>
 						<td class="queue-row">
-							<button type="button" class="btn btn-danger" onclick="deletePatient(${patientList.id})">Delete</button>
+							<button type="button" class="btn btn-danger"
+								onclick="deletePatient(${patientList.id})">Delete</button>
 						</td>
 					</tr>
 				</c:forEach>

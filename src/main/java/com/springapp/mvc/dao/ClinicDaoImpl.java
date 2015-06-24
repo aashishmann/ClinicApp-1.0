@@ -89,7 +89,9 @@ public class ClinicDaoImpl implements IClinicDao {
         for (Patient patient : patientList) {
             System.out.println(patient);
         }
-
+        if (patientList.size() == 0) {
+            return null;
+        }
         return patientList;
     }
 

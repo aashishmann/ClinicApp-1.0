@@ -15,6 +15,10 @@
 	if(check.length!=0){
 		alert('${addRecord}');
 	}
+	var searchMessage='${patientList}';
+	if(searchMessage=="No Results Found"){
+		alert('${patientList}');
+	}
 </script>
 </head>
 <body>
@@ -253,12 +257,14 @@
 				<c:forEach items="${patientQueue}" var="patientQueue">
 					<tr>
 						<td class="queue-row">${patientQueue.patient.id}</td>
-						<td class="queue-row">${patientQueue.patient.firstname} ${patientQueue.patient.lastname}</td>
+						<td class="queue-row">${patientQueue.patient.firstname}
+							${patientQueue.patient.lastname}</td>
 						<td class="queue-row">
 							<button type="button" class="btn btn-success">View</button>
 						</td>
 						<td class="queue-row">
-							<button type="button" class="btn btn-danger" onclick="deletePatient(${patientQueue.id})">Delete</button>
+							<button type="button" class="btn btn-danger"
+								onclick="deletePatient(${patientQueue.id})">Delete</button>
 						</td>
 					</tr>
 				</c:forEach>
