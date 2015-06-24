@@ -8,7 +8,6 @@
 <!-- custom css for this file -->
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
-<link rel="stylesheet" type="text/css" href="css/search.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
 <script>
 	function deletePatient(id){
@@ -21,10 +20,6 @@
 		    	window.location.replace("receptionist");
 		    	}
 		});
-	}
-	
-	function addPatient(){
-		//alert("called yayy");
 	}
 </script>
 </head>
@@ -42,7 +37,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="javascript:addPatient();" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
-						<li><a href="getQueueInfo" id="patient_queue" style="display:block;">Queue</a></li>
+						<li><a href="#" id="patient_queue" style="display:block;">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -228,19 +223,17 @@
 			<hr>
 			<table>
 				<tr>
-					<th>ID</th>
-					<th>Firstname</th>
-					<th>Lastname</th>
+					<th class="queue-row">ID</th>
+					<th class="queue-row">Name</th>
 				</tr>
 				<c:forEach items="${patientList}" var="patientList">
 					<tr>
-						<td>${patientList.id}</td>
-						<td>${patientList.firstname}</td>
-						<td>${patientList.lastname}</td>
-						<td>
+						<td class="queue-row">${patientList.id}</td>
+						<td class="queue-row">${patientList.firstname} ${patientList.lastname}</td>
+						<td class="queue-row">
 							<button type="button" class="btn btn-success">View</button>
 						</td>
-						<td>
+						<td class="queue-row">
 							<button type="button" class="btn btn-danger" onclick="deletePatient(${patientList.id})">Delete</button>
 						</td>
 					</tr>
