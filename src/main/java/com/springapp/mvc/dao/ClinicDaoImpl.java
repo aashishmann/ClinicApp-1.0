@@ -186,9 +186,9 @@ public class ClinicDaoImpl implements IClinicDao {
     public void updatePrescription(Prescription prescription) {
         try {
             sessionFactory.getCurrentSession().saveOrUpdate(prescription);
-            LOG.info("Prescription updated for patient ID {}.", prescription.getPatientHistory().getPatient().getId());
+            LOG.info("Prescription updated for patient ID {}.", prescription.getPatient().getId());
         } catch (Exception e) {
-            LOG.error("An error occured while updating prescription for patient ID {} : {}", prescription.getPatientHistory().getPatient().getId(), e);
+            LOG.error("An error occured while updating prescription for patient ID {} : {}", prescription.getPatient().getId(), e);
         }
     }
 

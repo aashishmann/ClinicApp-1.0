@@ -19,13 +19,13 @@ import javax.persistence.TemporalType;
 @Table(name = "prescription")
 public class Prescription {
 
-    private long           id;
-    private String         medicines;
-    private Date           entryTime;
-    private int            charges;
-    private String         followupRemark;
-    private Date           revisitDate;
-    private PatientHistory patientHistory;
+    private long    id;
+    private String  medicines;
+    private Date    entryTime;
+    private int     charges;
+    private String  followupRemark;
+    private Date    revisitDate;
+    private Patient patient;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,13 +86,13 @@ public class Prescription {
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = true, updatable = true, nullable = false, unique = true)
-    public PatientHistory getPatientHistory() {
-        return patientHistory;
+    @JoinColumn(name = "patient_id", insertable = true, updatable = true, nullable = false, unique = true)
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientHistory(PatientHistory patientHistory) {
-        this.patientHistory = patientHistory;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
 }

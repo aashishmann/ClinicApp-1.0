@@ -63,7 +63,7 @@ CREATE TABLE `patient` (
   `occupation` varchar(40) DEFAULT NULL,
   `marital_status` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (1,'Nakul','kumar','9999999999','','',0,'m','','',NULL,NULL,NULL),(2,'aashish','man','888888888',NULL,'dad',28,'m','jahangir','arti',NULL,NULL,NULL),(3,'imam','hussain','777777777',NULL,'saumya',23,'m','noida','alex',NULL,NULL,NULL),(4,'akshit','gupta','6666666666',NULL,'vivek',24,'m','delhi','deepan',NULL,NULL,NULL),(15,'abcd','xyz','','','',23,NULL,NULL,NULL,NULL,NULL,NULL),(61,'lknlk','lkjnnkk','','','',NULL,'m','','',45,'',NULL);
+INSERT INTO `patient` VALUES (1,'Nakul','kumar','9999999999','','',0,'m','','',NULL,NULL,NULL),(2,'aashish','man','888888888',NULL,'dad',28,'m','jahangir','arti',NULL,NULL,NULL),(3,'imam','hussain','777777777',NULL,'saumya',23,'m','noida','alex',NULL,NULL,NULL),(4,'akshit','gupta','6666666666',NULL,'vivek',24,'m','delhi','deepan',NULL,NULL,NULL),(15,'abcd','xyz','','','',23,NULL,NULL,NULL,NULL,NULL,NULL),(61,'lknlk','lkjnnkk','','','',NULL,'m','','',45,'',NULL),(62,'hi','bye','','','',NULL,'f','','',25,'',NULL),(63,'super','man','','','',NULL,'m','','',26,'',NULL);
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `patient_history`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `patient_history` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `patientid` bigint(20) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `dateofvisit` datetime NOT NULL,
   `purposeofvisit` longtext,
   `chiefcomplaints` longtext,
@@ -97,7 +97,9 @@ CREATE TABLE `patient_history` (
   `thermal` longtext,
   `desire` longtext,
   `aversion` longtext,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_patient` (`patient_id`),
+  CONSTRAINT `fk_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,7 +123,7 @@ CREATE TABLE `patient_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +132,7 @@ CREATE TABLE `patient_queue` (
 
 LOCK TABLES `patient_queue` WRITE;
 /*!40000 ALTER TABLE `patient_queue` DISABLE KEYS */;
-INSERT INTO `patient_queue` VALUES (1,1),(2,61);
+INSERT INTO `patient_queue` VALUES (1,1),(2,61),(3,62),(4,63);
 /*!40000 ALTER TABLE `patient_queue` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,9 +150,10 @@ CREATE TABLE `prescription` (
   `charges` int(3) DEFAULT NULL,
   `followup_remark` longtext,
   `revisitDate` date DEFAULT NULL,
-  `patienthistoryid` bigint(20) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_patienthistoryid` (`patienthistoryid`)
+  KEY `fk_patient_id` (`patient_id`),
+  CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-23 14:32:59
+-- Dump completed on 2015-06-24 11:24:55
