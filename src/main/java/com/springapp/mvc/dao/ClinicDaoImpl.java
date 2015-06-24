@@ -156,6 +156,10 @@ public class ClinicDaoImpl implements IClinicDao {
         /*for(Patient patient : patientQueue){
             LOG.info("Person List::"+patient);
         }*/
+        LOG.info("Size of Queue : {}", patientQueue.size());
+        if (patientQueue.size() == 0) {
+            return null;
+        }
         return patientQueue;
     }
 

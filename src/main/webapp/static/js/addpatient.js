@@ -15,5 +15,6 @@ $(document).ready(function(){
 		$("#patient_queue").show();
 		$('.search_details').hide();
 		$("#add_patient").hide();
+		
 	});
 });

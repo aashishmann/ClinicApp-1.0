@@ -36,7 +36,7 @@
 						<!-- <li class="active"><a href="#">Home</a></li> -->
 						<li><a href="#" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
-						<li><a href="getQueueInfo" id="patient_queue_tab">Queue</a></li>
+						<li><a href="#" id="patient_queue_tab">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -254,20 +254,27 @@
 					<th class="queue-row">ID</th>
 					<th class="queue-row">Name</th>
 				</tr>
-				<c:forEach items="${patientQueue}" var="patientQueue">
-					<tr>
-						<td class="queue-row">${patientQueue.patient.id}</td>
-						<td class="queue-row">${patientQueue.patient.firstname}
-							${patientQueue.patient.lastname}</td>
-						<td class="queue-row">
-							<button type="button" class="btn btn-success">View</button>
-						</td>
-						<td class="queue-row">
-							<button type="button" class="btn btn-danger"
-								onclick="deletePatient(${patientQueue.id})">Delete</button>
-						</td>
-					</tr>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${patientQueue=='Queue is Empty'}">
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${patientQueue}" var="patientQueue">
+							<tr>
+								<td class="queue-row">${patientQueue.patient.id}</td>
+								<td class="queue-row">${patientQueue.patient.firstname}
+									${patientQueue.patient.lastname}</td>
+								<td class="queue-row">
+									<button type="button" class="btn btn-success">View</button>
+								</td>
+								<td class="queue-row">
+									<button type="button" class="btn btn-danger"
+										onclick="deletePatient(${patientQueue.id})">Delete</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+
 			</table>
 		</div>
 		<!-- Queue information -->

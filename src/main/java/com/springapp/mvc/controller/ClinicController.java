@@ -127,7 +127,13 @@ public class ClinicController {
     public String getQueueInfo(Model model) {
         System.out.println("get queue info at controller");
         List<PatientQueue> patientQueue = clinicService.getQueueInfo();
-        model.addAttribute("patientQueue", patientQueue);
-        return "receptionist";
+        if(patientQueue!=null){
+            model.addAttribute("patientQueue", patientQueue);
+            return "receptionist";            
+        }
+        else{
+            model.addAttribute("patientQueue","Queue is Empty");
+            return "receptionist";
+        }
     }
 }
