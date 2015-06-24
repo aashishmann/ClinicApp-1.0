@@ -13,7 +13,6 @@
 <script type="text/javascript">
 	var check='${addRecord}';
 	if(check.length!=0){
-		/* console.log("1: "+check.length); */
 		alert('${addRecord}');
 	}
 </script>
