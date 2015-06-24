@@ -100,11 +100,11 @@ public class ClinicDaoImpl implements IClinicDao {
         try {
             Patient patient = (Patient) sessionFactory.getCurrentSession().load(Patient.class, id);
             sessionFactory.getCurrentSession().delete(patient);
-            System.out.println("Patient {} {} deleted from db." + patient.getFirstname() + patient.getLastname());
+            //System.out.println("Patient deleted from db. " + patient.getFirstname() + patient.getLastname());
             LOG.info("Patient {} {} deleted from db.", patient.getFirstname(), patient.getLastname());
             return true;
         } catch (Exception e) {
-            LOG.error("An error occured while deleting Patient details : {}", e);
+            LOG.error("An error occured while deleting Patient details : ",e);
             return false;
         }
     }
