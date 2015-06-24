@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "patient_history")
@@ -43,7 +45,7 @@ public class PatientHistory {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = true, updatable = true, nullable = false, unique = true)
+    @JoinColumn(name = "patient_id", insertable = true, updatable = true, nullable = false, unique = true)
     public Patient getPatient() {
         return patient;
     }
@@ -53,6 +55,7 @@ public class PatientHistory {
     }
 
     @Column(name = "date_of_visit", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDateOfVisit() {
         return dateOfVisit;
     }

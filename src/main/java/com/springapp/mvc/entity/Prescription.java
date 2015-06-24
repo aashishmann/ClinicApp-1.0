@@ -10,9 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "prescription")
@@ -47,7 +48,7 @@ public class Prescription {
     }
 
     @Column(name = "entry_time")
-    @PrePersist
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getEntryTime() {
         return entryTime;
     }
@@ -75,6 +76,7 @@ public class Prescription {
     }
 
     @Column(name = "revisit_date")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getRevisitDate() {
         return revisitDate;
     }
@@ -83,7 +85,7 @@ public class Prescription {
         this.revisitDate = revisitDate;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = true, updatable = true, nullable = false, unique = true)
     public PatientHistory getPatientHistory() {
         return patientHistory;
