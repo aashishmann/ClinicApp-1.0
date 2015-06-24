@@ -8,4 +8,7 @@ $(document).ready(function(){
 	$("#patient_queue_tab").click(function(){
 		$("#search_results").hide();
 	});
+	
+	$("#patient_queue").hide();
+	
 });
