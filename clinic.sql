@@ -122,7 +122,9 @@ DROP TABLE IF EXISTS `patient_queue`;
 CREATE TABLE `patient_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_patientid` (`patient_id`),
+  CONSTRAINT `fk_patientid` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,7 +149,7 @@ CREATE TABLE `prescription` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `medicines` longtext,
   `entrytime` timestamp NULL DEFAULT NULL,
-  `charges` int(3) DEFAULT NULL,
+  `charges` int(5) NOT NULL,
   `followup_remark` longtext,
   `revisitDate` date DEFAULT NULL,
   `patient_id` int(11) NOT NULL,
@@ -175,4 +177,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-24 11:24:55
+-- Dump completed on 2015-06-24 12:29:31
