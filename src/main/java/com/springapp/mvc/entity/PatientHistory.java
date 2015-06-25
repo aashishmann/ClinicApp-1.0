@@ -154,4 +154,11 @@ public class PatientHistory {
         this.aversion = aversion;
     }
 
+    @Override
+    public String toString() {
+        return "PatientHistory [id=" + id + ", patient=" + patient + ", dateOfVisit=" + dateOfVisit + ", purposeOfVisit=" + purposeOfVisit + ", chiefComplaints=" + chiefComplaints
+                + ", mentalSymptoms=" + mentalSymptoms + ", physicalSymptoms=" + physicalSymptoms + ", investigation=" + investigation + ", familyHistory=" + familyHistory
+                + ", pastHistory=" + pastHistory + ", thermal=" + thermal + ", desire=" + desire + ", aversion=" + aversion + "]";
+    }
+
 }

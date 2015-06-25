@@ -107,7 +107,7 @@
 			          $('#medicine_queue').html("in ajax call");
 			      }
 			    });
-			}, 50000);//time in milliseconds 
+			}, 5000);//time in milliseconds 
 	</script>
 </body>
 </html>
