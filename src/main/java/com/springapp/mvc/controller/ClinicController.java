@@ -142,7 +142,7 @@ public class ClinicController {
         }
         else{
             model.addAttribute("patientQueue","Queue is Empty");
-            return "queue is empty";
+            return null;
         }
     }
 }

@@ -256,8 +256,8 @@
 				</tr>
 				<forEach items="${patientQueue}" var="patientQueue">
 				<tr>
-					<td class="queue-row">${patientQueue.patient.id}</td>
-					<td class="queue-row">${patientQueue.patient.firstname}
+					<td id = "patientId" class="queue-row">${patientQueue.patient.id}</td>
+					<td id = "patientName" class="queue-row">${patientQueue.patient.firstname}
 						${patientQueue.patient.lastname}</td>
 					<td class="queue-row">
 						<button type="button" class="btn btn-success">View</button>

@@ -12,9 +12,10 @@ $(document).ready(function(){
 	});
 	
 	$("#patient_queue_tab").click(function(){
-		$("#patient_queue").show();
+	
 		$('.search_details').hide();
 		$("#add_patient").hide();
+		 $("#patient_queue").show();
 		
 		console.log("making call to getQueueInfo");
 		//ajax call to display queue
@@ -23,13 +24,19 @@ $(document).ready(function(){
 	         url: "getQueueInfo",
 	         data: "",
 	         success: function(response){
+	        	 $('#patientId').text(response.id);
+	        	 $('#patientName').text(response.name);
+	        	 
 	        	 alert("response received");
 	        	 console.log("response : "+response);
+	        	
+	        	 //console.log('${patientQueue}');
 	        	 //console.log("in the ajax call"+response);
 	        	 /*alert("response: "+response);
 	             $('.add-patient-table').load(response);*/
 	         }
 	    });
+		
 		console.log("after call to getQueueInfo");
 	});
 });
