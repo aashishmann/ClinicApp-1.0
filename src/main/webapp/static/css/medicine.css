@@ -1,0 +1,8 @@
+.medicine_queue {
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 10px 25px;
+	font: normal 20px "arial";
+	box-shadow: 0 0 10px #0cf;
+	opacity: 0.9;
+}

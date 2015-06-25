@@ -48,4 +48,9 @@ public class Medicine {
         this.charges = charges;
     }
 
+    @Override
+    public String toString() {
+        return "Medicine [patientId=" + patientId + ", firstname=" + firstname + ", lastname=" + lastname + ", medicines=" + medicines + ", charges=" + charges + "]";
+    }
+
 }
