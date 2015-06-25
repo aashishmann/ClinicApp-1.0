@@ -28,7 +28,8 @@ import com.springapp.mvc.utils.ClinicUtils;
  */
 @Controller
 @RequestMapping("/")
-@SessionAttributes("validUser") //for maintaining session will be used later
+@SessionAttributes("validUser")
+//for maintaining session will be used later
 public class ClinicController {
     private static final Logger LOG = LoggerFactory.getLogger(ClinicController.class);
 
@@ -59,6 +60,8 @@ public class ClinicController {
             return "receptionist";
         } else if ("DOC".equals(validUser.getRoleType())) {
             return "doctor";
+        } else if ("MED".equals(validUser.getRoleType())) {
+            return "medicine";
         } else {
             //dummy jsp success to test the things
             model.addAttribute("username", login.getUsername());
@@ -96,14 +99,13 @@ public class ClinicController {
         List<Patient> patientList = clinicService.findPatient(search);
         //System.out.println("Printing data to be searched");
         //System.out.println(search);
-        LOG.info("Search Query params {}",search);
-        if(patientList!=null){
-            LOG.info("Message : {}",patientList);
+        LOG.info("Search Query params {}", search);
+        if (patientList != null) {
+            LOG.info("Message : {}", patientList);
             model.addAttribute("patientList", patientList);
             return "searchResults";
-        }
-        else{
-            model.addAttribute("patientList","No Results Found");
+        } else {
+            model.addAttribute("patientList", "No Results Found");
             System.out.println("No results");
             return "receptionist";
         }
@@ -111,13 +113,12 @@ public class ClinicController {
 
     @RequestMapping(value = "deletePatient", method = RequestMethod.GET)
     @ResponseBody
-    public String deletePatient(@RequestParam(value="id") int id, Model model) {
+    public String deletePatient(@RequestParam(value = "id") int id, Model model) {
         //System.out.println(clinicService.findPatientById(id));
         //Patient patient=clinicService.findPatientById(id);
-        if(clinicService.deletePatient(id)){
+        if (clinicService.deletePatient(id)) {
             return "Patient Record Deleted!";
-        }
-        else{
+        } else {
             return "Some error occured while deleting.";
         }
     }
@@ -134,15 +135,20 @@ public class ClinicController {
     public String getQueueInfo(Model model) {
         System.out.println("get queue info at controller");
         List<PatientQueue> patientQueue = clinicService.getQueueInfo();
-        if(patientQueue!=null){
+        if (patientQueue != null) {
             model.addAttribute("patientQueue", patientQueue);
             //return "receptionist";
             //System.out.println(patientQueue.toString());
             return patientQueue.toString();
-        }
-        else{
-            model.addAttribute("patientQueue","Queue is Empty");
+        } else {
+            model.addAttribute("patientQueue", "Queue is Empty");
             return null;
         }
+    }
+    
+    @RequestMapping(value = "getMedicineInfo", method = RequestMethod.GET)
+    public String getMedicineInfo(Model model){
+        model.addAttribute("info","on medicine page");
+        return "medicine";
     }
 }
