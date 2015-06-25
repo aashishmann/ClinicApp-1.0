@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.springapp.mvc.entity.Patient;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.springapp.mvc.dto.SearchForm;
@@ -108,12 +111,17 @@ public class ClinicController {
         }
     }
 
-    @RequestMapping(value = "deletePatient/{id}", method = RequestMethod.GET)
-    public String deletePatient(@PathVariable("id") int id, Model model) {
+    @RequestMapping(value = "deletePatient", method = RequestMethod.GET)
+    @ResponseBody
+    public String deletePatient(@RequestParam(value="id") int id, Model model) {
         //System.out.println(clinicService.findPatientById(id));
         //Patient patient=clinicService.findPatientById(id);
-        clinicService.deletePatient(id);
-        return "receptionist";
+        if(clinicService.deletePatient(id)){
+            return "Patient Record Deleted!";
+        }
+        else{
+            return "Some error occured while deleting.";
+        }
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
@@ -133,7 +141,7 @@ public class ClinicController {
         }
         else{
             model.addAttribute("patientQueue","Queue is Empty");
-            return "receptionist";
+            return "queue is empty";
         }
     }
 }

@@ -9,10 +9,11 @@
 	function deletePatient(id){
 		jQuery.ajax({
 		    'type': 'GET',
-		    'url': "deletePatient/"+id,
+		    'url': "deletePatient",
+		    'data': "id="+id,
 		    'contentType': 'application/json',
 		    'success': function(data) {
-		    	alert("Patient Record Deleted!");
+		    	alert(data);
 		    	window.location.replace("receptionist");
 		    	}
 		});
