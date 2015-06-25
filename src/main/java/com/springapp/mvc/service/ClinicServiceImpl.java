@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dao.IClinicDao;
+import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -117,5 +118,20 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public void updatePrescription(Prescription prescription) {
         clinicDao.updatePrescription(prescription);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Medicine getLatestPrescription(int patientId) {
+        Prescription prescription = clinicDao.getLatestPrescription(patientId);
+
+        Medicine medicine = new Medicine();
+        medicine.setPatientId(patientId);
+        medicine.setFirstname(prescription.getPatient().getFirstname());
+        medicine.setLastname(prescription.getPatient().getLastname());
+        medicine.setMedicines(prescription.getMedicines());
+        medicine.setCharges(prescription.getCharges());
+
+        return medicine;
     }
 }

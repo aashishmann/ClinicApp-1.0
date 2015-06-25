@@ -6,7 +6,9 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -104,7 +106,7 @@ public class ClinicDaoImpl implements IClinicDao {
             LOG.info("Patient {} {} deleted from db.", patient.getFirstname(), patient.getLastname());
             return true;
         } catch (Exception e) {
-            LOG.error("An error occured while deleting Patient details : ",e);
+            LOG.error("An error occured while deleting Patient details : ", e);
             return false;
         }
     }
@@ -196,6 +198,18 @@ public class ClinicDaoImpl implements IClinicDao {
         } catch (Exception e) {
             LOG.error("An error occured while updating prescription for patient ID {} : {}", prescription.getPatient().getId(), e);
         }
+    }
+
+    @Override
+    public Prescription getLatestPrescription(int patientId) {
+        DetachedCriteria maxQuery = DetachedCriteria.forClass(Prescription.class);
+        maxQuery.add(Restrictions.eq("patient.id", patientId));
+        maxQuery.setProjection(Projections.max("entryTime"));
+
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Prescription.class);
+        criteria.add(Restrictions.eq("patient.id", patientId));
+        criteria.add(Property.forName("entryTime").eq(maxQuery));
+        return null;
     }
 
 }
