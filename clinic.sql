@@ -38,6 +38,7 @@ CREATE TABLE `login_detail` (
 LOCK TABLES `login_detail` WRITE;
 /*!40000 ALTER TABLE `login_detail` DISABLE KEYS */;
 INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC');
+insert into login_detail values('3','medi','1234','MED');
 /*!40000 ALTER TABLE `login_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,6 +167,7 @@ CREATE TABLE `prescription` (
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
+insert into prescription values('1','Combiflame',CURRENT_DATE(),'100','try again',CURRENT_DATE(),1);
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
