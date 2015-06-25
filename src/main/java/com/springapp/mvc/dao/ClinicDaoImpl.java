@@ -202,8 +202,10 @@ public class ClinicDaoImpl implements IClinicDao {
 
     @Override
     public List<Prescription> getLatestPrescription(List<Integer> patientIds) {
+        /*Query query = sessionFactory.getCurrentSession().createQuery(
+                "select * from Prescription pres left join fetch pres.patient where pres.patient.id in (:patientIds) AND pres.entryTime = current_date() ");*/
         Query query = sessionFactory.getCurrentSession().createQuery(
-                "select * from Prescription pres where  pres.patient_id in (:patientIds) AND pres.entryTime < now() AND pres.revisitDate > now()");
+                "select pres from Prescription pres");
         List<Prescription> prescriptions = query.list();
         return prescriptions;
     }

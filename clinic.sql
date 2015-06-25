@@ -148,10 +148,10 @@ DROP TABLE IF EXISTS `prescription`;
 CREATE TABLE `prescription` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `medicines` longtext,
-  `entrytime` timestamp NULL DEFAULT NULL,
+  `entry_time` date NULL DEFAULT NULL,
   `charges` int(5) NOT NULL,
   `followup_remark` longtext,
-  `revisitDate` date DEFAULT NULL,
+  `revisit_date` date DEFAULT NULL,
   `patient_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_patient_id` (`patient_id`),

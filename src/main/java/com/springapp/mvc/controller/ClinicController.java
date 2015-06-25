@@ -150,6 +150,7 @@ public class ClinicController {
     @RequestMapping(value = "getMedicineInfo", method = RequestMethod.GET)
     public String getMedicineInfo(Model model){
         List<Medicine> medicineList=clinicService.getLatestPrescription();
+        System.out.println("list "+ medicineList);
         model.addAttribute("medicineQueue",medicineList);
         return "medicine";
     }

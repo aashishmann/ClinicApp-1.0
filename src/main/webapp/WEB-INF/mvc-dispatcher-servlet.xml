@@ -47,6 +47,8 @@
                 <value>com.springapp.mvc.entity.Login</value>
                 <value>com.springapp.mvc.entity.Patient</value>
                 <value>com.springapp.mvc.entity.PatientQueue</value>
+                <value>com.springapp.mvc.entity.Prescription</value>
+                <value>com.springapp.mvc.entity.PatientHistory</value>
             </list>
         </property>
     </bean>

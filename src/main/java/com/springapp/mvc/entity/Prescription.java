@@ -48,7 +48,7 @@ public class Prescription {
     }
 
     @Column(name = "entry_time")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     public Date getEntryTime() {
         return entryTime;
     }
@@ -76,7 +76,7 @@ public class Prescription {
     }
 
     @Column(name = "revisit_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     public Date getRevisitDate() {
         return revisitDate;
     }
