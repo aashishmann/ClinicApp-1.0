@@ -40,4 +40,6 @@ public interface IClinicDao {
 
     public void updatePrescription(Prescription prescription);
 
+    public Prescription getLatestPrescription(int patientId);
+
 }

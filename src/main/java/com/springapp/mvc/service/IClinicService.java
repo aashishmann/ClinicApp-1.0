@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import java.util.List;
 
+import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -41,4 +42,6 @@ public interface IClinicService {
     public void updatePatientHistory(PatientHistory patientHistory);
 
     public void updatePrescription(Prescription prescription);
+
+    public Medicine getLatestPrescription(int patientId);
 }
