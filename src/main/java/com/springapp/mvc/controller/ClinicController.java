@@ -148,7 +148,7 @@ public class ClinicController {
     
     @RequestMapping(value = "getMedicineInfo", method = RequestMethod.GET)
     public String getMedicineInfo(Model model){
-        model.addAttribute("info","on medicine page");
+        model.addAttribute("medicineQueue","on medicine page");
         return "medicine";
     }
 }
