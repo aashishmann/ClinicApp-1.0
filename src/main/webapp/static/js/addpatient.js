@@ -16,5 +16,20 @@ $(document).ready(function(){
 		$('.search_details').hide();
 		$("#add_patient").hide();
 		
+		console.log("making call to getQueueInfo");
+		//ajax call to display queue
+		$.ajax({
+	         type: "GET",
+	         url: "getQueueInfo",
+	         data: "",
+	         success: function(response){
+	        	 alert("response received");
+	        	 console.log("response : "+response);
+	        	 //console.log("in the ajax call"+response);
+	        	 /*alert("response: "+response);
+	             $('.add-patient-table').load(response);*/
+	         }
+	    });
+		console.log("after call to getQueueInfo");
 	});
 });

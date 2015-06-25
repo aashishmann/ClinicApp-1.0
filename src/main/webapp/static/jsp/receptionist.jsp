@@ -254,27 +254,20 @@
 					<th class="queue-row">ID</th>
 					<th class="queue-row">Name</th>
 				</tr>
-				<c:choose>
-					<c:when test="${patientQueue=='Queue is Empty'}">
-					</c:when>
-					<c:otherwise>
-						<c:forEach items="${patientQueue}" var="patientQueue">
-							<tr>
-								<td class="queue-row">${patientQueue.patient.id}</td>
-								<td class="queue-row">${patientQueue.patient.firstname}
-									${patientQueue.patient.lastname}</td>
-								<td class="queue-row">
-									<button type="button" class="btn btn-success">View</button>
-								</td>
-								<td class="queue-row">
-									<button type="button" class="btn btn-danger"
-										onclick="deletePatient(${patientQueue.id})">Delete</button>
-								</td>
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-
+				<forEach items="${patientQueue}" var="patientQueue">
+				<tr>
+					<td class="queue-row">${patientQueue.patient.id}</td>
+					<td class="queue-row">${patientQueue.patient.firstname}
+						${patientQueue.patient.lastname}</td>
+					<td class="queue-row">
+						<button type="button" class="btn btn-success">View</button>
+					</td>
+					<td class="queue-row">
+						<button type="button" class="btn btn-danger"
+							onclick="deletePatient(${patientQueue.id})">Delete</button>
+					</td>
+				</tr>
+				<forEach>
 			</table>
 		</div>
 		<!-- Queue information -->
