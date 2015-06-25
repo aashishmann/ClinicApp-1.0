@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -148,7 +149,8 @@ public class ClinicController {
     
     @RequestMapping(value = "getMedicineInfo", method = RequestMethod.GET)
     public String getMedicineInfo(Model model){
-        model.addAttribute("medicineQueue","on medicine page");
+        List<Medicine> medicineList=clinicService.getLatestPrescription();
+        model.addAttribute("medicineQueue",medicineList);
         return "medicine";
     }
 }
