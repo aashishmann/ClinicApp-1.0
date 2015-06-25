@@ -201,15 +201,11 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     @Override
-    public Prescription getLatestPrescription(int patientId) {
-        DetachedCriteria maxQuery = DetachedCriteria.forClass(Prescription.class);
-        maxQuery.add(Restrictions.eq("patient.id", patientId));
-        maxQuery.setProjection(Projections.max("entryTime"));
-
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Prescription.class);
-        criteria.add(Restrictions.eq("patient.id", patientId));
-        criteria.add(Property.forName("entryTime").eq(maxQuery));
-        return null;
+    public List<Prescription> getLatestPrescription(List<Integer> patientIds) {
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "select * from Prescription pres where  pres.patient_id in (:patientIds) AND pres.entryTime < now() AND pres.revisitDate > now()");
+        List<Prescription> prescriptions = query.list();
+        return prescriptions;
     }
 
 }

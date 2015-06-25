@@ -43,5 +43,5 @@ public interface IClinicService {
 
     public void updatePrescription(Prescription prescription);
 
-    public Medicine getLatestPrescription(int patientId);
+    public List<Medicine> getLatestPrescription();
 }

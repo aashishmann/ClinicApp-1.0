@@ -1,5 +1,6 @@
 package com.springapp.mvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,16 +123,29 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional(readOnly = true)
     @Override
-    public Medicine getLatestPrescription(int patientId) {
-        Prescription prescription = clinicDao.getLatestPrescription(patientId);
-
-        Medicine medicine = new Medicine();
-        medicine.setPatientId(patientId);
-        medicine.setFirstname(prescription.getPatient().getFirstname());
-        medicine.setLastname(prescription.getPatient().getLastname());
-        medicine.setMedicines(prescription.getMedicines());
-        medicine.setCharges(prescription.getCharges());
-
-        return medicine;
+    public List<Medicine> getLatestPrescription() {
+        
+        List<PatientQueue> patientQueues =  clinicDao.getQueueInfo();
+        
+        List<Integer> patientIds = new ArrayList<Integer>();
+        for (PatientQueue patientQueue : patientQueues) {
+            int patientId = patientQueue.getPatient().getId();
+            patientIds.add(patientId);
+        }
+        
+        List<Prescription> prescriptions = clinicDao.getLatestPrescription(patientIds);
+        
+        List<Medicine> medicines = new ArrayList<Medicine>();
+        for(Prescription prescription : prescriptions) {
+            Medicine medicine = new Medicine();
+            medicine.setPatientId(prescription.getPatient().getId());
+            medicine.setFirstname(prescription.getPatient().getFirstname());
+            medicine.setLastname(prescription.getPatient().getLastname());
+            medicine.setMedicines(prescription.getMedicines());
+            medicine.setCharges(prescription.getCharges());
+            
+            medicines.add(medicine);
+        }
+        return medicines;
     }
 }
