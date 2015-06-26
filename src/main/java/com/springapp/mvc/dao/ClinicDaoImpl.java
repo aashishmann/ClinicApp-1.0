@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -44,6 +45,7 @@ public class ClinicDaoImpl implements IClinicDao {
 
     }
 
+    //Validating user credentials
     @Override
     public Login validateLogin(String username, String password) {
         Criteria cr = sessionFactory.getCurrentSession().createCriteria(Login.class);
@@ -52,6 +54,7 @@ public class ClinicDaoImpl implements IClinicDao {
         return (Login) cr.uniqueResult();
     }
 
+    //Adding patient details to database
     @Override
     public int persistPatientDetails(Patient patient) {
         try {
@@ -65,6 +68,7 @@ public class ClinicDaoImpl implements IClinicDao {
         }
     }
 
+    //Searching patient detials against the details provided at search form
     @SuppressWarnings("unchecked")
     @Override
     public List<Patient> findPatient(SearchForm search) {
@@ -96,6 +100,7 @@ public class ClinicDaoImpl implements IClinicDao {
         return patientList;
     }
 
+    //Delete patient record from patient table
     @Override
     public boolean deletePatient(int id) {
         try {
@@ -237,6 +242,16 @@ public class ClinicDaoImpl implements IClinicDao {
 
         List<Prescription> prescriptions = criteria.list();
         return prescriptions;
+    }
+
+    //Daily Report Generation logic
+    @Override
+    public List<DailyReport> generateDailyReport() {
+        Query query = sessionFactory.getCurrentSession().createQuery("");
+        List<DailyReport> dailyReport = query.list();
+        System.out.println(dailyReport);
+        //select firstname,lastname,charges from patient p1,prescription p2 where p1.id=p2.patient_id and p2.entry_time = CURRENT_DATE();
+        return null;
     }
 
 }

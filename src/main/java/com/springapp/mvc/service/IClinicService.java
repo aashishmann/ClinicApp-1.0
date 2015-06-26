@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import java.util.List;
 
+import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -52,4 +53,6 @@ public interface IClinicService {
     public PatientHistory getPatientHistory(int patientId);
 
     public List<Prescription> getFiveLatestPrescriptions(int patientId);
+
+    public List<DailyReport> generateDailyReport();
 }

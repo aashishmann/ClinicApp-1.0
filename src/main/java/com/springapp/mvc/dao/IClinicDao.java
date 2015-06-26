@@ -2,6 +2,7 @@ package com.springapp.mvc.dao;
 
 import java.util.List;
 
+import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -45,7 +46,9 @@ public interface IClinicDao {
     public boolean deleteFromQueue(int id);
 
     public PatientHistory getPatientHistory(int patientId);
-    
+
     public List<Prescription> getFiveLatestPrescriptions(int patientId);
+
+    public List<DailyReport> generateDailyReport();
 
 }

@@ -69,7 +69,7 @@ $(document).ready(function(){
 	    
 	    $.ajax({
 			type : "GET",
-			url : "getQueueInfo",
+			url : "generateDailyReport",
 			contentType : "application/json; charset=utf-8",
 			dataType : "html",
 			success : function(data) {

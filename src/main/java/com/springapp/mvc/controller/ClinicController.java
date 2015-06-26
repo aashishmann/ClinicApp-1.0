@@ -169,6 +169,7 @@ public class ClinicController {
     //Generate Daily Report
     @RequestMapping(value = "generateDailyReport", method = RequestMethod.GET)
     public String generateDailyReport() {
+        clinicService.generateDailyReport();
         return null;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dao.IClinicDao;
+import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -185,5 +186,12 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public List<Prescription> getFiveLatestPrescriptions(int patientId) {
         return clinicDao.getFiveLatestPrescriptions(patientId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<DailyReport> generateDailyReport() {
+        clinicDao.generateDailyReport();
+        return null;
     }
 }
