@@ -167,7 +167,9 @@ CREATE TABLE `prescription` (
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
-insert into prescription values('1','Combiflame',CURRENT_DATE(),'100','try again',CURRENT_DATE(),1);
+insert into prescription values(1,'Combiflame',CURRENT_DATE(),100,'try again',CURRENT_DATE(),1);
+insert into prescription values(2,'Crocin',CURRENT_DATE(),50,'try again',CURRENT_DATE(),2);
+insert into prescription values(3,'Disprin',CURRENT_DATE()-1,50,'try again',CURRENT_DATE(),2);
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
