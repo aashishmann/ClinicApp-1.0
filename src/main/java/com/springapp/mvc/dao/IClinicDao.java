@@ -42,4 +42,10 @@ public interface IClinicDao {
 
     public List<Prescription> getLatestPrescription(List<Integer> patientIds);
 
+    public boolean deleteFromQueue(int id);
+
+    public PatientHistory getPatientHistory(int patientId);
+    
+    public List<Prescription> getFiveLatestPrescriptions(int patientId);
+
 }

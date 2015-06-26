@@ -44,4 +44,12 @@ public interface IClinicService {
     public void updatePrescription(Prescription prescription);
 
     public List<Medicine> getLatestPrescription();
+
+    public boolean deleteFromQueue(int id);
+
+    public boolean addPatientToQueue(int patientId);
+
+    public PatientHistory getPatientHistory(int patientId);
+
+    public List<Prescription> getFiveLatestPrescriptions(int patientId);
 }

@@ -99,10 +99,7 @@ public class ClinicServiceImpl implements IClinicService {
             return id;
         }
 
-        PatientQueue patientQueue = new PatientQueue();
-        patientQueue.setPatient(findPatientById(id));
-
-        if (addToQueue(patientQueue)) {
+        if (addPatientToQueue(id)) {
             System.out.println("Patient details added to queue");
         }
         System.out.println("Some error occured while adding patient details to queue");
@@ -131,10 +128,10 @@ public class ClinicServiceImpl implements IClinicService {
 
         List<PatientQueue> patientQueues = clinicDao.getQueueInfo();
         //List returned is null in case queue is empty
-        if(patientQueues==null){
+        if (patientQueues == null) {
             return null;
         }
-        
+
         List<Integer> patientIds = new ArrayList<Integer>();
         for (PatientQueue patientQueue : patientQueues) {
             int patientId = patientQueue.getPatient().getId();
@@ -142,25 +139,51 @@ public class ClinicServiceImpl implements IClinicService {
         }
 
         List<Prescription> prescriptions = clinicDao.getLatestPrescription(patientIds);
-        System.out.println("Prescriptions size : "+prescriptions.size());
-        if(prescriptions.size()>0){
+        System.out.println("Prescriptions size : " + prescriptions.size());
+        if (prescriptions.size() > 0) {
             List<Medicine> medicines = new ArrayList<Medicine>();
             for (Prescription prescription : prescriptions) {
                 Medicine medicine = new Medicine();
-                
+
                 medicine.setPatientId(prescription.getPatient().getId());
                 medicine.setFirstname(prescription.getPatient().getFirstname());
                 medicine.setLastname(prescription.getPatient().getLastname());
                 medicine.setMedicines(prescription.getMedicines());
                 medicine.setCharges(prescription.getCharges());
-                
+
                 medicines.add(medicine);
             }
             return medicines;
-        }
-        else{
+        } else {
             //Prescriptions returned are null
             return null;
         }
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteFromQueue(int id) {
+        return clinicDao.deleteFromQueue(id);
+    }
+
+    @Transactional
+    @Override
+    public boolean addPatientToQueue(int patientId) {
+        PatientQueue patientQueue = new PatientQueue();
+        patientQueue.setPatient(findPatientById(patientId));
+
+        return addToQueue(patientQueue);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public PatientHistory getPatientHistory(int patientId) {
+        return clinicDao.getPatientHistory(patientId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Prescription> getFiveLatestPrescriptions(int patientId) {
+        return clinicDao.getFiveLatestPrescriptions(patientId);
     }
 }

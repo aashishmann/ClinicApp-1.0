@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -202,8 +203,39 @@ public class ClinicDaoImpl implements IClinicDao {
     public List<Prescription> getLatestPrescription(List<Integer> patientIds) {
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "select pres from Prescription pres join fetch pres.patient where pres.patient.id in (:patientIds) AND pres.entryTime = current_date() ");
-        query.setParameterList("patientIds",patientIds);
+        query.setParameterList("patientIds", patientIds);
         List<Prescription> prescriptions = query.list();
+        return prescriptions;
+    }
+
+    @Override
+    public boolean deleteFromQueue(int id) {
+        try {
+            PatientQueue patientQueue = (PatientQueue) sessionFactory.getCurrentSession().load(PatientQueue.class, id);
+            sessionFactory.getCurrentSession().delete(patientQueue);
+            LOG.info("Patient {} {} deleted from queue.", patientQueue.getPatient().getFirstname(), patientQueue.getPatient().getLastname());
+            return true;
+        } catch (Exception e) {
+            LOG.error("An error occured while deleting Patient Queue : ", e);
+            return false;
+        }
+    }
+
+    @Override
+    public PatientHistory getPatientHistory(int patientId) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientHistory.class);
+        criteria.add(Restrictions.eq("patient.id", patientId));
+        return (PatientHistory) criteria.uniqueResult();
+    }
+
+    @Override
+    public List<Prescription> getFiveLatestPrescriptions(int patientId) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Prescription.class);
+        criteria.add(Restrictions.eq("patient.id", patientId));
+        criteria.addOrder(Order.desc("entryTime"));
+        criteria.setMaxResults(5);
+
+        List<Prescription> prescriptions = criteria.list();
         return prescriptions;
     }
 
