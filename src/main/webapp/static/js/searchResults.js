@@ -10,5 +10,8 @@ $(document).ready(function(){
 	});
 	
 	$("#patient_queue").hide();
-	
+
+	$('#view-patient').click(function(){
+		$('.view-patient-details').show();
+	});
 });

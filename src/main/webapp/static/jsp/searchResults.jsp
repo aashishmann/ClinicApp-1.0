@@ -19,6 +19,11 @@
 		});
 	}
 </script>
+<style>
+.view-patient-details {
+	display: none;
+}
+</style>
 </head>
 <%@include file="receptionist.jsp"%>
 
@@ -40,12 +45,36 @@
 					<td class="queue-row">${patientList.firstname}
 						${patientList.lastname}</td>
 					<td class="queue-row">
-						<button type="button" class="btn btn-success">View</button>
+						<button id="view-patient" type="button" class="btn btn-success">View</button>
 					</td>
 					<td class="queue-row">
 						<button type="button" class="btn btn-danger"
 							onclick="deletePatient(${patientList.id})">Delete</button>
 					</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Name</td>
+					<td>Sex</td>
+					<td>Age</td>
+					<td>Mobile</td>
+					<td>Landline</td>
+					<td>Reffered By</td>
+					<td>Dependents</td>
+					<td>Martial Status</td>
+					<td>Address</td>
+					<td>Occupation</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>${patientList.firstname} ${patientList.lastname}</td>
+					<td>${patientList.sex}</td>
+					<td>${patientList.age}</td>
+					<td>${patientList.mobile}</td>
+					<td>${patientList.landline}</td>
+					<td>${patientList.refferedBy}</td>
+					<td>${patientList.dependent}</td>
+					<td>${patientList.maritalStatus}</td>
+					<td>${patientList.address}</td>
+					<td>${patientList.occupation}</td>
 				</tr>
 			</c:forEach>
 		</table>
