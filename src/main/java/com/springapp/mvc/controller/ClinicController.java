@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.springapp.mvc.dto.Medicine;
@@ -30,7 +29,6 @@ import com.springapp.mvc.utils.ClinicUtils;
  */
 @Controller
 @RequestMapping("/")
-@SessionAttributes("validUser")
 //for maintaining session will be used later
 public class ClinicController {
     private static final Logger LOG = LoggerFactory.getLogger(ClinicController.class);
@@ -166,5 +164,11 @@ public class ClinicController {
             System.out.println(gson.toJson(medicineList));
             return gson.toJson(medicineList);
         }
+    }
+
+    //Generate Daily Report
+    @RequestMapping(value = "generateDailyReport", method = RequestMethod.GET)
+    public String generateDailyReport() {
+        return null;
     }
 }

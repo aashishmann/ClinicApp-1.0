@@ -11,12 +11,12 @@
 <link rel="stylesheet" type="text/css" href="css/queue.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
 <script type="text/javascript">
-	var check='${addRecord}';
-	if(check.length!=0){
+	var check = '${addRecord}';
+	if (check.length != 0) {
 		alert('${addRecord}');
 	}
-	var searchMessage='${patientList}';
-	if(searchMessage=="No Results Found"){
+	var searchMessage = '${patientList}';
+	if (searchMessage == "No Results Found") {
 		alert('${patientList}');
 	}
 </script>
@@ -45,8 +45,7 @@
 								<li><a href="#">Medical Certificate</a></li>
 								<li class="divider"></li>
 								<li class="dropdown-header">Generate Reports</li>
-								<li><a href="#">Daily Report</a></li>
-								<li><a href="#">Weekly Report</a></li>
+								<li><a href="#" id="daily_report_tab">Daily Report</a></li>
 								<li><a href="#">Monthly Report</a></li>
 							</ul></li>
 					</ul>
@@ -253,6 +252,23 @@
 			</table>
 		</div>
 		<!-- Queue information -->
+
+		<div id="dailyReport" class="dailyReport">
+			<div class="add_patient_header">
+				<h2 style="text-align: center;">Daily Report</h2>
+			</div>
+			<hr>
+			<table id="dailyReportCard" align="center">
+				<tr class='queue-row'>
+					<th>Total Patients</th>
+					<th>Total Collection</th>
+				</tr>
+				<tr>
+					<td>vgdfvg</td>
+					<td>dfvdf</td>
+				</tr>
+			</table>
+		</div>
 
 	</div>
 	<!-- /container -->
