@@ -81,19 +81,24 @@ $(document).ready(function(){
 					console.log("handle for null json");
 					var output = "<tr><td style='font:20px normal arial;color : red;'>"
 									+"Queue is Empty.</td></tr>";					
-					$('#patientqueueinfo').html(output);
+					$('#dailyReportCard').html(output);
 				}
 				else{
-					var output = "<tr><th class='queue-row'>ID</th>"
-								    +"<th class='queue-row'>Name</th>"
+                    var totalCharges = 0;
+					var output = "<tr><th class='queue-row'>Patient Name</th>"
+								    +"<th class='queue-row'>Charges</th>"
 								    +"</tr>";
 					for ( var i in json_obj) {
-						output += "<tr><td>" + json_obj[i].id + "</td>";
-						output += "<td>" + json_obj[i].patient.firstname + " "
-								+ json_obj[i].patient.lastname + "</td></tr>";
-						//alert(json_obj[i].id+" : "+json_obj[i].patient.firstname);
+						output += "<tr><td>" + json_obj[i].firstname + " "
+								+ json_obj[i].lastname + "</td>";
+                        output += "<td>" + json_obj[i].charges + "</td></tr>";
+                        totalCharges += json_obj[i].charges;
+
 					}
-					$('#patientqueueinfo').html(output);
+                    output+="<tr><td></td><td>______</td>"
+                    output += "<tr><td>Total Charges</td><td>" + totalCharges + "</td></tr>";
+                    console.log("total charges "+ totalCharges);
+					$('#dailyReportCard').html(output);
 				}
 			},
 			error : function(data) {

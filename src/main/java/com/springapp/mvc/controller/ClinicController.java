@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.springapp.mvc.dto.DailyReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,8 +169,16 @@ public class ClinicController {
 
     //Generate Daily Report
     @RequestMapping(value = "generateDailyReport", method = RequestMethod.GET)
+    @ResponseBody
     public String generateDailyReport() {
-        clinicService.generateDailyReport();
-        return null;
+        List<DailyReport> dailyReportList = clinicService.generateDailyReport();
+        System.out.println("Daily Report: "+ dailyReportList);
+        if(dailyReportList != null) {
+            return new Gson().toJson(dailyReportList);
+        } else {
+            System.out.println("Daily Report is empty");
+            return new Gson().toJson(dailyReportList);
+        }
     }
+
 }

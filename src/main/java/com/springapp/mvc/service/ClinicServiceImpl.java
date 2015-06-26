@@ -191,7 +191,21 @@ public class ClinicServiceImpl implements IClinicService {
     @Transactional(readOnly = true)
     @Override
     public List<DailyReport> generateDailyReport() {
-        clinicDao.generateDailyReport();
-        return null;
+        List<Prescription> presciptionList = clinicDao.generateDailyReport();
+        return prescriptionToDailyReportConvertor(presciptionList);
+    }
+
+    private List<DailyReport> prescriptionToDailyReportConvertor(List<Prescription> prescriptionList) {
+        List<DailyReport> dailyReportList = new ArrayList<DailyReport>();
+        if(prescriptionList != null) {
+            for(Prescription prescription : prescriptionList) {
+                DailyReport dailyReport = new DailyReport();
+                dailyReport.setFirstname(prescription.getPatient().getFirstname());
+                dailyReport.setLastname(prescription.getPatient().getLastname());
+                dailyReport.setCharges(prescription.getCharges());
+                dailyReportList.add(dailyReport);
+            }
+        }
+        return dailyReportList;
     }
 }
