@@ -121,31 +121,46 @@ public class ClinicServiceImpl implements IClinicService {
         clinicDao.updatePrescription(prescription);
     }
 
+    /*
+     * Displays information on medicine page. i.e., medicine queue
+     * Fetch patient ids from patient queue and get latest prescription for them.
+     */
     @Transactional(readOnly = true)
     @Override
     public List<Medicine> getLatestPrescription() {
-        
-        List<PatientQueue> patientQueues =  clinicDao.getQueueInfo();
+
+        List<PatientQueue> patientQueues = clinicDao.getQueueInfo();
+        //List returned is null in case queue is empty
+        if(patientQueues==null){
+            return null;
+        }
         
         List<Integer> patientIds = new ArrayList<Integer>();
         for (PatientQueue patientQueue : patientQueues) {
             int patientId = patientQueue.getPatient().getId();
             patientIds.add(patientId);
         }
-        
+
         List<Prescription> prescriptions = clinicDao.getLatestPrescription(patientIds);
-        
-        List<Medicine> medicines = new ArrayList<Medicine>();
-        for(Prescription prescription : prescriptions) {
-            Medicine medicine = new Medicine();
-            medicine.setPatientId(prescription.getPatient().getId());
-            medicine.setFirstname(prescription.getPatient().getFirstname());
-            medicine.setLastname(prescription.getPatient().getLastname());
-            medicine.setMedicines(prescription.getMedicines());
-            medicine.setCharges(prescription.getCharges());
-            
-            medicines.add(medicine);
+        System.out.println("Prescriptions size : "+prescriptions.size());
+        if(prescriptions.size()>0){
+            List<Medicine> medicines = new ArrayList<Medicine>();
+            for (Prescription prescription : prescriptions) {
+                Medicine medicine = new Medicine();
+                
+                medicine.setPatientId(prescription.getPatient().getId());
+                medicine.setFirstname(prescription.getPatient().getFirstname());
+                medicine.setLastname(prescription.getPatient().getLastname());
+                medicine.setMedicines(prescription.getMedicines());
+                medicine.setCharges(prescription.getCharges());
+                
+                medicines.add(medicine);
+            }
+            return medicines;
         }
-        return medicines;
+        else{
+            //Prescriptions returned are null
+            return null;
+        }
     }
 }

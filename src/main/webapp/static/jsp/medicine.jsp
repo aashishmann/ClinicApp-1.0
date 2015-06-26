@@ -64,20 +64,26 @@
 					//do something with response data
 					var json_obj = $.parseJSON(data);
 					//console.log("data :" + json_obj[0].id);
-					console.log(data);
-
-					var output = "<tr><th class='queue-row'>Name</th>"
-							+ "<th class='queue-row'>Medicine</th>"
-							+ "<th class='queue-row'>Charges</th>"
-							+ "</tr>";
-					for ( var i in json_obj) {
-						output += "<tr><td>" + json_obj[i].firstname + " "
-								+ json_obj[i].lastname + "</td>";
-						output += "<td>" + json_obj[i].medicines + "</td>";
-						output += "<td>" + json_obj[i].charges + "</td></tr>";
+					console.log("Data received : "+data);
+					if(data=="null"){
+						console.log("handle for null json");
+						var output = "<tr><td style='font:20px normal arial;color : red;'>"
+										+"Queue is Empty.</td></tr>";					
+						$('#medicineinfo').html(output);
 					}
-
-					$('#medicineinfo').html(output);
+					else{
+						var output = "<tr><th class='queue-row'>Name</th>"
+								+ "<th class='queue-row'>Medicine</th>"
+								+ "<th class='queue-row'>Charges</th>"
+								+ "</tr>";
+						for ( var i in json_obj) {
+							output += "<tr><td>" + json_obj[i].firstname + " "
+									+ json_obj[i].lastname + "</td>";
+							output += "<td>" + json_obj[i].medicines + "</td>";
+							output += "<td>" + json_obj[i].charges + "</td></tr>";
+						}
+						$('#medicineinfo').html(output);
+					}
 				},
 				error : function(data) {
 					console.log(data);
