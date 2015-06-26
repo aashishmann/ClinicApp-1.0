@@ -32,53 +32,12 @@
 		</nav>
 		<!-- fixed navbar -->
 
-		<!-- Displaying Queue -->
-		<!-- <div class="patient_queue" id="patient_queue">
-			<div class="add_patient_header">
-				<h2>Daily Patient Queue</h2>
-			</div>
-			<hr>
-			<table class="add-patient-table">
-				<tr>
-					<th class="queue-row">ID</th>
-					<th class="queue-row">Name</th>
-				</tr>
-				<forEach items="${patientQueue}" var="patientQueue">
-				<tr>
-					<td id="patientId" class="queue-row">${patientQueue.patient.id}</td>
-					<td id="patientName" class="queue-row">${patientQueue.patient.firstname}
-						${patientQueue.patient.lastname}</td>
-					<td class="queue-row">
-						<button type="button" class="btn btn-success">View</button>
-					</td>
-					<td class="queue-row">
-						<button type="button" class="btn btn-danger"
-							onclick="deletePatient(${patientQueue.id})">Delete</button>
-					</td>
-				</tr>
-				<forEach>
-			</table>
-		</div> -->
 		<div id="medicine_queue" class="medicine_queue">
 			<div class="search_details_header">
 				<h2>Medicine Details</h2>
 			</div>
 			<hr>
-			<table class="add-patient-table">
-				<tr>
-					<th class="queue-row">Name</th>
-					<th class="queue-row">Medicine</th>
-					<th class="queue-row">Charges</th>
-				</tr>
-				<forEach items="${medicineQueue}" var="medicineQueue">
-				<tr>
-					<td class="queue-row">${medicineQueue.patient.id}</td>
-					<td class="queue-row">${medicineQueue.patient.firstname}
-						${medicineQueue.patient.lastname}</td>
-					<td class="queue-row">${medicineQueue.medicine}</td>
-					<td class="queue-row">${medicineQueue.charges}</td>
-				</tr>
-				<forEach>
+			<table id="medicineinfo">
 			</table>
 		</div>
 		<!-- Queue information -->
@@ -95,19 +54,39 @@
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script>
-	setInterval(function()
-			{ 
-			    $.ajax({
-			      type:"GET",
-			      url:"getMedicineInfo",
-			      /* datatype:"html", */
-			      success:function(data)
-			      {
-			          //do something with response data
-			          $('#medicine_queue').html("in ajax call");
-			      }
-			    });
-			}, 5000);//time in milliseconds 
+		setInterval(function() {
+			$.ajax({
+				type : "GET",
+				url : "getMedicineInfo",
+				contentType : "application/json; charset=utf-8",
+				dataType : "html",
+				success : function(data) {
+					//do something with response data
+					var json_obj = $.parseJSON(data);
+					//console.log("data :" + json_obj[0].id);
+					console.log(data);
+
+					var output = "<tr><th class='queue-row'>Name</th>"
+							+ "<th class='queue-row'>Medicine</th>"
+							+ "<th class='queue-row'>Charges</th>"
+							+ "</tr><tr>";
+					for ( var i in json_obj) {
+						output += "<td>" + json_obj[i].firstname + " "
+								+ json_obj[i].lastname + "</td>";
+						output += "<td>" + json_obj[i].medicines + "</td>";
+						output += "<td>" + json_obj[i].charges + "</td>";
+					}
+					output += "</tr>";
+
+					$('#medicineinfo').html(output);
+				},
+				error : function(data) {
+					console.log(data);
+					alert(data);
+				}
+
+			});
+		}, 5000);//time in milliseconds
 	</script>
 </body>
 </html>

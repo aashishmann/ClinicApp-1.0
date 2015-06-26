@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -137,21 +138,28 @@ public class ClinicController {
         System.out.println("get queue info at controller");
         List<PatientQueue> patientQueue = clinicService.getQueueInfo();
         if (patientQueue != null) {
-            model.addAttribute("patientQueue", patientQueue);
-            //return "receptionist";
-            //System.out.println(patientQueue.toString());
-            return patientQueue.toString();
+            //System.out.println(patientQueue);
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(patientQueue));
+            return gson.toJson(patientQueue);
         } else {
-            model.addAttribute("patientQueue", "Queue is Empty");
+            //modify later
             return null;
         }
     }
-    
+
     @RequestMapping(value = "getMedicineInfo", method = RequestMethod.GET)
-    public String getMedicineInfo(Model model){
-        List<Medicine> medicineList=clinicService.getLatestPrescription();
-        System.out.println("list "+ medicineList);
-        model.addAttribute("medicineQueue",medicineList);
-        return "medicine";
+    @ResponseBody
+    public String getMedicineInfo(Model model) {
+        List<Medicine> medicineList = clinicService.getLatestPrescription();
+        //System.out.println("list " + medicineList);
+        if (medicineList != null) {
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(medicineList));
+            return gson.toJson(medicineList);
+        } else {
+            //modify later
+            return null;
+        }
     }
 }

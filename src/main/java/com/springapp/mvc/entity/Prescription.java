@@ -95,4 +95,10 @@ public class Prescription {
         this.patient = patient;
     }
 
+    @Override
+    public String toString() {
+        return "Prescription [id=" + id + ", medicines=" + medicines + ", entryTime=" + entryTime + ", charges=" + charges + ", followupRemark=" + followupRemark
+                + ", revisitDate=" + revisitDate + ", patient=" + patient + "]";
+    }
+
 }
