@@ -36,7 +36,6 @@ $(document).ready(function(){
 							+ json_obj[i].patient.lastname + "</td></tr>";
 					//alert(json_obj[i].id+" : "+json_obj[i].patient.firstname);
 				}
-				output += "";
 
 				$('#patientqueueinfo').html(output);
 			},

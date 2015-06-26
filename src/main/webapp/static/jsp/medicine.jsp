@@ -69,14 +69,13 @@
 					var output = "<tr><th class='queue-row'>Name</th>"
 							+ "<th class='queue-row'>Medicine</th>"
 							+ "<th class='queue-row'>Charges</th>"
-							+ "</tr><tr>";
+							+ "</tr>";
 					for ( var i in json_obj) {
-						output += "<td>" + json_obj[i].firstname + " "
+						output += "<tr><td>" + json_obj[i].firstname + " "
 								+ json_obj[i].lastname + "</td>";
 						output += "<td>" + json_obj[i].medicines + "</td>";
-						output += "<td>" + json_obj[i].charges + "</td>";
+						output += "<td>" + json_obj[i].charges + "</td></tr>";
 					}
-					output += "</tr>";
 
 					$('#medicineinfo').html(output);
 				},
