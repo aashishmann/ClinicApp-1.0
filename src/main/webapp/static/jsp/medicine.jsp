@@ -37,14 +37,7 @@
 				<h2>Medicine Details</h2>
 			</div>
 			<hr>
-			<table class="add-patient-table">
-				<!-- <tr>
-					<th class="queue-row">Name</th>
-					<th class="queue-row">Medicine</th>
-					<th class="queue-row">Charges</th>
-				</tr> -->
-			</table>
-			<table id="test">
+			<table id="medicineinfo">
 			</table>
 		</div>
 		<!-- Queue information -->
@@ -72,20 +65,20 @@
 					var json_obj = $.parseJSON(data);
 					//console.log("data :" + json_obj[0].id);
 					console.log(data);
-					
-		             var output="<tr><th class='queue-row'>Name</th>"+
-		             				"<th class='queue-row'>Medicine</th>"+
-		             				"<th class='queue-row'>Charges</th>"+
-		             			"</tr><tr>";
-		            for (var i in json_obj) 
-		            {
-		                output+="<td>" + json_obj[i].firstname + " " + json_obj[i].lastname + "</td>";
-		                output+="<td>" + json_obj[i].medicines +"</td>";
-		                output+="<td>" + json_obj[i].charges +"</td>";
-		            }
-		            output+="</tr>";
-		            
-					$('#test').html(output);
+
+					var output = "<tr><th class='queue-row'>Name</th>"
+							+ "<th class='queue-row'>Medicine</th>"
+							+ "<th class='queue-row'>Charges</th>"
+							+ "</tr><tr>";
+					for ( var i in json_obj) {
+						output += "<td>" + json_obj[i].firstname + " "
+								+ json_obj[i].lastname + "</td>";
+						output += "<td>" + json_obj[i].medicines + "</td>";
+						output += "<td>" + json_obj[i].charges + "</td>";
+					}
+					output += "</tr>";
+
+					$('#medicineinfo').html(output);
 				},
 				error : function(data) {
 					console.log(data);

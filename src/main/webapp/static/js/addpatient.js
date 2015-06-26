@@ -15,28 +15,38 @@ $(document).ready(function(){
 	
 		$('.search_details').hide();
 		$("#add_patient").hide();
-		 $("#patient_queue").show();
-		
-		console.log("making call to getQueueInfo");
 		//ajax call to display queue
+		console.log("making call to getQueueInfo");
 		$.ajax({
-	         type: "GET",
-	         url: "getQueueInfo",
-	         data: "",
-	         success: function(response){
-	        	 $('#patientId').text(response.id);
-	        	 $('#patientName').text(response.name);
-	        	 
-	        	 alert("response received");
-	        	 console.log("response : "+response);
-	        	
-	        	 //console.log('${patientQueue}');
-	        	 //console.log("in the ajax call"+response);
-	        	 /*alert("response: "+response);
-	             $('.add-patient-table').load(response);*/
-	         }
-	    });
+			type : "GET",
+			url : "getQueueInfo",
+			contentType : "application/json; charset=utf-8",
+			dataType : "html",
+			success : function(data) {
+				//do something with response data
+				var json_obj = $.parseJSON(data);
+				console.log(data);
+
+				var output = "<tr><th class='queue-row'>ID</th>"
+							    +"<th class='queue-row'>Name</th>"
+							    +"</tr><tr>";
+				for ( var i in json_obj) {
+					output += "<td>" + json_obj[i].id + "</td>";
+					/*output += "<td>" + json_obj[i].patient.firstname + " "
+							+ json_obj[i].patient.lastname + "</td>";*/
+				}
+				output += "</tr>";
+
+				$('#patientqueueinfo').html(output);
+			},
+			error : function(data) {
+				console.log("data:"+data);
+				alert(data);
+			}
+
+		});
 		
+		 $("#patient_queue").show();
 		console.log("after call to getQueueInfo");
 	});
 });

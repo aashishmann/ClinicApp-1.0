@@ -138,12 +138,12 @@ public class ClinicController {
         System.out.println("get queue info at controller");
         List<PatientQueue> patientQueue = clinicService.getQueueInfo();
         if (patientQueue != null) {
-            model.addAttribute("patientQueue", patientQueue);
-            //return "receptionist";
-            //System.out.println(patientQueue.toString());
-            return patientQueue.toString();
+            //System.out.println(patientQueue);
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(patientQueue));
+            return gson.toJson(patientQueue);
         } else {
-            model.addAttribute("patientQueue", "Queue is Empty");
+            //modify later
             return null;
         }
     }
@@ -153,12 +153,11 @@ public class ClinicController {
     public String getMedicineInfo(Model model) {
         List<Medicine> medicineList = clinicService.getLatestPrescription();
         //System.out.println("list " + medicineList);
-        //model.addAttribute("medicineQueue",medicineList);
         if (medicineList != null) {
             Gson gson = new Gson();
             System.out.println(gson.toJson(medicineList));
             return gson.toJson(medicineList);
-        }else{
+        } else {
             //modify later
             return null;
         }

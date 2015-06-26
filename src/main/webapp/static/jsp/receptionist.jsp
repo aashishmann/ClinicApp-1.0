@@ -249,25 +249,7 @@
 				<h2>Daily Patient Queue</h2>
 			</div>
 			<hr>
-			<table class="add-patient-table">
-				<tr>
-					<th class="queue-row">ID</th>
-					<th class="queue-row">Name</th>
-				</tr>
-				<forEach items="${patientQueue}" var="patientQueue">
-				<tr>
-					<td id = "patientId" class="queue-row">${patientQueue.patient.id}</td>
-					<td id = "patientName" class="queue-row">${patientQueue.patient.firstname}
-						${patientQueue.patient.lastname}</td>
-					<td class="queue-row">
-						<button type="button" class="btn btn-success">View</button>
-					</td>
-					<td class="queue-row">
-						<button type="button" class="btn btn-danger"
-							onclick="deletePatient(${patientQueue.id})">Delete</button>
-					</td>
-				</tr>
-				<forEach>
+			<table class="patientqueueinfo">
 			</table>
 		</div>
 		<!-- Queue information -->
