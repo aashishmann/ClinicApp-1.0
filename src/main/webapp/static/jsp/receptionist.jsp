@@ -249,7 +249,7 @@
 				<h2>Daily Patient Queue</h2>
 			</div>
 			<hr>
-			<table class="patientqueueinfo">
+			<table id="patientqueueinfo">
 			</table>
 		</div>
 		<!-- Queue information -->

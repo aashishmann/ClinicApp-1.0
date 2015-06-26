@@ -29,13 +29,14 @@ $(document).ready(function(){
 
 				var output = "<tr><th class='queue-row'>ID</th>"
 							    +"<th class='queue-row'>Name</th>"
-							    +"</tr><tr>";
+							    +"</tr>";
 				for ( var i in json_obj) {
-					output += "<td>" + json_obj[i].id + "</td>";
-					/*output += "<td>" + json_obj[i].patient.firstname + " "
-							+ json_obj[i].patient.lastname + "</td>";*/
+					output += "<tr><td>" + json_obj[i].id + "</td>";
+					output += "<td>" + json_obj[i].patient.firstname + " "
+							+ json_obj[i].patient.lastname + "</td></tr>";
+					//alert(json_obj[i].id+" : "+json_obj[i].patient.firstname);
 				}
-				output += "</tr>";
+				output += "";
 
 				$('#patientqueueinfo').html(output);
 			},
