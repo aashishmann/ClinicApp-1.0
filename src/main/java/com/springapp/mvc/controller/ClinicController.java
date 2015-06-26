@@ -155,7 +155,8 @@ public class ClinicController {
         //System.out.println("list " + medicineList);
         if (medicineList != null) {
             Gson gson = new Gson();
-            System.out.println(gson.toJson(medicineList));
+            System.out.println("medicine : "+ gson.toJson(medicineList));
+            LOG.info("medicine : {}",gson.toJson(medicineList));
             return gson.toJson(medicineList);
         } else {
             //modify later

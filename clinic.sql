@@ -170,6 +170,8 @@ LOCK TABLES `prescription` WRITE;
 insert into prescription values(1,'Combiflame',CURRENT_DATE(),100,'try again',CURRENT_DATE(),1);
 insert into prescription values(2,'Crocin',CURRENT_DATE(),50,'try again',CURRENT_DATE(),2);
 insert into prescription values(3,'Disprin',CURRENT_DATE()-1,50,'try again',CURRENT_DATE(),2);
+insert into prescription values(4,'DCold',CURRENT_DATE()-1,10,'try again',CURRENT_DATE(),1);
+insert into prescription values(5,'Aspirin',CURRENT_DATE(),100,'try again',CURRENT_DATE(),63);
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
