@@ -177,8 +177,8 @@ public class ClinicController {
     @ResponseBody
     public String generateDailyReport() {
         List<DailyReport> dailyReportList = clinicService.generateDailyReport();
-        System.out.println("Daily Report: "+ dailyReportList);
-        if(dailyReportList != null) {
+        System.out.println("Daily Report: " + dailyReportList);
+        if (dailyReportList != null) {
             return new Gson().toJson(dailyReportList);
         } else {
             System.out.println("Daily Report is empty");
@@ -215,5 +215,15 @@ public class ClinicController {
             System.out.println("login list empty: " + gson.toJson(loginList));
             return gson.toJson(loginList);
         }
+    }
+
+    //Delete login details of a user
+    @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
+    @ResponseBody
+    public String deleteUser(@RequestParam(value = "id") int id, Model model) {
+        if(clinicService.deleteUser(id)){
+            return "true";
+        }
+        return "false";
     }
 }

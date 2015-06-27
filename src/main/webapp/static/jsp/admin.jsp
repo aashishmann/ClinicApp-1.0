@@ -16,6 +16,33 @@
 	if (check.length != 0) {
 		alert('${addLoginDetails}');
 	}
+
+	function deleteUser(id) {
+		console.log("id : " + id);
+		jQuery.ajax({
+		    'type': 'GET',
+		    'url': "deleteUser",
+		    'data': "id="+id,
+		    'contentType': 'application/json',
+		    'success': function(data) {
+		    	console.log("response received:"+data);
+		    	if(data=="true"){
+		    		alert("User Deleted!!");
+		    		//same page will be loaded and same div also
+		    		window.location.reload();
+		    	}
+		    	else if(data=="false"){
+		    		//some error occured while deleting
+		    		alert("Unable to delete. Please try again later.");
+		    		window.location.reload();
+		    	}
+		    	else{
+		    		window.location.replace("admin");
+		    	}
+		    	//window.location.replace("receptionist");
+		    }
+		});
+	}
 </script>
 </head>
 <body>

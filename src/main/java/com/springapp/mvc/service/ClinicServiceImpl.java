@@ -197,8 +197,8 @@ public class ClinicServiceImpl implements IClinicService {
 
     private List<DailyReport> prescriptionToDailyReportConvertor(List<Prescription> prescriptionList) {
         List<DailyReport> dailyReportList = new ArrayList<DailyReport>();
-        if(prescriptionList != null) {
-            for(Prescription prescription : prescriptionList) {
+        if (prescriptionList != null) {
+            for (Prescription prescription : prescriptionList) {
                 DailyReport dailyReport = new DailyReport();
                 dailyReport.setFirstname(prescription.getPatient().getFirstname());
                 dailyReport.setLastname(prescription.getPatient().getLastname());
@@ -215,8 +215,15 @@ public class ClinicServiceImpl implements IClinicService {
         return clinicDao.addUserLogin(login);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Login> getAllUsers() {
         return clinicDao.getAllUsers();
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteUser(int id) {
+        return clinicDao.deleteUser(id);
     }
 }

@@ -280,4 +280,18 @@ public class ClinicDaoImpl implements IClinicDao {
         return loginList;
     }
 
+    //Delete login details of a user
+    @Override
+    public boolean deleteUser(int id) {
+        try {
+            Login login = (Login) sessionFactory.getCurrentSession().load(Login.class, id);
+            sessionFactory.getCurrentSession().delete(login);
+            System.out.println("User deleted from db. " + login.getUsername() + login.getPassword());
+            return true;
+        } catch (Exception e) {
+            LOG.error("An error occured while deleting User details: ", e);
+            return false;
+        }
+    }
+
 }

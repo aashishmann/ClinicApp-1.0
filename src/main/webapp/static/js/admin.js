@@ -37,7 +37,7 @@ $(document).ready(function() {
 								   +"<td class='queue-row'>"
 								   +"<button id='changeCredentials' type='button' class='btn btn-success'>Update</button></td>"
 								   +"<td class='queue-row'>"
-								   +"<button type='button' class='btn btn-danger' onclick='deleteUser(json_obj[i].id)'>Delete</button>"
+								   +"<button type='button' class='btn btn-danger' onclick='deleteUser("+json_obj[i].id+")'>Delete</button>"
 								   +"</td></tr>";
 					}
 					$('#addusertable').html(output);

@@ -59,4 +59,6 @@ public interface IClinicService {
     public boolean addUserLogin(Login login);
 
     public List<Login> getAllUsers();
+
+    public boolean deleteUser(int id);
 }
