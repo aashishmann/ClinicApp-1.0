@@ -37,7 +37,7 @@ CREATE TABLE `login_detail` (
 
 LOCK TABLES `login_detail` WRITE;
 /*!40000 ALTER TABLE `login_detail` DISABLE KEYS */;
-INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED'),(4,'admin','1234','ADM'),(5,'super','1234','REC'),(6,'hahaha','1234','DOC');
+INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED'),(4,'admin','1234','ADM'),(5,'super','1234','REC'),(6,'nokia','1100','ASS');
 /*!40000 ALTER TABLE `login_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-27 17:52:12
+-- Dump completed on 2015-06-28  0:41:57

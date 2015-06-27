@@ -3,6 +3,7 @@ package com.springapp.mvc.service;
 import java.util.List;
 
 import com.springapp.mvc.dto.DailyReport;
+import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -59,4 +60,8 @@ public interface IClinicService {
     public List<Login> getAllUsers();
 
     public boolean deleteUser(int id);
+
+    public Login getUserById(int id);
+
+    public boolean updateUserDetails(LoginForm loginForm);
 }

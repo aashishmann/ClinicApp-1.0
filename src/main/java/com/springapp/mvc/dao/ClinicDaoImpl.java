@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -248,8 +247,7 @@ public class ClinicDaoImpl implements IClinicDao {
     //Daily Report Generation logic
     @Override
     public List<Prescription> generateDailyReport() {
-        Query query = sessionFactory.getCurrentSession().createQuery(
-                "select pres from Prescription pres where pres.entryTime = current_date() ");
+        Query query = sessionFactory.getCurrentSession().createQuery("select pres from Prescription pres where pres.entryTime = current_date() ");
         List<Prescription> dailyReportList = query.list();
         return dailyReportList;
     }
@@ -259,7 +257,7 @@ public class ClinicDaoImpl implements IClinicDao {
     public boolean addUserLogin(Login login) {
         try {
             sessionFactory.getCurrentSession().persist(login);
-            System.out.println("Added to db :"+login);
+            System.out.println("Added to db :" + login);
             LOG.info("New user inserted into db");
             return true;
         } catch (Exception e) {
@@ -292,6 +290,30 @@ public class ClinicDaoImpl implements IClinicDao {
             LOG.error("An error occured while deleting User details: ", e);
             return false;
         }
+    }
+
+    //get details of the user by id
+    @Override
+    public Login getUserById(int id) {
+        return (Login) sessionFactory.getCurrentSession().get(Login.class, id);
+    }
+
+    //updating login details of user
+    @Override
+    public boolean updateUserDetails(Login login) {
+        Login loginDetails = (Login) sessionFactory.getCurrentSession().get(Login.class,login.getId());
+        if(loginDetails!=null){
+            loginDetails.setUsername(login.getUsername()); 
+            loginDetails.setPassword(login.getPassword());
+            loginDetails.setRoleType(login.getRoleType());
+            System.out.println("Updating at dao");
+            sessionFactory.getCurrentSession().update(loginDetails);
+            System.out.println("update complete");
+            return true;
+        }
+        System.out.println(login);
+        System.out.println("no login details found"+loginDetails);
+        return false;
     }
 
 }

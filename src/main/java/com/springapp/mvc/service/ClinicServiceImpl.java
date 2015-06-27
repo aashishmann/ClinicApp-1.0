@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.DailyReport;
+import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -219,5 +220,23 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public boolean deleteUser(int id) {
         return clinicDao.deleteUser(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Login getUserById(int id) {
+        return clinicDao.getUserById(id);
+    }
+
+    @Transactional
+    @Override
+    public boolean updateUserDetails(LoginForm loginForm) {
+        Login login = new Login();
+        login.setId(loginForm.getId());
+        login.setUsername(loginForm.getUsername());
+        login.setPassword(loginForm.getPassword());
+        login.setRoleType(loginForm.getRoleType());
+        
+        return clinicDao.updateUserDetails(login);
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.springapp.mvc.dto.DailyReport;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -100,8 +102,6 @@ public class ClinicController {
         }
         //fetch details of all the patients as a list.
         List<Patient> patientList = clinicService.findPatient(search);
-        //System.out.println("Printing data to be searched");
-        //System.out.println(search);
         LOG.info("Search Query params {}", search);
         if (patientList != null) {
             LOG.info("Message : {}", patientList);
@@ -221,9 +221,41 @@ public class ClinicController {
     @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
     @ResponseBody
     public String deleteUser(@RequestParam(value = "id") int id, Model model) {
-        if(clinicService.deleteUser(id)){
+        if (clinicService.deleteUser(id)) {
             return "true";
         }
         return "false";
+    }
+
+    //get login details of user by id
+    @RequestMapping(value = "getUserById", method = RequestMethod.GET)
+    @ResponseBody
+    public String getUserById(@RequestParam(value = "id") int id, Model model) {
+        System.out.println("id : " + id);
+        Login login = clinicService.getUserById(id);
+        if (login != null) {
+            Gson gson = new Gson();
+            System.out.println("loginlist : " + gson.toJson(login));
+            return gson.toJson(login);
+        } else {
+            System.out.println("Login details not found");
+            Gson gson = new Gson();
+            System.out.println("login details for id: " + id + gson.toJson(login));
+            return gson.toJson(login);
+        }
+    }
+
+    //save the updated user details
+    @RequestMapping(value = "updateUserDetails", method = RequestMethod.POST)
+    public String updateUserDetails(@ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        System.out.println("Entered details : " + loginForm);
+        if (clinicService.updateUserDetails(loginForm)) {
+            System.out.println("Details updated successfully");
+            model.addAttribute("updateMsg","User Details Updated!");
+        } else {
+            System.out.println("update failed");
+            model.addAttribute("updateMsg","Unable to update. Please try again later.");
+        }
+        return "admin";
     }
 }
