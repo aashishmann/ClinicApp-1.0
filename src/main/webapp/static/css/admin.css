@@ -1,0 +1,12 @@
+.addNewUser,.updateUserCred {
+	background: #fff;
+	padding: 10px 25px;
+	border-radius: 20px;
+	box-shadow: 0 0 10px #0cf;
+	opacity: 0.9;
+	display: none;
+}
+
+.add-user-form {
+	font: normal 20px "arial";
+}

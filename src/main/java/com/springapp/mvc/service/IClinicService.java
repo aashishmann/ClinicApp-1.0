@@ -55,4 +55,8 @@ public interface IClinicService {
     public List<Prescription> getFiveLatestPrescriptions(int patientId);
 
     public List<DailyReport> generateDailyReport();
+
+    public boolean addUserLogin(Login login);
+
+    public List<Login> getAllUsers();
 }

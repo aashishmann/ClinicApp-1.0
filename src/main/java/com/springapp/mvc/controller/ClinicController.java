@@ -62,6 +62,8 @@ public class ClinicController {
             return "doctor";
         } else if ("MED".equals(validUser.getRoleType())) {
             return "medicine";
+        } else if ("ADM".equals(validUser.getRoleType())) {
+            return "admin";
         } else {
             //dummy jsp success to test the things
             model.addAttribute("username", login.getUsername());
@@ -123,6 +125,7 @@ public class ClinicController {
         }
     }
 
+    //Logout from application
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         System.out.println("logging out");
@@ -130,6 +133,7 @@ public class ClinicController {
         return "index";
     }
 
+    //to get list of patients in the clinic
     @RequestMapping(value = "getQueueInfo", method = RequestMethod.GET)
     @ResponseBody
     public String getQueueInfo(Model model) {
@@ -148,6 +152,7 @@ public class ClinicController {
         }
     }
 
+    //list of patients who will take medicine
     @RequestMapping(value = "getMedicineInfo", method = RequestMethod.GET)
     @ResponseBody
     public String getMedicineInfo(Model model) {
@@ -171,5 +176,36 @@ public class ClinicController {
     public String generateDailyReport() {
         clinicService.generateDailyReport();
         return null;
+    }
+
+    //Adding to new user to clinic app
+    @RequestMapping(value = "addUserLogin", method = RequestMethod.POST)
+    public String addUserLogin(@ModelAttribute("userlogin") Login login, Model model) {
+        System.out.println("Info received at controller :" + login);
+        if (clinicService.addUserLogin(login)) {
+            model.addAttribute("addLoginDetails", "New User Successfully Added.");
+            System.out.println("login details inserted");
+        } else {
+            model.addAttribute("addLoginDetails", "Some error occured while adding data. Please try again later.");
+            System.out.println("some error occured false returned on controller");
+        }
+        return "admin";
+    }
+
+    //Get all users of clinic app
+    @RequestMapping(value = "getAllUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public String getAllUsers(Model model) {
+        List<Login> loginList = clinicService.getAllUsers();
+        if (loginList != null) {
+            Gson gson = new Gson();
+            System.out.println("loginlist : " + gson.toJson(loginList));
+            return gson.toJson(loginList);
+        } else {
+            System.out.println("Login details not found");
+            Gson gson = new Gson();
+            System.out.println("login list empty: " + gson.toJson(loginList));
+            return gson.toJson(loginList);
+        }
     }
 }

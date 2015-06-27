@@ -259,14 +259,6 @@
 			</div>
 			<hr>
 			<table id="dailyReportCard" align="center">
-				<tr class='queue-row'>
-					<th>Total Patients</th>
-					<th>Total Collection</th>
-				</tr>
-				<tr>
-					<td>vgdfvg</td>
-					<td>dfvdf</td>
-				</tr>
 			</table>
 		</div>
 

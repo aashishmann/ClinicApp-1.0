@@ -194,4 +194,15 @@ public class ClinicServiceImpl implements IClinicService {
         clinicDao.generateDailyReport();
         return null;
     }
+
+    @Transactional
+    @Override
+    public boolean addUserLogin(Login login) {
+        return clinicDao.addUserLogin(login);
+    }
+
+    @Override
+    public List<Login> getAllUsers() {
+        return clinicDao.getAllUsers();
+    }
 }

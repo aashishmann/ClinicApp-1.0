@@ -44,7 +44,7 @@ public class Login {
         this.password = password;
     }
 
-    @Column(name = "role_type")
+    @Column(name = "role_type", nullable = false)
     public String getRoleType() {
         return roleType;
     }

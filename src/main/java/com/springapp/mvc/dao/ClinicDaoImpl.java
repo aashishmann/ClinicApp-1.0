@@ -155,6 +155,7 @@ public class ClinicDaoImpl implements IClinicDao {
         }
     }
 
+    //Get list of patients in queue
     @Override
     public List<PatientQueue> getQueueInfo() {
         System.out.println("get queue info at dao");
@@ -252,6 +253,32 @@ public class ClinicDaoImpl implements IClinicDao {
         System.out.println(dailyReport);
         //select firstname,lastname,charges from patient p1,prescription p2 where p1.id=p2.patient_id and p2.entry_time = CURRENT_DATE();
         return null;
+    }
+
+    //Add new user to database
+    @Override
+    public boolean addUserLogin(Login login) {
+        try {
+            sessionFactory.getCurrentSession().persist(login);
+            System.out.println("Added to db :"+login);
+            LOG.info("New user inserted into db");
+            return true;
+        } catch (Exception e) {
+            LOG.error("Some error occured while adding new user into db", e);
+            return false;
+        }
+    }
+
+    //Get all user credentials
+    @Override
+    public List<Login> getAllUsers() {
+        System.out.println("get users from dao");
+        List<Login> loginList = sessionFactory.getCurrentSession().createQuery("from Login").list();
+        //System.out.println(loginList);
+        if (loginList.size() == 0) {
+            return null;
+        }
+        return loginList;
     }
 
 }
