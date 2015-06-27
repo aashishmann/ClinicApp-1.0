@@ -40,6 +40,10 @@ td {
 	display: none;
 }
 
+.reportcharges{
+	text-align: right;
+}
+
 .add-patient-form, .search-details-form {
 	font: normal 20px "arial";
 }

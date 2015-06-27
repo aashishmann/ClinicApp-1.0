@@ -247,12 +247,11 @@ public class ClinicDaoImpl implements IClinicDao {
 
     //Daily Report Generation logic
     @Override
-    public List<DailyReport> generateDailyReport() {
-        Query query = sessionFactory.getCurrentSession().createQuery("");
-        List<DailyReport> dailyReport = query.list();
-        System.out.println(dailyReport);
-        //select firstname,lastname,charges from patient p1,prescription p2 where p1.id=p2.patient_id and p2.entry_time = CURRENT_DATE();
-        return null;
+    public List<Prescription> generateDailyReport() {
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "select pres from Prescription pres where pres.entryTime = current_date() ");
+        List<Prescription> dailyReportList = query.list();
+        return dailyReportList;
     }
 
     //Add new user to database

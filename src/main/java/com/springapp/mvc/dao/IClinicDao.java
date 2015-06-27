@@ -49,7 +49,7 @@ public interface IClinicDao {
 
     public List<Prescription> getFiveLatestPrescriptions(int patientId);
 
-    public List<DailyReport> generateDailyReport();
+    public List<Prescription> generateDailyReport();
 
     public boolean addUserLogin(Login login);
 
