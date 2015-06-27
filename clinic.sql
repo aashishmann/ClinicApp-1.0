@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: clinic
 -- ------------------------------------------------------
--- Server version	5.6.19-0ubuntu0.14.04.1
+-- Server version	5.6.19-1~exp1ubuntu2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,8 +37,7 @@ CREATE TABLE `login_detail` (
 
 LOCK TABLES `login_detail` WRITE;
 /*!40000 ALTER TABLE `login_detail` DISABLE KEYS */;
-INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC');
-insert into login_detail values('3','medi','1234','MED');
+INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED'),(4,'admin','1234','ADM'),(5,'super','1234','REC'),(6,'hahaha','1234','DOC');
 /*!40000 ALTER TABLE `login_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +148,7 @@ DROP TABLE IF EXISTS `prescription`;
 CREATE TABLE `prescription` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `medicines` longtext,
-  `entry_time` date NULL DEFAULT NULL,
+  `entry_time` date DEFAULT NULL,
   `charges` int(5) NOT NULL,
   `followup_remark` longtext,
   `revisit_date` date DEFAULT NULL,
@@ -157,7 +156,7 @@ CREATE TABLE `prescription` (
   PRIMARY KEY (`id`),
   KEY `fk_patient_id` (`patient_id`),
   CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,12 +165,39 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
+INSERT INTO `prescription` VALUES (1,'Combiflame','2015-06-27',100,'try again','2015-06-27',1),(2,'Crocin','2015-06-27',50,'try again','2015-06-27',2),(3,'Disprin','2015-06-26',50,'try again','2015-06-27',2),(4,'DCold','2015-06-26',10,'try again','2015-06-27',1),(5,'Aspirin','2015-06-27',100,'try again','2015-06-27',63);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
-insert into prescription values(1,'Combiflame',CURRENT_DATE(),100,'try again',CURRENT_DATE(),1);
-insert into prescription values(2,'Crocin',CURRENT_DATE(),50,'try again',CURRENT_DATE(),2);
-insert into prescription values(3,'Disprin',CURRENT_DATE()-1,50,'try again',CURRENT_DATE(),2);
-insert into prescription values(4,'DCold',CURRENT_DATE()-1,10,'try again',CURRENT_DATE(),1);
-insert into prescription values(5,'Aspirin',CURRENT_DATE(),100,'try again',CURRENT_DATE(),63);
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_credential`
+--
+
+DROP TABLE IF EXISTS `user_credential`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_credential` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `dependent` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `landline` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `reffered_by` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_credential`
+--
+
+LOCK TABLES `user_credential` WRITE;
+/*!40000 ALTER TABLE `user_credential` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_credential` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -183,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-24 12:29:31
+-- Dump completed on 2015-06-27 17:52:12
