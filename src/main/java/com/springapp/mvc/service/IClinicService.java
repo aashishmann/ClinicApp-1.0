@@ -36,8 +36,6 @@ public interface IClinicService {
 
     public List<PatientQueue> getQueueInfo();
 
-    public boolean addToQueue(PatientQueue patientQueue);
-
     public int savePatientAndAddToQueue(Patient patient);
 
     public void updatePatientHistory(PatientHistory patientHistory);

@@ -86,12 +86,6 @@ public class ClinicServiceImpl implements IClinicService {
         return clinicDao.getQueueInfo();
     }
 
-    @Transactional
-    @Override
-    public boolean addToQueue(PatientQueue patientQueue) {
-        return clinicDao.addToQueue(patientQueue);
-    }
-
     @Override
     public int savePatientAndAddToQueue(Patient patient) {
         int id = persistPatientDetails(patient);
@@ -173,7 +167,7 @@ public class ClinicServiceImpl implements IClinicService {
         PatientQueue patientQueue = new PatientQueue();
         patientQueue.setPatient(findPatientById(patientId));
 
-        return addToQueue(patientQueue);
+        return clinicDao.addToQueue(patientQueue);
     }
 
     @Transactional(readOnly = true)
