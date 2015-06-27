@@ -27,13 +27,18 @@ $(document).ready(function() {
 				}
 				else{
 					console.log("setting table data");
-					var output = "<tr><th>Username</th>"
+					var output = "<tr><th class='queue-row'>Username</th>"
 									+"<th class='queue-row'>Password</th>"
 									+"<th class='queue-row'>Role</th></tr>";
 					for ( var i in json_obj) {
-						output+="<tr><td>" + json_obj[i].username + "</td></tr>";
-						output+="<tr><td>" + json_obj[i].password + "</td></tr>";
-						output+="<tr><td>" + json_obj[i].roleType + "</td></tr>";
+						output+="<tr><td>" + json_obj[i].username + "</td>"
+								   +"<td>" + json_obj[i].password + "</td>"
+								   +"<td>" + json_obj[i].roleType + "</td>"
+								   +"<td class='queue-row'>"
+								   +"<button id='changeCredentials' type='button' class='btn btn-success'>Update</button></td>"
+								   +"<td class='queue-row'>"
+								   +"<button type='button' class='btn btn-danger' onclick='deleteUser(json_obj[i].id)'>Delete</button>"
+								   +"</td></tr>";
 					}
 					$('#addusertable').html(output);
 				}

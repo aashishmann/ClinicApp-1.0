@@ -90,7 +90,7 @@
 				<h2>Update User Credentials</h2>
 			</div>
 			<hr>
-			<table class="addusertable">
+			<table id="addusertable">
 			</table>
 		</div>
 
