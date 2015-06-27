@@ -20,27 +20,63 @@
 	function deleteUser(id) {
 		console.log("id : " + id);
 		jQuery.ajax({
-		    'type': 'GET',
-		    'url': "deleteUser",
-		    'data': "id="+id,
-		    'contentType': 'application/json',
-		    'success': function(data) {
-		    	console.log("response received:"+data);
-		    	if(data=="true"){
-		    		alert("User Deleted!!");
-		    		//same page will be loaded and same div also
-		    		window.location.reload();
-		    	}
-		    	else if(data=="false"){
-		    		//some error occured while deleting
-		    		alert("Unable to delete. Please try again later.");
-		    		window.location.reload();
-		    	}
-		    	else{
-		    		window.location.replace("admin");
-		    	}
-		    	//window.location.replace("receptionist");
-		    }
+			'type' : 'GET',
+			'url' : "deleteUser",
+			'data' : "id=" + id,
+			'contentType' : 'application/json',
+			'success' : function(data) {
+				console.log("response received:" + data);
+				if (data == "true") {
+					alert("User Deleted!!");
+					//same div is refreshed
+					$.ajax({
+						type : "GET",
+						url : "getAllUsers",
+						contentType : "application/json; charset=utf-8",
+						dataType : "html",
+						success : function(data) {
+							//do something with response data
+							var json_obj = $.parseJSON(data);
+							console.log("Data received : "+data);
+
+							if(data=="null"){
+								console.log("handle for null json");
+								var output = "<tr><td style='font:20px normal arial;color : red;'>"
+												+"Login Details Not Found.</td></tr>";					
+								$('#addusertable').html(output);
+							}
+							else{
+								console.log("setting table data");
+								var output = "<tr><th class='queue-row'>Username</th>"
+												+"<th class='queue-row'>Password</th>"
+												+"<th class='queue-row'>Role</th></tr>";
+								for ( var i in json_obj) {
+									output+="<tr><td>" + json_obj[i].username + "</td>"
+											   +"<td>" + json_obj[i].password + "</td>"
+											   +"<td>" + json_obj[i].roleType + "</td>"
+											   +"<td class='queue-row'>"
+											   +"<button id='changeCredentials' type='button' class='btn btn-success'>Update</button></td>"
+											   +"<td class='queue-row'>"
+											   +"<button type='button' class='btn btn-danger' onclick='deleteUser("+json_obj[i].id+")'>Delete</button>"
+											   +"</td></tr>";
+								}
+								$('#addusertable').html(output);
+							}
+						},
+						error : function(data) {
+							console.log("data:"+data);
+						}
+
+					});
+					
+				} else if (data == "false") {
+					//some error occured while deleting
+					alert("Unable to delete. Please try again later.");
+					window.location.reload();
+				} else {
+					window.location.replace("admin");
+				}
+			}
 		});
 	}
 </script>
