@@ -52,30 +52,47 @@
 							onclick="deletePatient(${patientList.id})">Delete</button>
 					</td>
 				</tr>
+				<table>
 				<tr class="view-patient-details">
 					<td>Name</td>
-					<td>Sex</td>
-					<td>Age</td>
-					<td>Mobile</td>
-					<td>Landline</td>
-					<td>Reffered By</td>
-					<td>Dependents</td>
-					<td>Martial Status</td>
-					<td>Address</td>
-					<td>Occupation</td>
+					<td>${patientList.firstname} ${patientList.lastname}</td>
 				</tr>
 				<tr class="view-patient-details">
-					<td>${patientList.firstname} ${patientList.lastname}</td>
+					<td>Sex</td>
 					<td>${patientList.sex}</td>
-					<td>${patientList.age}</td>
-					<td>${patientList.mobile}</td>
-					<td>${patientList.landline}</td>
-					<td>${patientList.refferedBy}</td>
-					<td>${patientList.dependent}</td>
-					<td>${patientList.maritalStatus}</td>
-					<td>${patientList.address}</td>
-					<td>${patientList.occupation}</td>
 				</tr>
+				<tr class="view-patient-details">
+					<td>Age</td>
+					<td>${patientList.age}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Mobile</td>
+					<td>${patientList.mobile}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Landline</td>
+					<td>${patientList.landline}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Reffered By</td>
+					<td>${patientList.refferedBy}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Dependents</td>
+					<td>${patientList.dependent}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Martial Status</td>
+					<td>${patientList.maritalStatus}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Address</td>
+					<td>${patientList.address}</td>
+				</tr>
+				<tr class="view-patient-details">
+					<td>Occupation</td>
+					<td>${patientList.occupation}</td>
+				</tr>																																		
 			</c:forEach>
 		</table>
 	</div>
