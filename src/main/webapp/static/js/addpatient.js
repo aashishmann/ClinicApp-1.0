@@ -4,6 +4,7 @@ $(document).ready(function(){
 	    $('.search_details').hide();
 	    $("#patient_queue").hide();
 	    $('#dailyReport').hide();
+	    $('#displayPatientDetails').hide();
 	});
 
 	//display search form
@@ -12,6 +13,7 @@ $(document).ready(function(){
 		$("#add_patient").hide();
 		$("#patient_queue").hide();
 		$('#dailyReport').hide();
+		$('#displayPatientDetails').hide();
 	});
 
 	//display queue
@@ -20,6 +22,7 @@ $(document).ready(function(){
 		$('.search_details').hide();
 		$("#add_patient").hide();
 		$('#dailyReport').hide();
+		$('#displayPatientDetails').hide();
 		//ajax call to display queue
 		console.log("making call to getQueueInfo");
 		$.ajax({
@@ -66,6 +69,8 @@ $(document).ready(function(){
 		$("#add_patient").hide();
 	    $('.search_details').hide();
 	    $("#patient_queue").hide();
+	    $('#displayPatientDetails').hide();
+	    $('#search_results').hide();
 	    
 	    $.ajax({
 			type : "GET",
@@ -95,9 +100,14 @@ $(document).ready(function(){
                         totalCharges += json_obj[i].charges;
 
 					}
-                    output+="<tr><td></td><td>______</td>"
-                    output += "<tr><td>Total Charges : </td><td class='reportcharges'>" + totalCharges + "</td></tr>";
-                    console.log("total charges "+ totalCharges);
+					if(totalCharges!=0){
+	                    output+="<tr><td></td><td>______</td>"
+	                    output += "<tr><td>Total Charges : </td><td class='reportcharges'>" + totalCharges + "</td></tr>";
+	                    console.log("total charges "+ totalCharges);
+					}
+					else{
+						output = "<tr><td style='font:24px bold arial;color : red;'>Nothing to generate. Try sometime later.</td></tr>";
+					}
 					$('#dailyReportCard').html(output);
 				}
 			},

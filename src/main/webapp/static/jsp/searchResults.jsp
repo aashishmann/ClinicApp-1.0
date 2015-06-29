@@ -18,6 +18,47 @@
 		    	}
 		});
 	}
+	
+	function displayDetails(id){
+		console.log("finding details for id : "+id);
+		jQuery.ajax({
+		    'type': 'GET',
+		    'url': "findPatientById",
+		    'data': "id="+id,
+		    'contentType' : "application/json; charset=utf-8",
+			'dataType' : "html",
+		    'success': function(data) {
+		    	console.log("patient details fetched : "+data);
+		    	var json_obj = $.parseJSON(data);
+		    	
+		    	if(data=="null"){
+					console.log("handle for null json");
+					var output = "<tr><td style='font:20px normal arial;color : red;'>"
+									+"Patient Details not found.</td></tr>";					
+					$('#displayPatientDetailsTable').html(output);
+				}
+				else{
+					var output = "<tr><td>Name : </td><td>"+json_obj.firstname+json_obj.lastname+"</td></tr>"
+								+"<tr><td>Sex : </td><td>"+json_obj.sex+"</td></tr>"
+								+"<tr><td>Age : </td><td>"+json_obj.age+"</td></tr>"
+								+"<tr><td>Mobile : </td><td>"+json_obj.mobile+"</td></tr>"
+								+"<tr><td>Landline : </td><td>"+json_obj.landline+"</td></tr>"
+								+"<tr><td>Marital Status : </td><td>"+json_obj.maritalStatus+"</td></tr>"
+								+"<tr><td>Reffered By : </td><td>"+json_obj.refferedBy+"</td></tr>"
+								+"<tr><td>Dependents : </td><td>"+json_obj.dependent+"</td></tr>"
+								+"<tr><td>Address : </td><td>"+json_obj.address+"</td></tr>"
+								+"<tr><td>Occupation : </td><td>"+json_obj.occupation+"</td></tr>"
+					$('#displayPatientDetailsTable').html(output);
+					$('#displayPatientDetails').show();
+				}
+		    },
+		    'error' : function(data) {
+				console.log("some error occured :"+data);
+				window.location.reload();
+			}
+		});
+		
+	}
 </script>
 <style>
 .view-patient-details {
@@ -45,58 +86,25 @@
 					<td class="queue-row">${patientList.firstname}
 						${patientList.lastname}</td>
 					<td class="queue-row">
-						<button id="view-patient" type="button" class="btn btn-success">View</button>
+						<button id="view-patient" type="button" class="btn btn-success" onclick="displayDetails(${patientList.id})">View</button>
 					</td>
 					<td class="queue-row">
 						<button type="button" class="btn btn-danger"
 							onclick="deletePatient(${patientList.id})">Delete</button>
-					</td>
-				</tr>
-				<table>
-				<tr class="view-patient-details">
-					<td>Name</td>
-					<td>${patientList.firstname} ${patientList.lastname}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Sex</td>
-					<td>${patientList.sex}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Age</td>
-					<td>${patientList.age}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Mobile</td>
-					<td>${patientList.mobile}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Landline</td>
-					<td>${patientList.landline}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Reffered By</td>
-					<td>${patientList.refferedBy}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Dependents</td>
-					<td>${patientList.dependent}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Martial Status</td>
-					<td>${patientList.maritalStatus}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Address</td>
-					<td>${patientList.address}</td>
-				</tr>
-				<tr class="view-patient-details">
-					<td>Occupation</td>
-					<td>${patientList.occupation}</td>
-				</tr>																																		
+					</td>																															
 			</c:forEach>
 		</table>
 	</div>
 	<!-- search results -->
+	
+	<div id="displayPatientDetails" class="displayPatientDetails">
+		<div class="add_patient_header">
+			<h2 style="text-align: center;">Patient Details</h2>
+		</div>
+		<hr>
+		<table id="displayPatientDetailsTable" align="center">
+		</table>
+	</div>
 </body>
 <script type="text/javascript" src="js/searchResults.js"></script>
 </html>

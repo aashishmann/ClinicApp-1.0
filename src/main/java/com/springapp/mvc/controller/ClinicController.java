@@ -251,11 +251,28 @@ public class ClinicController {
         System.out.println("Entered details : " + loginForm);
         if (clinicService.updateUserDetails(loginForm)) {
             System.out.println("Details updated successfully");
-            model.addAttribute("updateMsg","User Details Updated!");
+            model.addAttribute("updateMsg", "User Details Updated!");
         } else {
             System.out.println("update failed");
-            model.addAttribute("updateMsg","Unable to update. Please try again later.");
+            model.addAttribute("updateMsg", "Unable to update. Please try again later.");
         }
         return "admin";
+    }
+
+    //find patient details by id
+    @RequestMapping(value = "findPatientById", method = RequestMethod.GET)
+    @ResponseBody
+    public String findPatientById(@RequestParam(value = "id") int id, Model model) {
+        System.out.println("find patient for id : " + id);
+        Patient patient = clinicService.findPatientById(id);
+        if (patient != null) {
+            Gson gson = new Gson();
+            System.out.println("Patient details : " + gson.toJson(patient));
+            return gson.toJson(patient);
+        } else {
+            Gson gson = new Gson();
+            System.out.println("Patient details for id : " + gson.toJson(patient));
+            return gson.toJson(patient);
+        }
     }
 }
