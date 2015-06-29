@@ -14,7 +14,8 @@
 		    'contentType': 'application/json',
 		    'success': function(data) {
 		    	alert(data);
-		    	window.location.replace("receptionist");
+		    	//window.location.replace("receptionist");
+		    	window.location.reload();
 		    	}
 		});
 	}
@@ -59,7 +60,8 @@
 					if(json_obj.occupation!="" && json_obj.occupation!=undefined)
 						output += "<tr><td>Occupation : </td><td>"+json_obj.occupation+"</td></tr>"
 						
-						output += "<tr><td><button id='addOldPatientToQueue' type='button' class='btn btn-success' onclick='addPatientToQueue("+json_obj.id+")'>Add To Queue</button></td>"
+						output += "<tr><td><button id='editPatient' type='button' class='btn btn-success' onclick='editPatientDetails("+json_obj.id+")'>Edit</button></td>"
+						output += "<td><button id='addOldPatientToQueue' type='button' class='btn btn-success' onclick='addPatientToQueue("+json_obj.id+")'>Add To Queue</button></td>"
 						output += "<td><button id='deleteOldPatientToQueue' type='button' class='btn btn-danger' onclick='deletePatient("+json_obj.id+")'>Delete</button></td></tr>";
 					$('#displayPatientDetailsTable').html(output);
 					$('#displayPatientDetails').show();
