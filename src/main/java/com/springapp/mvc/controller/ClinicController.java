@@ -286,4 +286,12 @@ public class ClinicController {
             return "Unable to add patient to queue.";
         }
     }
+    
+    //save edited patient details
+    @RequestMapping(value = "savePatientDetails", method = RequestMethod.POST)
+    @ResponseBody
+    public String savePatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
+        System.out.println(patient);
+        return "receptionist";
+    }
 }
