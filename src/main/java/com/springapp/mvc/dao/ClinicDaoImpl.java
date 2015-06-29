@@ -316,4 +316,18 @@ public class ClinicDaoImpl implements IClinicDao {
         return false;
     }
 
+  //save updated details of user
+    @Override
+    public boolean savePatientDetails(Patient existingPatient) {
+        Patient patient = (Patient)sessionFactory.getCurrentSession().get(Patient.class,existingPatient.getId());
+        if(patient!=null){
+            System.out.println("updating details");
+            sessionFactory.getCurrentSession().update(existingPatient);
+            System.out.println("details updated successfully");
+            return true;
+        }
+        System.out.println("unable to update some error occured");
+        return false;
+    }
+    
 }

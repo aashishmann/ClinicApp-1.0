@@ -60,5 +60,7 @@ public interface IClinicDao {
     public Login getUserById(int id);
 
     public boolean updateUserDetails(Login login);
+    
+    public boolean savePatientDetails(Patient existingPatient);
 
 }

@@ -91,16 +91,16 @@ $(document).ready(function() {
 						+"<td><input type='text' id='refferedBy' class='inputfield' size='30' name='refferedBy' value='"+json_obj.refferedBy+"' placeholder='Person who reffered'></td></tr>"
 						
 						+"<tr><td><label for='dependent' class='form-label'>Dependents :</label></td>"
-						+"<td><textarea id='dependent' class='inputfield' name='dependent' value='"+json_obj.dependent+"' placeholder='Dependent name' rows='2' cols='33'></textarea></td></tr>"
+						+"<td><textarea id='dependent' class='inputfield' name='dependent' placeholder='Dependent name' rows='2' cols='33'>"+json_obj.dependent+"</textarea></td></tr>"
 						
 						
 						+"<tr><td><label for='address' class='form-label'>Address :</label></td>"
-						+"<td><textarea id='address' class='inputfield' name='address' value='"+json_obj.address+"' placeholder='Enter Address' rows='3' cols='33'></textarea></td></tr>"
+						+"<td><textarea id='address' class='inputfield' name='address' placeholder='Enter Address' rows='3' cols='33'>"+json_obj.address+"</textarea></td></tr>"
 						
 						+"<tr><td><label for='occupation' class='form-label'>Occupation :</label></td>"
 						+"<td><input type='text' id='occupation' class='inputfield' size='30' name='occupation' value='"+json_obj.occupation+"' placeholder='Occupation'></td></tr>"
 			
-						+ "<tr><td></td><td><button id='savePatientDetails' type='button' class='btn btn-info' onclick='savePatient("+json_obj.id+")'>Save</button></td></tr>";
+						+ "<tr><td></td><td><input type='submit' value='Save' class='btn btn-info'></td></tr>";
 					$('#edit-details-table').html(output);
 				}
 		    },

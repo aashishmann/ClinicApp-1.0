@@ -239,4 +239,26 @@ public class ClinicServiceImpl implements IClinicService {
         
         return clinicDao.updateUserDetails(login);
     }
+
+    @Transactional
+    @Override
+    public boolean savePatientDetails(Patient patient) {
+        Patient existingPatient = findPatientById(patient.getId());
+        if(existingPatient!=null){
+            existingPatient.setFirstname(patient.getFirstname());
+            existingPatient.setLastname(patient.getLastname());
+            existingPatient.setAge(patient.getAge());   //birthyear to be set later on
+            existingPatient.setAddress(patient.getAddress());
+            existingPatient.setDependent(patient.getDependent());
+            existingPatient.setLandline(patient.getLandline());
+            existingPatient.setMobile(patient.getMobile());
+            existingPatient.setMaritalStatus(patient.getMaritalStatus());
+            existingPatient.setOccupation(patient.getOccupation());
+            existingPatient.setRefferedBy(patient.getRefferedBy());
+            existingPatient.setSex(patient.getSex());
+            
+            return clinicDao.savePatientDetails(existingPatient);
+        }
+        return false;
+    }
 }

@@ -6,6 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Clinic App | Search Results</title>
 <script>
+
+	var updateStatus = '${updatePatientStatus}';
+	if (updateStatus.length != 0) {
+		alert(updateStatus);
+	}
+
 	function deletePatient(id){
 		jQuery.ajax({
 		    'type': 'GET',

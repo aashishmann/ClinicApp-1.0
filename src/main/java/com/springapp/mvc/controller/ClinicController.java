@@ -286,12 +286,18 @@ public class ClinicController {
             return "Unable to add patient to queue.";
         }
     }
-    
+
     //save edited patient details
     @RequestMapping(value = "savePatientDetails", method = RequestMethod.POST)
-    @ResponseBody
     public String savePatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
-        System.out.println(patient);
-        return "receptionist";
+        System.out.println("Details to be updated : " + patient);
+        if(clinicService.savePatientDetails(patient)){
+            model.addAttribute("updatePatientStatus", "Patient details updated succesfully!");
+            
+        }
+        else{
+            model.addAttribute("updatePatientStatus", "Unable to update details. Try again later.");
+        }
+        return "searchResults";
     }
 }

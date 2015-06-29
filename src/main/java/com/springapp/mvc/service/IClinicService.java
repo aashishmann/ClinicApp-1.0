@@ -64,4 +64,6 @@ public interface IClinicService {
     public Login getUserById(int id);
 
     public boolean updateUserDetails(LoginForm loginForm);
+
+    public boolean savePatientDetails(Patient patient);
 }
