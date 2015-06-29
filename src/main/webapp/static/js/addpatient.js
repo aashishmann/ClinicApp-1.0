@@ -71,6 +71,7 @@ $(document).ready(function(){
 	    $("#patient_queue").hide();
 	    $('#displayPatientDetails').hide();
 	    $('#search_results').hide();
+	    $('#updatePatientDetails').hide();
 	    
 	    $.ajax({
 			type : "GET",

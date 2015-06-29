@@ -18,7 +18,7 @@
 		    	window.location.reload();
 		    	}
 		});
-	}
+	}//delete function ends
 	
 	function addPatientToQueue(id){
 		console.log("making request for id : "+id);
@@ -37,6 +37,12 @@
 		    	window.location.reload();
 		    }
 		});
+	}//addPatientToQueue ends
+	
+	function editPatientDetails(id){
+		if (id > 0) {
+			$.editPatient(id);
+		}
 	}
 	
 	function displayDetails(id){
@@ -90,9 +96,9 @@
 				console.log("some error occured :"+data);
 				window.location.reload();
 			}
-		});
+		}); //ajax call ends
 		
-	}
+	}//display function ends
 </script>
 <style>
 .view-patient-details {
@@ -139,6 +145,20 @@
 		<table id="displayPatientDetailsTable" align="center">
 		</table>
 	</div>
+	<!-- display patient details -->
+	
+	<div id="updatePatientDetails" class="updatePatientDetails">
+		<div class="add_patient_header">
+			<h2 style="text-align: center;">Edit Patient Details</h2>
+		</div>
+		<hr>
+		<!-- <form class="edit-details-form" action="" method="post"> -->
+				<table id="edit-details-table">
+				</table>
+		<!-- </form> -->
+	</div>
+	<!-- Edit/update details form -->
+	
 </body>
 <script type="text/javascript" src="js/searchResults.js"></script>
 </html>

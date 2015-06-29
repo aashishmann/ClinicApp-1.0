@@ -212,7 +212,7 @@
 
 					<tr>
 						<div class="form-group">
-							<td><label for="refferedby" class="form-label">Marital
+							<td><label for="maritalStatus" class="form-label">Marital
 									Status :</label></td>
 							<td><select name="maritalStatus">
 									<option value="" disabled="disabled" selected="selected">Please

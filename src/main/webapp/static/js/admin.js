@@ -94,7 +94,6 @@ $(document).ready(function() {
 								+"<td><input type='submit' value='Save' class='btn btn-info'></td></tr>";
 							
 					$('#updateUserTable').html(output);
-					//i am here
 					console.log("submit done");
 				}
 			},
