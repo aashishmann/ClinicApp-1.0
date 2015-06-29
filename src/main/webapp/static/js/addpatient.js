@@ -100,11 +100,13 @@ $(document).ready(function(){
                         totalCharges += json_obj[i].charges;
 
 					}
+					//if total charges are not zero then display charges
 					if(totalCharges!=0){
 	                    output+="<tr><td></td><td>______</td>"
 	                    output += "<tr><td>Total Charges : </td><td class='reportcharges'>" + totalCharges + "</td></tr>";
 	                    console.log("total charges "+ totalCharges);
 					}
+					//message if daily report charges are zero
 					else{
 						output = "<tr><td style='font:24px bold arial;color : red;'>Nothing to generate. Try sometime later.</td></tr>";
 					}

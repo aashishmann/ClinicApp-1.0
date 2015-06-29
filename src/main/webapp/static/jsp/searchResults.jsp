@@ -38,16 +38,29 @@
 					$('#displayPatientDetailsTable').html(output);
 				}
 				else{
-					var output = "<tr><td>Name : </td><td>"+json_obj.firstname+json_obj.lastname+"</td></tr>"
-								+"<tr><td>Sex : </td><td>"+json_obj.sex+"</td></tr>"
-								+"<tr><td>Age : </td><td>"+json_obj.age+"</td></tr>"
-								+"<tr><td>Mobile : </td><td>"+json_obj.mobile+"</td></tr>"
-								+"<tr><td>Landline : </td><td>"+json_obj.landline+"</td></tr>"
-								+"<tr><td>Marital Status : </td><td>"+json_obj.maritalStatus+"</td></tr>"
-								+"<tr><td>Reffered By : </td><td>"+json_obj.refferedBy+"</td></tr>"
-								+"<tr><td>Dependents : </td><td>"+json_obj.dependent+"</td></tr>"
-								+"<tr><td>Address : </td><td>"+json_obj.address+"</td></tr>"
-								+"<tr><td>Occupation : </td><td>"+json_obj.occupation+"</td></tr>"
+					var output = "<tr><td>Name : </td><td>"+json_obj.firstname+json_obj.lastname+"</td></tr>";
+					
+					if(json_obj.sex!="" && json_obj.sex!=undefined)
+						output += "<tr><td>Sex : </td><td>"+json_obj.sex+"</td></tr>"
+					if(json_obj.age!="" && json_obj.age!=undefined)
+						output += "<tr><td>Age : </td><td>"+json_obj.age+"</td></tr>"
+					if(json_obj.mobile!="" && json_obj.mobile!=undefined)	
+						output += "<tr><td>Mobile : </td><td>"+json_obj.mobile+"</td></tr>"
+					if(json_obj.landline!="" && json_obj.landline!=undefined)
+						output += "<tr><td>Landline : </td><td>"+json_obj.landline+"</td></tr>"
+					if(json_obj.maritalStatus!="" && json_obj.maritalStatus!=undefined)
+						output += "<tr><td>Marital Status : </td><td>"+json_obj.maritalStatus+"</td></tr>"
+					if(json_obj.refferedBy!="" && json_obj.refferedBy!=undefined)
+						output += "<tr><td>Reffered By : </td><td>"+json_obj.refferedBy+"</td></tr>"
+					if(json_obj.dependent!="" && json_obj.dependent!=undefined)
+						output += "<tr><td>Dependents : </td><td>"+json_obj.dependent+"</td></tr>"
+					if(json_obj.address!="" && json_obj.address!=undefined)
+						output += "<tr><td>Address : </td><td>"+json_obj.address+"</td></tr>"
+					if(json_obj.occupation!="" && json_obj.occupation!=undefined)
+						output += "<tr><td>Occupation : </td><td>"+json_obj.occupation+"</td></tr>"
+						
+						output += "<tr><td><button id='addOldPatientToQueue' type='button' class='btn btn-success' onclick='addPatientToQueue("+json_obj.id+")'>Add To Queue</button></td>"
+						output += "<td><button id='deleteOldPatientToQueue' type='button' class='btn btn-danger' onclick='deletePatient("+json_obj.id+")'>Delete</button></td></tr>";
 					$('#displayPatientDetailsTable').html(output);
 					$('#displayPatientDetails').show();
 				}
