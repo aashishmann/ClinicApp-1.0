@@ -20,6 +20,25 @@
 		});
 	}
 	
+	function addPatientToQueue(id){
+		console.log("making request for id : "+id);
+		jQuery.ajax({
+		    'type': 'GET',
+		    'url': "addPatientToQueue",
+		    'data': "id="+id,
+		    'contentType': 'application/json',
+		    'dataType' : "html",
+		    'success': function(data) {
+		    	alert(data);
+		    	window.location.reload();
+		    	},
+		    'error': function(data){
+		    	alert("Some error occured."+data);
+		    	window.location.reload();
+		    }
+		});
+	}
+	
 	function displayDetails(id){
 		console.log("finding details for id : "+id);
 		jQuery.ajax({

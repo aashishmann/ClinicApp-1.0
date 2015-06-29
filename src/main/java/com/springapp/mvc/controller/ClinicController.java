@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.springapp.mvc.dto.DailyReport;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.SearchForm;
@@ -273,6 +272,18 @@ public class ClinicController {
             Gson gson = new Gson();
             System.out.println("Patient details for id : " + gson.toJson(patient));
             return gson.toJson(patient);
+        }
+    }
+
+    //add patient details to queue
+    @RequestMapping(value = "addPatientToQueue", method = RequestMethod.GET)
+    @ResponseBody
+    public String addPatientToQueue(@RequestParam(value = "id") int id, Model model) {
+        System.out.println("id : " + id);
+        if (clinicService.addPatientToQueue(id)) {
+            return "Patient successfully added to queue.";
+        } else {
+            return "Unable to add patient to queue.";
         }
     }
 }
