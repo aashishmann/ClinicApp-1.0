@@ -41,6 +41,27 @@ $(document).ready(function() {
 				}
 				else{
 					console.log("filling info");
+					
+					//handle for all undefined fields
+					if(json_obj.firstname==undefined)
+						json_obj.firstname="";
+					if(json_obj.lastname==undefined)
+						json_obj.lastname="";
+					if(json_obj.age==undefined)
+						json_obj.age=0;
+					if(json_obj.mobile==undefined)
+						json_obj.mobile="";
+					if(json_obj.landline==undefined)
+						json_obj.landline="";
+					if(json_obj.refferedBy==undefined)
+						json_obj.refferedBy="";
+					if(json_obj.dependent==undefined)
+						json_obj.dependent="";
+					if(json_obj.address==undefined)
+						json_obj.address="";
+					if(json_obj.occupation==undefined)
+						json_obj.occupation="";
+					
 					var output = "<tr><td><label for='id' class='form-label'>ID	:</label></td>"
 						+"<td><input type='text' name='id' value='"+json_obj.id+"' class='inputfield' size='30' readonly></td></tr>"
 						

@@ -152,10 +152,10 @@
 			<h2 style="text-align: center;">Edit Patient Details</h2>
 		</div>
 		<hr>
-		<!-- <form class="edit-details-form" action="" method="post"> -->
+		<form class="edit-details-form" action="" method="post">
 				<table id="edit-details-table">
 				</table>
-		<!-- </form> -->
+		</form>
 	</div>
 	<!-- Edit/update details form -->
 	
