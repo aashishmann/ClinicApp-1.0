@@ -67,10 +67,8 @@ public class ClinicController {
         } else if ("ADM".equals(validUser.getRoleType())) {
             return "admin";
         } else {
-            //dummy jsp success to test the things
-            model.addAttribute("username", login.getUsername());
-            model.addAttribute("password", login.getPassword());
-            return "success";
+            model.addAttribute("error","Not a valid user. No Role Defined.");
+            return "index";
         }
     }
 
