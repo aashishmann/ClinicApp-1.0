@@ -19,6 +19,7 @@
 	if (searchMessage == "No Results Found") {
 		alert('${patientList}');
 	}
+	//console.log("Role : "+'${role}');
 </script>
 </head>
 <body>
