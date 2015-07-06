@@ -158,7 +158,7 @@ public class ClinicDaoImpl implements IClinicDao {
     @Override
     public List<PatientQueue> getQueueInfo() {
         System.out.println("get queue info at dao");
-        List<PatientQueue> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue").list();
+        List<PatientQueue> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue order by id").list();
         /*for(Patient patient : patientQueue){
             LOG.info("Person List::"+patient);
         }*/
