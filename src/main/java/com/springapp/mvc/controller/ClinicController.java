@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.springapp.mvc.dto.DailyReport;
@@ -31,7 +33,6 @@ import com.springapp.mvc.utils.ClinicUtils;
  */
 @Controller
 @RequestMapping("/")
-//for maintaining session will be used later
 public class ClinicController {
     private static final Logger LOG = LoggerFactory.getLogger(ClinicController.class);
 
@@ -51,7 +52,7 @@ public class ClinicController {
 
     //to validate login
     @RequestMapping(value = "validateLogin", method = RequestMethod.GET)
-    public String validateLogin(@ModelAttribute("loginDetails") Login login, Model model) {
+    public String validateLogin(@ModelAttribute("loginDetails") Login login, Model model, HttpSession session) {
         LOG.info("username : {} , password : {}", login.getUsername(), login.getPassword());
         Login validUser = clinicService.validateLogin(login);
         System.out.println("validation done now checking");
@@ -59,23 +60,31 @@ public class ClinicController {
             model.addAttribute("error", "Incorrect Username/Password!!");
             return "index";
         } else if ("REC".equals(validUser.getRoleType())) {
+            session.setAttribute("ROLETYPE", "REC");
             return "receptionist";
         } else if ("DOC".equals(validUser.getRoleType())) {
+            session.setAttribute("ROLETYPE", "DOC");
             return "doctor";
         } else if ("MED".equals(validUser.getRoleType())) {
+            session.setAttribute("ROLETYPE", "MED");
             return "medicine";
         } else if ("ADM".equals(validUser.getRoleType())) {
+            session.setAttribute("ROLETYPE", "ADM");
             return "admin";
         } else {
-            model.addAttribute("error","Not a valid user. No Role Defined.");
+            model.addAttribute("error", "Not a valid user. No Role Defined.");
+            session.setAttribute("ROLETYPE", null);
             return "index";
         }
     }
 
     //to add patient details in the db
     @RequestMapping(value = "addPatientDetails", method = RequestMethod.POST)
-    public String addPatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
+    public String addPatientDetails(@ModelAttribute("userDetails") Patient patient, Model model, HttpSession session) {
         System.out.println("Name: " + patient.getFirstname() + " Age:" + patient.getAge() + " Sex:" + patient.getSex());
+
+        String role = (String) session.getAttribute("ROLETYPE");
+
         if (clinicService.savePatientAndAddToQueue(patient) != -1) {
             model.addAttribute("addRecord", "Patient Record Successfully Added.");
             System.out.println("data inserted");
@@ -83,19 +92,34 @@ public class ClinicController {
             model.addAttribute("addRecord", "Some error occured while adding data. Please try again later.");
             System.out.println("some error occured");
         }
+
         //display hidden div whether data inserted successfully or not
-        return "receptionist";
+        if (StringUtils.equals("REC", role)) {
+            return "receptionist";
+        } else if (StringUtils.equals("DOC", role))
+            return "doctor";
+        else {
+            //some error occured not a valid user
+            return "index";
+        }
     }
 
     //to search for patient in the db
     @RequestMapping(value = "findPatient", method = RequestMethod.POST)
-    public String findPatient(@ModelAttribute("searchForm") SearchForm search, Model model) {
-
-        //if nothing is entered and button is pressed, reload page again.
+    public String findPatient(@ModelAttribute("searchForm") SearchForm search, Model model, HttpSession session) {
+        LOG.info("User role : {}", session.getAttribute("ROLETYPE"));
+        String role = (String) session.getAttribute("ROLETYPE");
+        //if nothing is entered and search button is pressed, reload page again.
         if (ClinicUtils.isEmpty(search)) {
             System.out.println("Nothing entered");
             LOG.warn("Nothing entered for Searching Patient");
-            return "receptionist";
+            if (StringUtils.equals("REC", role)) {
+                return "receptionist";
+            } else if (StringUtils.equals("DOC", role)) {
+                return "doctor";
+            } else {
+                return "index";
+            }
         }
         //fetch details of all the patients as a list.
         List<Patient> patientList = clinicService.findPatient(search);
@@ -103,11 +127,19 @@ public class ClinicController {
         if (patientList != null) {
             LOG.info("Message : {}", patientList);
             model.addAttribute("patientList", patientList);
+            //will be redirected to separate page acc to role
             return "searchResults";
         } else {
             model.addAttribute("patientList", "No Results Found");
             System.out.println("No results");
-            return "receptionist";
+            LOG.info("No results found for the entered details.");
+            if (StringUtils.equals("REC", role)) {
+                return "receptionist";
+            } else if (StringUtils.equals("DOC", role)) {
+                return "doctor";
+            } else {
+                return "index";
+            }
         }
     }
 
@@ -126,7 +158,8 @@ public class ClinicController {
     //Logout from application
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
-        System.out.println("logging out");
+        System.out.println("logging out...destroying session for : " + session.getAttribute("ROLETYPE"));
+        session.setAttribute("ROLETYPE", null);
         session.invalidate();
         return "index";
     }
@@ -183,7 +216,7 @@ public class ClinicController {
         }
     }
 
-    //Adding to new user to clinic app
+    //Adding new user to clinic app
     @RequestMapping(value = "addUserLogin", method = RequestMethod.POST)
     public String addUserLogin(@ModelAttribute("userlogin") Login login, Model model) {
         System.out.println("Info received at controller :" + login);
@@ -287,15 +320,20 @@ public class ClinicController {
 
     //save edited patient details
     @RequestMapping(value = "savePatientDetails", method = RequestMethod.POST)
-    public String savePatientDetails(@ModelAttribute("userDetails") Patient patient, Model model) {
+    public String savePatientDetails(@ModelAttribute("userDetails") Patient patient, Model model,HttpSession session) {
         System.out.println("Details to be updated : " + patient);
-        if(clinicService.savePatientDetails(patient)){
+        String role = (String) session.getAttribute("ROLETYPE");
+        if (clinicService.savePatientDetails(patient)) {
             model.addAttribute("updatePatientStatus", "Patient details updated succesfully!");
-            
-        }
-        else{
+
+        } else {
             model.addAttribute("updatePatientStatus", "Unable to update details. Try again later.");
         }
+        
+        //to be added - redirection on basis of role
+        /*if(StringUtils.equals("REC",role)){
+            return "searchResults";
+        }*/
         return "searchResults";
     }
 }
