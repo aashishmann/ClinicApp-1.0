@@ -1,6 +1,7 @@
 package com.springapp.mvc.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,9 @@ public class ClinicServiceImpl implements IClinicService {
     @Transactional
     @Override
     public List<PatientQueue> getQueueInfo() {
-        return clinicDao.getQueueInfo();
+        List<PatientQueue> queue = clinicDao.getQueueInfo();
+        Collections.reverse(queue);
+        return queue;
     }
 
     @Override
