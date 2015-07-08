@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.springapp.mvc.dto.DailyReport;
@@ -127,7 +126,6 @@ public class ClinicController {
         if (patientList != null) {
             LOG.info("Message : {}", patientList);
             model.addAttribute("patientList", patientList);
-            //will be redirected to separate page acc to role
             return "searchResults";
         } else {
             model.addAttribute("patientList", "No Results Found");
@@ -320,20 +318,23 @@ public class ClinicController {
 
     //save edited patient details
     @RequestMapping(value = "savePatientDetails", method = RequestMethod.POST)
-    public String savePatientDetails(@ModelAttribute("userDetails") Patient patient, Model model,HttpSession session) {
+    public String savePatientDetails(@ModelAttribute("userDetails") Patient patient, Model model, HttpSession session) {
         System.out.println("Details to be updated : " + patient);
-        String role = (String) session.getAttribute("ROLETYPE");
+        //String role = (String) session.getAttribute("ROLETYPE");
         if (clinicService.savePatientDetails(patient)) {
             model.addAttribute("updatePatientStatus", "Patient details updated succesfully!");
 
         } else {
             model.addAttribute("updatePatientStatus", "Unable to update details. Try again later.");
         }
-        
-        //to be added - redirection on basis of role
-        /*if(StringUtils.equals("REC",role)){
-            return "searchResults";
-        }*/
+
         return "searchResults";
+    }
+
+    //get details for prescription page
+    @RequestMapping(value = "givePrescription", method = RequestMethod.POST)
+    public String givePrescription(@RequestParam(value = "id") int id, Model model) {
+        System.out.println("Prescription for id : " + id);
+        return "doctor";
     }
 }

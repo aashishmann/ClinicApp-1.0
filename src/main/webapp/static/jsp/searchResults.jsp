@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,6 +52,25 @@
 		}
 	}
 	
+	function givePrescription(id){
+		console.log("doctor giving prescription for id : "+id);
+		jQuery.ajax({
+			'type':'POST',
+			'url':'givePrescription',
+			'data':'id='+id,
+			'dataType' : "html",
+		    'success': function(data) {
+		    	console.log("Prescription : "+data);
+		    	window.location.href=data;
+		    },
+		    'error':function(data){
+		    	alert("Some error occured. Try again later.");
+		    	console.log("some error occured :"+data);
+				window.location.reload();
+		    }
+		});//ajax call ends
+	}//givePrescription
+	
 	function displayDetails(id){
 		console.log("finding details for id : "+id);
 		jQuery.ajax({
@@ -92,8 +112,16 @@
 						output += "<tr><td>Occupation : </td><td>"+json_obj.occupation+"</td></tr>"
 						
 						output += "<tr><td><button id='editPatient' type='button' class='btn btn-success' onclick='editPatientDetails("+json_obj.id+")'>Edit</button></td>"
-						output += "<td><button id='addOldPatientToQueue' type='button' class='btn btn-success' onclick='addPatientToQueue("+json_obj.id+")'>Add To Queue</button></td>"
-						output += "<td><button id='deleteOldPatientToQueue' type='button' class='btn btn-danger' onclick='deletePatient("+json_obj.id+")'>Delete</button></td></tr>";
+						output += "<td><button id='addOldPatientToQueue' type='button' class='btn btn-success' onclick='addPatientToQueue("+json_obj.id+")'>Add To Queue</button></td></tr>";
+						
+						//if doctor is logged in then display this as well
+						output += "<c:if test='${ROLETYPE == \'DOC\'}'><tr><td><button id='prescription' type='button' class='btn btn-success' onclick='givePrescription("+json_obj.id+")'>Give Prescription</button></td>";
+						output += "<td><button id='deleteOldPatientToQueue' type='button' class='btn btn-danger' onclick='deletePatient("+json_obj.id+")'>Delete</button></td></tr></c:if>";
+						
+						output += "<c:if test='${ROLETYPE == \'REC\'}'><tr><td><button id='deleteOldPatientToQueue' type='button' class='btn btn-danger' onclick='deletePatient("+json_obj.id+")'>Delete</button></td></tr></c:if>";
+						
+						console.log('Role on search results page: '+'${ROLETYPE}');
+						
 					$('#displayPatientDetailsTable').html(output);
 					$('#displayPatientDetails').show();
 				}
@@ -109,6 +137,9 @@
 <style>
 .view-patient-details {
 	display: none;
+}
+#displayPatientDetailsTable button {
+  width: 100%;
 }
 </style>
 </head>
