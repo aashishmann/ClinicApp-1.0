@@ -333,11 +333,13 @@ public class ClinicController {
 
     //get details for prescription page
     @RequestMapping(value = "givePrescription", method = RequestMethod.POST)
+    @ResponseBody
     public String givePrescription(@RequestParam(value = "id") int id, Model model) {
         System.out.println("Prescription for id : " + id);
         Patient patient = clinicService.findPatientById(id);
         model.addAttribute("message","passing data successfully");
-        return "doctor";
+        Gson gson = new Gson();
+        return gson.toJson(patient);
     }
     
     //test prescrription page

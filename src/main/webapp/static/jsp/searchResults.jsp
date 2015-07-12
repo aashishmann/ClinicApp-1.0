@@ -63,9 +63,10 @@
 		    	console.log("returned resposne : "+data);
 		    	location.href="pres";
 		    	alert("response :"+data);
+		    	alert("success : "+JSON.stringify(data));
 		    },
 		    'error':function(data){
-		    	//alert("Some error occured. Try again later. : "+data);
+		    	alert("Some error occured. Try again later. : "+data);
 		    	console.log("some error occured :"+JSON.stringify(data));
 				//window.location.reload();
 		    }
