@@ -61,6 +61,8 @@
 			'dataType' : "html",
 		    'success': function(data) {
 		    	console.log("returned resposne : "+data);
+		    	location.href="pres";
+		    	alert("response :"+data);
 		    },
 		    'error':function(data){
 		    	//alert("Some error occured. Try again later. : "+data);
