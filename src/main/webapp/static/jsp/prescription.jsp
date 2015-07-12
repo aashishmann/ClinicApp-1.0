@@ -31,7 +31,6 @@
 						<h2>Patient Details : </h2>
 					</div>
 					<hr>
-					<form class="patient-information-form" action="" method="get">
 						<table class="patient-information">
 							<tr>
 								<td>Id:</td>
@@ -53,11 +52,7 @@
 								<td>Landline:</td>
 								<td>id</td>
 							</tr>
-							<tr>
-								<td><input type="submit" value="Submit" class="btn btn-info"></td>
-							</tr>
 						</table>
-					</form>
 					<!-- patient-information table -->
 				</td>
 				<td>
