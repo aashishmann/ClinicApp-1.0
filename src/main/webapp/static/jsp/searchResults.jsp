@@ -60,13 +60,12 @@
 			'data':'id='+id,
 			'dataType' : "html",
 		    'success': function(data) {
-		    	console.log("Prescription : "+data);
-		    	window.location.href=data;
+		    	console.log("returned resposne : "+data);
 		    },
 		    'error':function(data){
-		    	alert("Some error occured. Try again later.");
-		    	console.log("some error occured :"+data);
-				window.location.reload();
+		    	//alert("Some error occured. Try again later. : "+data);
+		    	console.log("some error occured :"+JSON.stringify(data));
+				//window.location.reload();
 		    }
 		});//ajax call ends
 	}//givePrescription

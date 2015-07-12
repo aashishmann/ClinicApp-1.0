@@ -335,6 +335,13 @@ public class ClinicController {
     @RequestMapping(value = "givePrescription", method = RequestMethod.POST)
     public String givePrescription(@RequestParam(value = "id") int id, Model model) {
         System.out.println("Prescription for id : " + id);
+        model.addAttribute("message","passing data successfully");
         return "doctor";
+    }
+    
+    //test prescrription page
+    @RequestMapping(value = "pres", method = RequestMethod.GET)
+    public String pres() {
+        return "prescription";
     }
 }
