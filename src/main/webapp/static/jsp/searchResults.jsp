@@ -58,17 +58,18 @@
 			'type':'POST',
 			'url':'givePrescription',
 			'data':'id='+id,
-			'dataType' : "html",
+			'dataType' : "text",
 		    'success': function(data) {
 		    	console.log("returned resposne : "+data);
 		    	location.href="pres";
 		    	alert("response :"+data);
-		    	alert("success : "+JSON.stringify(data));
+		    	var x=$.parseJSON(data);
+		    	alert("success : "+x.id+x.firstname+x.lastname+"moivle : "+x.mobile);
 		    },
 		    'error':function(data){
 		    	alert("Some error occured. Try again later. : "+data);
 		    	console.log("some error occured :"+JSON.stringify(data));
-				//window.location.reload();
+				window.location.reload();
 		    }
 		});//ajax call ends
 	}//givePrescription
