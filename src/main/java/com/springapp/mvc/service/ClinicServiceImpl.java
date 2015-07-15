@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +172,7 @@ public class ClinicServiceImpl implements IClinicService {
     public boolean addPatientToQueue(int patientId) {
         PatientQueue patientQueue = new PatientQueue();
         patientQueue.setPatient(findPatientById(patientId));
+        patientQueue.setEntryTime(new Date());
 
         return clinicDao.addToQueue(patientQueue);
     }

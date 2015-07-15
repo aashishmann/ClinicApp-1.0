@@ -1,6 +1,7 @@
 package com.springapp.mvc.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -8,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -32,14 +34,12 @@ import com.springapp.mvc.entity.Prescription;
 @Transactional
 @Repository
 public class ClinicDaoImpl implements IClinicDao {
-    private static final Logger LOG = LoggerFactory.getLogger(ClinicDaoImpl.class);
-    
-    
+    private static final Logger LOG       = LoggerFactory.getLogger(ClinicDaoImpl.class);
 
     @Autowired
     SessionFactory              sessionFactory;
-    
-    public static int queueSize = 20;
+
+    public static int           queueSize = 20;
 
     @Override
     public Patient getdetails() {
@@ -334,6 +334,13 @@ public class ClinicDaoImpl implements IClinicDao {
         }
         System.out.println("unable to update some error occured");
         return false;
+    }
+
+    @Override
+    public void deleteFromQueue() {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientQueue.class);
+        criteria.add(Restrictions.lt("entryTime", new Date()));
+        sessionFactory.getCurrentSession().delete(criteria);
     }
 
 }

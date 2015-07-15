@@ -2,7 +2,6 @@ package com.springapp.mvc.dao;
 
 import java.util.List;
 
-import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -60,7 +59,9 @@ public interface IClinicDao {
     public Login getUserById(int id);
 
     public boolean updateUserDetails(Login login);
-    
+
     public boolean savePatientDetails(Patient existingPatient);
+
+    public void deleteFromQueue();
 
 }
