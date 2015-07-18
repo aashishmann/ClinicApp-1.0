@@ -61,7 +61,7 @@
 			'dataType' : "text",
 		    'success': function(data) {
 		    	//console.log("returned resposne : "+data);
-		    	alert(data);
+		    	//alert(data);
 		    	console.log(data);
 		    	var x=$.parseJSON(data);	//use this to send individual elements
 		    	document.cookie=x.id+"+"+x.firstname+" "+x.lastname+"+"+x.mobile+"+";
