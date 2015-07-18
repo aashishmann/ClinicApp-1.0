@@ -24,6 +24,7 @@ import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
 import com.springapp.mvc.entity.PatientQueue;
+import com.springapp.mvc.entity.Prescription;
 import com.springapp.mvc.service.IClinicService;
 import com.springapp.mvc.utils.ClinicUtils;
 
@@ -335,16 +336,16 @@ public class ClinicController {
     @RequestMapping(value = "givePrescription", method = RequestMethod.POST)
     @ResponseBody
     public String givePrescription(@RequestParam(value = "id") int id, Model model) {
-        System.out.println("Prescription for id : " + id);
+        //System.out.println("Prescription for id : " + id);
         Patient patient = clinicService.findPatientById(id);
-        model.addAttribute("message","passing data successfully");
+        LOG.info("Patient details : " + patient);
+        List<Prescription> prescriptionList = clinicService.getFiveLatestPrescriptions(id);
+        LOG.info("Patient Prescription details : " + prescriptionList);
+        String patientStr = patient.toString();
+        String prescriptionStr = prescriptionList.toString();
+        String response = patientStr + prescriptionStr;
         Gson gson = new Gson();
-        return gson.toJson(patient);
-    }
-    
-    //test prescrription page
-    @RequestMapping(value = "pres", method = RequestMethod.GET)
-    public String pres() {
-        return "prescription";
+        String responsePresc = gson.toJson(prescriptionList);
+        return gson.toJson(patient)+responsePresc;
     }
 }

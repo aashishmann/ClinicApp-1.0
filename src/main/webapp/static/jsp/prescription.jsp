@@ -34,23 +34,15 @@
 						<table class="patient-information">
 							<tr>
 								<td>Id:</td>
-								<td>id</td>
+								<td id="id"></td>
 							</tr>
 							<tr>
 								<td>Name:</td>
-								<td>id</td>
-							</tr>
-							<tr>
-								<td>Age:</td>
-								<td>id</td>
+								<td id="name"></td>
 							</tr>
 							<tr>
 								<td>Mobile:</td>
-								<td>id</td>
-							</tr>
-							<tr>
-								<td>Landline:</td>
-								<td>id</td>
+								<td id="mo"></td>
 							</tr>
 						</table>
 					<!-- patient-information table -->
@@ -99,5 +91,14 @@
 	<!-- wrapper -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script>
+var x = document.cookie;
+//console.log("cookie : "+JSON.stringify(x));
+console.log("cookie : "+x);
+var split_arr = x.split("+");
+document.getElementById("id").innerHTML = split_arr[0];
+document.getElementById("name").innerHTML = split_arr[1];
+document.getElementById("mo").innerHTML = split_arr[2];
+</script>
 </body>
 </html>
