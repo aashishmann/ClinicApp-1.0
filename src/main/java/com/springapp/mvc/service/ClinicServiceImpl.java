@@ -1,6 +1,8 @@
 package com.springapp.mvc.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +86,9 @@ public class ClinicServiceImpl implements IClinicService {
     @Transactional
     @Override
     public List<PatientQueue> getQueueInfo() {
-        return clinicDao.getQueueInfo();
+        List<PatientQueue> queue = clinicDao.getQueueInfo();
+        Collections.reverse(queue);
+        return queue;
     }
 
     @Override
@@ -97,8 +101,9 @@ public class ClinicServiceImpl implements IClinicService {
 
         if (addPatientToQueue(id)) {
             System.out.println("Patient details added to queue");
+        } else {
+            System.out.println("Some error occured while adding patient details to queue");
         }
-        System.out.println("Some error occured while adding patient details to queue");
         return id;
     }
 
@@ -167,6 +172,7 @@ public class ClinicServiceImpl implements IClinicService {
     public boolean addPatientToQueue(int patientId) {
         PatientQueue patientQueue = new PatientQueue();
         patientQueue.setPatient(findPatientById(patientId));
+        patientQueue.setEntryTime(new Date());
 
         return clinicDao.addToQueue(patientQueue);
     }
@@ -236,7 +242,7 @@ public class ClinicServiceImpl implements IClinicService {
         login.setUsername(loginForm.getUsername());
         login.setPassword(loginForm.getPassword());
         login.setRoleType(loginForm.getRoleType());
-        
+
         return clinicDao.updateUserDetails(login);
     }
 
@@ -244,10 +250,10 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public boolean savePatientDetails(Patient patient) {
         Patient existingPatient = findPatientById(patient.getId());
-        if(existingPatient!=null){
+        if (existingPatient != null) {
             existingPatient.setFirstname(patient.getFirstname());
             existingPatient.setLastname(patient.getLastname());
-            existingPatient.setAge(patient.getAge());   //birthyear to be set later on
+            existingPatient.setAge(patient.getAge()); //birthyear to be set later on
             existingPatient.setAddress(patient.getAddress());
             existingPatient.setDependent(patient.getDependent());
             existingPatient.setLandline(patient.getLandline());
@@ -256,7 +262,7 @@ public class ClinicServiceImpl implements IClinicService {
             existingPatient.setOccupation(patient.getOccupation());
             existingPatient.setRefferedBy(patient.getRefferedBy());
             existingPatient.setSex(patient.getSex());
-            
+
             return clinicDao.savePatientDetails(existingPatient);
         }
         return false;

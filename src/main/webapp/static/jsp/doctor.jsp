@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,18 @@
 <!-- custom css for this file -->
 <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
 <link rel="stylesheet" type="text/css" href="css/receptionist.css">
+<link rel="stylesheet" type="text/css" href="css/queue.css">
 <link rel="stylesheet" type="text/css" href="css/ifooter.css">
+<script type="text/javascript">
+	var check = '${addRecord}';
+	if (check.length != 0) {
+		alert('${addRecord}');
+	}
+	var searchMessage = '${patientList}';
+	if (searchMessage == "No Results Found") {
+		alert('${patientList}');
+	}
+</script>
 </head>
 <body>
 
@@ -24,7 +36,7 @@
 						<!-- <li class="active"><a href="#">Home</a></li> -->
 						<li><a href="#" id="patient">Add New Patient</a></li>
 						<li><a href="#" id="search">Search</a></li>
-						<li><a href="#" id="patient_queue">Queue</a></li>
+						<li><a href="#" id="patient_queue_tab">Queue</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Utilities
 								<span class="caret"></span>
@@ -33,8 +45,7 @@
 								<li><a href="#">Medical Certificate</a></li>
 								<li class="divider"></li>
 								<li class="dropdown-header">Generate Reports</li>
-								<li><a href="#">Daily Report</a></li>
-								<li><a href="#">Weekly Report</a></li>
+								<li><a href="#" id="daily_report_tab">Daily Report</a></li>
 								<li><a href="#">Monthly Report</a></li>
 							</ul></li>
 					</ul>
@@ -201,10 +212,11 @@
 
 					<tr>
 						<div class="form-group">
-							<td><label for="refferedby" class="form-label">Marital
+							<td><label for="maritalStatus" class="form-label">Marital
 									Status :</label></td>
 							<td><select name="maritalStatus">
-    								<option value="" disabled="disabled" selected="selected">Please select status</option>							
+									<option value="" disabled="disabled" selected="selected">Please
+										select status</option>
 									<option value="unmarried">Unmarried</option>
 									<option value="married">Married</option>
 							</select></td>
@@ -230,12 +242,25 @@
 		</div>
 		<!-- addpatient -->
 
-		<div class="patient_queue" id="patient_queue">Queue data will be
-			here</div>
-
+		<!-- Displaying Queue -->
+		<div class="patient_queue" id="patient_queue">
+			<div class="add_patient_header">
+				<h2>Daily Patient Queue</h2>
+			</div>
+			<hr>
+			<table id="patientqueueinfo">
+			</table>
+		</div>
 		<!-- Queue information -->
 
-		<p class="patient_added" style="color: red; text-align: center;">${addRecord}</p>
+		<div id="dailyReport" class="dailyReport">
+			<div class="add_patient_header">
+				<h2 style="text-align: center;">Daily Report</h2>
+			</div>
+			<hr>
+			<table id="dailyReportCard" align="center">
+			</table>
+		</div>
 
 	</div>
 	<!-- /container -->

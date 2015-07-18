@@ -1,6 +1,7 @@
 package com.springapp.mvc.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -8,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -32,10 +34,12 @@ import com.springapp.mvc.entity.Prescription;
 @Transactional
 @Repository
 public class ClinicDaoImpl implements IClinicDao {
-    private static final Logger LOG = LoggerFactory.getLogger(ClinicDaoImpl.class);
+    private static final Logger LOG       = LoggerFactory.getLogger(ClinicDaoImpl.class);
 
     @Autowired
     SessionFactory              sessionFactory;
+
+    public static int           queueSize = 20;
 
     @Override
     public Patient getdetails() {
@@ -158,7 +162,9 @@ public class ClinicDaoImpl implements IClinicDao {
     @Override
     public List<PatientQueue> getQueueInfo() {
         System.out.println("get queue info at dao");
-        List<PatientQueue> patientQueue = sessionFactory.getCurrentSession().createQuery("from PatientQueue order by id").list();
+        Query query = sessionFactory.getCurrentSession().createQuery("from PatientQueue order by id desc");
+        query.setMaxResults(queueSize);
+        List<PatientQueue> patientQueue = query.list();
         /*for(Patient patient : patientQueue){
             LOG.info("Person List::"+patient);
         }*/
@@ -301,9 +307,9 @@ public class ClinicDaoImpl implements IClinicDao {
     //updating login details of user
     @Override
     public boolean updateUserDetails(Login login) {
-        Login loginDetails = (Login) sessionFactory.getCurrentSession().get(Login.class,login.getId());
-        if(loginDetails!=null){
-            loginDetails.setUsername(login.getUsername()); 
+        Login loginDetails = (Login) sessionFactory.getCurrentSession().get(Login.class, login.getId());
+        if (loginDetails != null) {
+            loginDetails.setUsername(login.getUsername());
             loginDetails.setPassword(login.getPassword());
             loginDetails.setRoleType(login.getRoleType());
             System.out.println("Updating at dao");
@@ -312,15 +318,15 @@ public class ClinicDaoImpl implements IClinicDao {
             return true;
         }
         System.out.println(login);
-        System.out.println("no login details found"+loginDetails);
+        System.out.println("no login details found" + loginDetails);
         return false;
     }
 
-  //save updated details of user
+    //save updated details of user
     @Override
     public boolean savePatientDetails(Patient existingPatient) {
-        Patient patient = (Patient)sessionFactory.getCurrentSession().get(Patient.class,existingPatient.getId());
-        if(patient!=null){
+        Patient patient = (Patient) sessionFactory.getCurrentSession().get(Patient.class, existingPatient.getId());
+        if (patient != null) {
             System.out.println("updating details");
             sessionFactory.getCurrentSession().update(existingPatient);
             System.out.println("details updated successfully");
@@ -329,5 +335,12 @@ public class ClinicDaoImpl implements IClinicDao {
         System.out.println("unable to update some error occured");
         return false;
     }
-    
+
+    @Override
+    public void deleteFromQueue() {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientQueue.class);
+        criteria.add(Restrictions.lt("entryTime", new Date()));
+        sessionFactory.getCurrentSession().delete(criteria);
+    }
+
 }
