@@ -67,7 +67,7 @@
 					</div>
 					<hr>
 					<form class="patient-visit-form" action="" method="get">
-						<textarea id="" name="" placeholder="Enter Visit Details" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none"></textarea>
+						<textarea id="patient-prescriptions" name="" placeholder="Enter Visit Details" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none"></textarea>
 						<br>
 						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
@@ -96,9 +96,15 @@ var x = document.cookie;
 //console.log("cookie : "+JSON.stringify(x));
 console.log("cookie : "+x);
 var split_arr = x.split("+");
+
+for(var i=0; i<split_arr.length; i++){
+	console.log(i+" : "+split_arr[i]);
+}
+
 document.getElementById("id").innerHTML = split_arr[0];
 document.getElementById("name").innerHTML = split_arr[1];
 document.getElementById("mo").innerHTML = split_arr[2];
+document.getElementById("patient-prescriptions").split_arr[3];
 </script>
 </body>
 </html>

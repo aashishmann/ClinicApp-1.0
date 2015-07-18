@@ -61,15 +61,31 @@
 			'dataType' : "text",
 		    'success': function(data) {
 		    	//console.log("returned resposne : "+data);
-		    	//alert(data);
-		    	console.log(data);
+		    	alert("response : "+data);
+		    	console.log("response : "+data);
+		    	
 		    	var x=$.parseJSON(data);	//use this to send individual elements
-		    	document.cookie=x.id+"+"+x.firstname+" "+x.lastname+"+"+x.mobile+"+";
+		    	console.log("prescription list : "+x.prescriptionList[0].id+x.prescriptionList[0].medicines);
+		    	
+		    	//fill necessary patient details
+		    	var str = x.patient.id+"+"+x.patient.firstname+" "+x.patient.lastname+"+"+x.patient.mobile+"+";
+
+		    	//fill prescription details
+		    	for(var i=0; i<x.prescriptionList.length; i++){
+			    	str += x.prescriptionList[i].id + "+" + x.prescriptionList[i].medicines + "+";
+			    	str += x.prescriptionList[i].followupRemark+"+"+x.prescriptionList[i].revisitDate+"+"+x.prescriptionList[i].charges+"+";
+			    	console.log("str : "+str);
+		    	}
+		    	
+		    	//set information in cookie
+		    	document.cookie=str;
+		    	
+		    	//redirect to prescription page
 		    	location.href="pres";
 		    },
 		    'error':function(data){
 		    	alert("Some error occured. Try again later. : "+data);
-		    	console.log("some error occured :"+JSON.stringify(data));
+		    	console.log("Some error occured :"+JSON.stringify(data));
 				window.location.reload();
 		    }
 		});//ajax call ends

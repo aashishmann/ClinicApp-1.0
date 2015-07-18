@@ -356,7 +356,7 @@ public class ClinicController {
         System.out.println(patientProfileDTO);
         
         Gson gson = new Gson();
-        return gson.toJson(patient);
+        return gson.toJson(patientProfileDTO);
     }
 
     //test prescription page
