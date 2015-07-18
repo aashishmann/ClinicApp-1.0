@@ -54,7 +54,7 @@ public class PatientHistory {
         this.patient = patient;
     }
 
-    @Column(name = "date_of_visit", nullable = false)
+    @Column(name = "dateofvisit", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     public Date getDateOfVisit() {
         return dateOfVisit;
@@ -64,7 +64,7 @@ public class PatientHistory {
         this.dateOfVisit = dateOfVisit;
     }
 
-    @Column(name = "purpose_of_visit")
+    @Column(name = "purposeofvisit")
     public String getPurposeOfVisit() {
         return purposeOfVisit;
     }
@@ -73,7 +73,7 @@ public class PatientHistory {
         this.purposeOfVisit = purposeOfVisit;
     }
 
-    @Column(name = "chief_complaints")
+    @Column(name = "chiefcomplaints")
     public String getChiefComplaints() {
         return chiefComplaints;
     }
@@ -82,7 +82,7 @@ public class PatientHistory {
         this.chiefComplaints = chiefComplaints;
     }
 
-    @Column(name = "mental_symptoms")
+    @Column(name = "mentalsymptoms")
     public String getMentalSymptoms() {
         return mentalSymptoms;
     }
@@ -91,7 +91,7 @@ public class PatientHistory {
         this.mentalSymptoms = mentalSymptoms;
     }
 
-    @Column(name = "physical_symptoms")
+    @Column(name = "physicalsymptoms")
     public String getPhysicalSymptoms() {
         return physicalSymptoms;
     }
@@ -109,7 +109,7 @@ public class PatientHistory {
         this.investigation = investigation;
     }
 
-    @Column(name = "family_history")
+    @Column(name = "familyhistory")
     public String getFamilyHistory() {
         return familyHistory;
     }
@@ -118,7 +118,7 @@ public class PatientHistory {
         this.familyHistory = familyHistory;
     }
 
-    @Column(name = "past_history")
+    @Column(name = "pasthistory")
     public String getPastHistory() {
         return pastHistory;
     }
