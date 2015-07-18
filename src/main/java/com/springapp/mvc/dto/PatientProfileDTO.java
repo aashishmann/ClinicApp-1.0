@@ -36,4 +36,9 @@ public class PatientProfileDTO {
         this.prescriptionList = prescriptionList;
     }
 
+    @Override
+    public String toString() {
+        return "PatientProfileDTO [patient=" + patient + ", patientHistory=" + patientHistory + ", prescriptionList=" + prescriptionList + "]";
+    }
+
 }

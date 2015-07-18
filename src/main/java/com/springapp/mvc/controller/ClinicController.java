@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.PatientProfileDTO;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -344,6 +345,16 @@ public class ClinicController {
         LOG.info("Patient Prescription details : " + prescriptionList);
         PatientHistory patientHistory = clinicService.getPatientHistory(id);
         LOG.info("Patient History : "+patientHistory);
+        
+        PatientProfileDTO patientProfileDTO = new PatientProfileDTO();
+        patientProfileDTO.setPatient(patient);
+        patientProfileDTO.setPrescriptionList(prescriptionList);
+        patientProfileDTO.setPatientHistory(patientHistory);
+        
+        LOG.info("Patient Profile : "+patientProfileDTO);
+        
+        System.out.println(patientProfileDTO);
+        
         Gson gson = new Gson();
         return gson.toJson(patient);
     }
