@@ -66,8 +66,8 @@
 						<h2>Last Five Prescriptions : </h2>
 					</div>
 					<hr>
-					<form class="patient-visit-form" action="" method="get">
-						<textarea id="patient-prescriptions" name="" placeholder="Enter Visit Details" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none"></textarea>
+					<form id="form1" class="patient-visit-form" action="" method="get">
+						<textarea id="lastfive" name="" placeholder="Last Five Prescriptions" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none"></textarea>
 						<br>
 						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
@@ -96,7 +96,7 @@ var x = document.cookie;
 //console.log("cookie : "+JSON.stringify(x));
 console.log("cookie : "+x);
 var split_arr = x.split("+");
-
+console.log("length : "+split_arr.length);
 for(var i=0; i<split_arr.length; i++){
 	console.log(i+" : "+split_arr[i]);
 }
@@ -104,7 +104,10 @@ for(var i=0; i<split_arr.length; i++){
 document.getElementById("id").innerHTML = split_arr[0];
 document.getElementById("name").innerHTML = split_arr[1];
 document.getElementById("mo").innerHTML = split_arr[2];
-document.getElementById("patient-prescriptions").split_arr[3];
+var medicines = split_arr[4];
+console.log("medicines : "+medicines);
+document.getElementById("lastfive").innerHTML = medicines;
+console.log("Display split arr :"+split_arr[4]+" : "+split_arr[6]);
 </script>
 </body>
 </html>
