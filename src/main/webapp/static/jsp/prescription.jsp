@@ -49,11 +49,11 @@
 				</td>
 				<td>
 					<div class="add_patient_header">
-						<h2>Medical Details : </h2>
+						<h2>Current Visit Details : </h2>
 					</div>
 					<hr>
-					<form class="patient-prescription-form" action="" method="get">
-						<textarea id="" name="" placeholder="Enter prescription" class="inputfield" rows="10" cols="90" style="resize: none;" data-role="none"></textarea>
+					<form class="patient-visit-form" action="" method="get">
+						<textarea id="" name="" placeholder="Enter Visit Details" class="inputfield" rows="10" cols="90" style="resize: none;" data-role="none"></textarea>
 						<br>
 						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
@@ -75,11 +75,11 @@
 				<!-- last five prescriptions -->
 				<td>
 					<div class="add_patient_header">
-						<h2>Current Visit Details : </h2>
+						<h2>Medical Details : </h2>
 					</div>
 					<hr>
-					<form class="patient-visit-form" action="" method="get">
-						<textarea id="" name="" placeholder="Enter Visit Details" class="inputfield" rows="10" cols="90" style="resize: none;" data-role="none"></textarea>
+					<form class="patient-history" action="" method="get">
+						<textarea id="" name="" placeholder="Patient History" class="inputfield" rows="10" cols="90" style="resize: none;" data-role="none"></textarea>
 						<br>
 						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
