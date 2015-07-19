@@ -67,7 +67,7 @@
 					</div>
 					<hr>
 					<form id="form1" class="patient-visit-form" action="" method="get">
-						<textarea id="lastfive" name="" placeholder="Last Five Prescriptions" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none"></textarea>
+						<textarea id="lastfive" name="" placeholder="Last Five Prescriptions" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none" readonly></textarea>
 						<br>
 						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
@@ -101,13 +101,21 @@ for(var i=0; i<split_arr.length; i++){
 	console.log(i+" : "+split_arr[i]);
 }
 
+//setting patient personal details
 document.getElementById("id").innerHTML = split_arr[0];
 document.getElementById("name").innerHTML = split_arr[1];
 document.getElementById("mo").innerHTML = split_arr[2];
-var medicines = split_arr[4];
-console.log("medicines : "+medicines);
-document.getElementById("lastfive").innerHTML = medicines;
-console.log("Display split arr :"+split_arr[4]+" : "+split_arr[6]);
+
+//setting last five prescriptions of the patient
+var str="";
+//line numbers
+var num=1;
+for(var i=4;i<split_arr.length; i+=5){
+	str += num+". Revisit Date : "+split_arr[i+2]+", Medicines : "+split_arr[i]+", Charges : "+ split_arr[i+3] +", Followup Remark : "+split_arr[i+1]+"\n";
+	num++;
+}
+console.log("Str : "+str);
+document.getElementById("lastfive").innerHTML = str;
 </script>
 </body>
 </html>
