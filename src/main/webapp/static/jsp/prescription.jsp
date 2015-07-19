@@ -89,8 +89,7 @@
 		</table>
 	</div>
 	<!-- wrapper -->
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
 <script type="text/javascript" src="js/prescription.js"></script>
 <script>
 var x = document.cookie;
@@ -118,5 +117,4 @@ for(var i=4;i<split_arr.length; i+=5){
 console.log("Str : "+str);
 document.getElementById("lastfive").innerHTML = str;
 </script>
-</body>
 </html>
