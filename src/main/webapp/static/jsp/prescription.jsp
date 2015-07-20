@@ -29,7 +29,7 @@
 	<div class="wrapper">
 		<table class="wrapper-table">
 			<tr>
-				<td>
+				<td style="vertical-align:top">
 					<div class="add_patient_header">
 						<h2>Patient Details : </h2>
 					</div>
@@ -50,7 +50,7 @@
 						</table>
 					<!-- patient-information table -->
 				</td>
-				<td>
+				<td style="vertical-align:top">
 					<div class="add_patient_header">
 						<h2>Current Visit Details : </h2>
 					</div>
@@ -64,7 +64,7 @@
 				<!-- medical details -->
 			</tr>
 			<tr>
-				<td>
+				<td style="vertical-align:top">
 					<div class="add_patient_header">
 						<h2>Last Five Prescriptions : </h2>
 					</div>
@@ -74,7 +74,7 @@
 					<br>
 				</td>
 				<!-- last five prescriptions -->
-				<td>
+				<td style="vertical-align:top">
 					<div class="add_patient_header">
 						<h2>Medical Details : </h2>
 					</div>
