@@ -65,7 +65,9 @@
 		    	console.log("response : "+data);
 		    	
 		    	var x=$.parseJSON(data);	//use this to send individual elements
+		    	
 		    	console.log("prescription list : "+x.prescriptionList[0].id+x.prescriptionList[0].medicines);
+		    	//alert("patient history : "+x.patientHistory.id+x.patientHistory.chiefComplaints+x.patientHistory.mentalSymptoms);
 		    	
 		    	//fill necessary patient details
 		    	var str = x.patient.id+"+"+x.patient.firstname+" "+x.patient.lastname+"+"+x.patient.mobile+"+";
@@ -76,6 +78,11 @@
 			    	str += x.prescriptionList[i].followupRemark+"+"+x.prescriptionList[i].revisitDate+"+"+x.prescriptionList[i].charges+"+";
 			    	console.log("str : "+str);
 		    	}
+		    	
+		    	//fill the patient history
+		    	/* str += "history+"+x.patientHistory.id+"+"+ x.patientHistory.purposeOfVisit+"+"+x.patientHistory.chiefComplaints+"+"+x.patientHistory.mentalSymptoms+"+";
+		    	str += x.patientHistory.physicalSymptoms+"+"+x.patientHistory.investigation+"+"+x.patientHistory.familyHistory+"+";
+		    	str += x.patientHistory.pastHistory+"+"+x.patientHistory.thermal+"+"+x.patientHistory.desire+"+"+x.patientHistory.aversion+"+"; */
 		    	
 		    	//set information in cookie
 		    	document.cookie=str;

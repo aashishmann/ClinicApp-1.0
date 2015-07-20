@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: clinic
 -- ------------------------------------------------------
--- Server version	5.6.19-0ubuntu0.14.04.1
+-- Server version	5.6.19-1~exp1ubuntu2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -100,7 +100,7 @@ CREATE TABLE `patient_history` (
   PRIMARY KEY (`id`),
   KEY `fk_patient` (`patient_id`),
   CONSTRAINT `fk_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,6 +109,7 @@ CREATE TABLE `patient_history` (
 
 LOCK TABLES `patient_history` WRITE;
 /*!40000 ALTER TABLE `patient_history` DISABLE KEYS */;
+INSERT INTO `patient_history` VALUES (1,2,'2015-07-19 17:53:08','Regular checkup','crazy guy','mentally unstable','physically strong','cid investigation in progress','family is present, history is boring','past=history what is pasthistory?','thermally radioactive and inflammable','latin sensual desires','what is aversion?use easy words');
 /*!40000 ALTER TABLE `patient_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,6 +170,37 @@ LOCK TABLES `prescription` WRITE;
 INSERT INTO `prescription` VALUES (1,'Combiflame','2015-06-26',100,'try again','2015-06-26',1),(2,'Crocin','2015-06-26',50,'try again','2015-06-26',2),(3,'Disprin','2015-06-25',50,'try again','2015-06-26',2),(4,'DCold','2015-06-25',10,'try again','2015-06-26',1),(5,'Aspirin','2015-06-26',100,'try again','2015-06-26',63);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user_credential`
+--
+
+DROP TABLE IF EXISTS `user_credential`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_credential` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `dependent` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `landline` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `reffered_by` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_credential`
+--
+
+LOCK TABLES `user_credential` WRITE;
+/*!40000 ALTER TABLE `user_credential` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_credential` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -179,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-15 10:46:09
+-- Dump completed on 2015-07-19 17:54:40

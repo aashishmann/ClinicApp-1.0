@@ -19,6 +19,9 @@
   padding: 5px;
   color: #3366FF;
 }
+.pres-table{
+	padding: 5px;
+}
 </style>
 </head>
 <%@include file="receptionist.jsp"%>
@@ -66,11 +69,9 @@
 						<h2>Last Five Prescriptions : </h2>
 					</div>
 					<hr>
-					<form id="form1" class="patient-visit-form" action="" method="get">
-						<textarea id="lastfive" name="" placeholder="Last Five Prescriptions" class="inputfield" rows="10" cols="70" style="resize: none;" data-role="none" readonly></textarea>
-						<br>
-						<input type="submit" value="Submit" class="btn btn-info">
-					</form>
+					<table id="lastfive" border="1">
+					</table>
+					<br>
 				</td>
 				<!-- last five prescriptions -->
 				<td>
@@ -108,13 +109,13 @@ document.getElementById("mo").innerHTML = split_arr[2];
 
 //setting last five prescriptions of the patient
 var str="";
-//line numbers
-var num=1;
+var old_pres_table="<tr><td class='pres-table'>Revisit Date</td><td class='pres-table'>Medicines</td><td class='pres-table'>Followup Remark</td><td class='pres-table'>Charges</td></tr>";
 for(var i=4;i<split_arr.length; i+=5){
-	str += num+". Revisit Date : "+split_arr[i+2]+", Medicines : "+split_arr[i]+", Charges : "+ split_arr[i+3] +", Followup Remark : "+split_arr[i+1]+"\n";
-	num++;
+	old_pres_table += "<tr><td class='pres-table'>" +split_arr[i+2]+ "</td><td class='pres-table'>"+split_arr[i]+"</td><td class='pres-table'>"+split_arr[i+1]+"</td><td class='pres-table'>"+split_arr[i+3]+"</td></tr>";
 }
+$('#lastfive').html(old_pres_table);
 console.log("Str : "+str);
-document.getElementById("lastfive").innerHTML = str;
+/* document.getElementById("lastfive-info").innerHTML = str; */
+
 </script>
 </html>
