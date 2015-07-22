@@ -79,11 +79,16 @@
 			    	console.log("str : "+str);
 		    	}
 		    	
-		    	//fill the patient history
-		    	str += "%#%@&+"+x.patientHistory.id+"+"+ x.patientHistory.purposeOfVisit+"+"+x.patientHistory.chiefComplaints+"+"+x.patientHistory.mentalSymptoms+"+";
-		    	str += x.patientHistory.physicalSymptoms+"+"+x.patientHistory.investigation+"+"+x.patientHistory.familyHistory+"+";
-		    	str += x.patientHistory.pastHistory+"+"+x.patientHistory.thermal+"+"+x.patientHistory.desire+"+"+x.patientHistory.aversion+"+";
-		    	
+		    	//fill the patient history if history of patient exists
+		    	alert("history : "+x.patientHistory);
+		    	if(x.patientHistory!=null){
+			    	str += "%#%@&+"+x.patientHistory.id+"+"+ x.patientHistory.purposeOfVisit+"+"+x.patientHistory.chiefComplaints+"+"+x.patientHistory.mentalSymptoms+"+";
+			    	str += x.patientHistory.physicalSymptoms+"+"+x.patientHistory.investigation+"+"+x.patientHistory.familyHistory+"+";
+			    	str += x.patientHistory.pastHistory+"+"+x.patientHistory.thermal+"+"+x.patientHistory.desire+"+"+x.patientHistory.aversion+"+";
+		    	}
+		    	else{
+		    		str += "%#%@&+";
+		    	}
 		    	alert("Final str : "+str);
 		    	
 		    	//set information in cookie

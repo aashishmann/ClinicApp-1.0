@@ -142,6 +142,10 @@ for(var i=4;i<flag; i+=5){
 }
 $('#lastfive').html(old_pres_table);
 console.log("flag : "+flag);
+//no history available for this patient
+if(split_arr[flag]=='%#%@&'){
+	console.log("No history available. div will be set when design is fixed");
+}
 /* document.getElementById("lastfive-info").innerHTML = str; */
 
 </script>
