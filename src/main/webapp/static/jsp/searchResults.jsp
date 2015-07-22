@@ -61,7 +61,7 @@
 			'dataType' : "text",
 		    'success': function(data) {
 		    	//console.log("returned resposne : "+data);
-		    	alert("response : "+data);
+		    	//alert("response : "+data);
 		    	console.log("response : "+data);
 		    	
 		    	var x=$.parseJSON(data);	//use this to send individual elements
@@ -80,9 +80,11 @@
 		    	}
 		    	
 		    	//fill the patient history
-		    	/* str += "history+"+x.patientHistory.id+"+"+ x.patientHistory.purposeOfVisit+"+"+x.patientHistory.chiefComplaints+"+"+x.patientHistory.mentalSymptoms+"+";
+		    	str += "%#%@&+"+x.patientHistory.id+"+"+ x.patientHistory.purposeOfVisit+"+"+x.patientHistory.chiefComplaints+"+"+x.patientHistory.mentalSymptoms+"+";
 		    	str += x.patientHistory.physicalSymptoms+"+"+x.patientHistory.investigation+"+"+x.patientHistory.familyHistory+"+";
-		    	str += x.patientHistory.pastHistory+"+"+x.patientHistory.thermal+"+"+x.patientHistory.desire+"+"+x.patientHistory.aversion+"+"; */
+		    	str += x.patientHistory.pastHistory+"+"+x.patientHistory.thermal+"+"+x.patientHistory.desire+"+"+x.patientHistory.aversion+"+";
+		    	
+		    	alert("Final str : "+str);
 		    	
 		    	//set information in cookie
 		    	document.cookie=str;

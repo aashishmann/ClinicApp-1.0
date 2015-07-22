@@ -109,12 +109,35 @@ document.getElementById("mo").innerHTML = split_arr[2];
 
 //setting last five prescriptions of the patient
 var str="";
+
+//patient history will begin with '%#%@&' pattern so break at that point
+var flag=0;
 var old_pres_table="<tr><td class='pres-table'>Revisit Date</td><td class='pres-table'>Medicines</td><td class='pres-table'>Followup Remark</td><td class='pres-table'>Charges</td></tr>";
 for(var i=4;i<split_arr.length; i+=5){
+	if(split_arr[i]=='%#%@&'){
+		alert("in i : "+i);
+		flag=i;
+		break;
+	}
+	if(split_arr[i+1]=='%#%@&'){
+		alert("in i+1 : "+(i+1));
+		flag=i+1;
+		break;
+	}
+	if(split_arr[i+2]=='%#%@&'){
+		alert("in i+2 : "+(i+2));
+		flag=i+2;
+		break;
+	}
+	if(split_arr[i+3]=='%#%@&'){
+		alert("in i+3 : "+(i+3));
+		flag=i+3;
+		break;
+	}
 	old_pres_table += "<tr><td class='pres-table'>" +split_arr[i+2]+ "</td><td class='pres-table'>"+split_arr[i]+"</td><td class='pres-table'>"+split_arr[i+1]+"</td><td class='pres-table'>"+split_arr[i+3]+"</td></tr>";
 }
 $('#lastfive').html(old_pres_table);
-console.log("Str : "+str);
+console.log("flag : "+flag);
 /* document.getElementById("lastfive-info").innerHTML = str; */
 
 </script>
