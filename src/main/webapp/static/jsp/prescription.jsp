@@ -98,8 +98,12 @@ var x = document.cookie;
 console.log("cookie : "+x);
 var split_arr = x.split("+");
 console.log("length : "+split_arr.length);
+var flag=0;
 for(var i=0; i<split_arr.length; i++){
 	console.log(i+" : "+split_arr[i]);
+	if(split_arr[i]=='%#%@&'){
+		flag=i;
+	}
 }
 
 //setting patient personal details
@@ -111,9 +115,9 @@ document.getElementById("mo").innerHTML = split_arr[2];
 var str="";
 
 //patient history will begin with '%#%@&' pattern so break at that point
-var flag=0;
+
 var old_pres_table="<tr><td class='pres-table'>Revisit Date</td><td class='pres-table'>Medicines</td><td class='pres-table'>Followup Remark</td><td class='pres-table'>Charges</td></tr>";
-for(var i=4;i<split_arr.length; i+=5){
+for(var i=4;i<flag; i+=5){
 	if(split_arr[i]=='%#%@&'){
 		alert("in i : "+i);
 		flag=i;
