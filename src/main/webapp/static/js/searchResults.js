@@ -72,7 +72,7 @@ $(document).ready(function() {
 						+"<td><input type='text' name='lastname' value='"+json_obj.lastname+"' class='inputfield' size='30' required autofocus></td></tr>"
 
 						+"<tr><td><label for='sex' class='form-label'>Sex :</label></td>"
-						+"<td><input type='radio' name='sex' id='sex' value='m' required>Male <input type='radio' name='sex' id='sex' value='f'>Female</td></tr>"
+						+"<td><input type='radio' name='sex' id='sex1' value='m' required>Male <input type='radio' name='sex' id='sex2' value='f'>Female</td></tr>"
 						
 						+"<tr><td><label for='age' class='form-label'>Age :</label></td>"
 						+"<td><input type='number' id='age' class='inputfield' size='30' name='age' value='"+json_obj.age+"' placeholder='Enter Age' required></td></tr>"
@@ -84,7 +84,7 @@ $(document).ready(function() {
 						+"<td><input type='text' id='landline' class='inputfield' size='30' name='landline' value='"+json_obj.landline+"' placeholder='8 Digit Landline Number'></td></tr>"
 						
 						+"<tr><td><label for='maritalStatus' class='form-label'>Marital Status	:</label></td>"
-						+"<td><select name='maritalStatus' required><option value='' disabled='disabled' selected='selected'>Please select status</option>"
+						+"<td><select id='maritalStatus' name='maritalStatus' required><option value='' disabled='disabled'>Please select status</option>"
 						+"<option value='unmarried'>Unmarried</option><option value='married'>Married</option></select></td></tr>"
 						
 						+"<tr><td><label for='refferedBy' class='form-label'>Reffered By :</label></td>"
@@ -101,6 +101,25 @@ $(document).ready(function() {
 						+"<td><input type='text' id='occupation' class='inputfield' size='30' name='occupation' value='"+json_obj.occupation+"' placeholder='Occupation'></td></tr>"
 			
 						+ "<tr><td></td><td><input type='submit' value='Save' class='btn btn-info'></td></tr>";
+					
+					$('#maritalStatus').find('option[value="'+json_obj.maritalStatus+'"]').prop('selected', true);
+					
+					console.log("check : "+json_obj.sex);
+					if(json_obj.sex=='m'){
+						console.log('in male');
+						//$('#sex1').attr('checked',true);
+						//$('input[name="sex1"][value="m"]').prop('checked','checked');
+						//$('#sex1').prop('checked','checked')
+						$('input:radio[name=sex]')[0].checked = true;
+					}
+					else{
+						console.log('in female');
+						//$('#sex2').attr('checked',true);
+						//$('input[name="sex2"][value="f"]').prop('checked','checked');
+						//$('#sex2').prop('checked','checked')
+						$('input:radio[name=sex]')[1].checked = true;
+					}
+					
 					$('#edit-details-table').html(output);
 				}
 		    },
