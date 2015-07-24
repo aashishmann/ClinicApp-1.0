@@ -28,7 +28,7 @@ CREATE TABLE `login_detail` (
   `password` varchar(45) DEFAULT NULL,
   `role_type` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `login_detail` (
 
 LOCK TABLES `login_detail` WRITE;
 /*!40000 ALTER TABLE `login_detail` DISABLE KEYS */;
-INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED');
+INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED'),(4,'admin','admin','ADM');
 /*!40000 ALTER TABLE `login_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-19 17:54:40
+-- Dump completed on 2015-07-24 21:42:12
