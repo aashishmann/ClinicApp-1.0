@@ -61,7 +61,6 @@
 			'dataType' : "text",
 		    'success': function(data) {
 		    	//console.log("returned resposne : "+data);
-		    	//alert("response : "+data);
 		    	console.log("response : "+data);
 		    	
 		    	var x=$.parseJSON(data);	//use this to send individual elements
@@ -80,7 +79,6 @@
 		    	}
 		    	
 		    	//fill the patient history if history of patient exists
-		    	alert("history : "+x.patientHistory);
 		    	if(x.patientHistory!=null){
 			    	str += "%#%@&+"+x.patientHistory.id+"+"+ x.patientHistory.purposeOfVisit+"+"+x.patientHistory.chiefComplaints+"+"+x.patientHistory.mentalSymptoms+"+";
 			    	str += x.patientHistory.physicalSymptoms+"+"+x.patientHistory.investigation+"+"+x.patientHistory.familyHistory+"+";
@@ -89,10 +87,10 @@
 		    	else{
 		    		str += "%#%@&+";
 		    	}
-		    	alert("Final str : "+str);
+		    	//alert("Final str : "+str);
 		    	
-		    	//set information in cookie
-		    	document.cookie=str;
+		    	//set and send all info through window.name to prescription page
+		    	window.name = str;
 		    	
 		    	//redirect to prescription page
 		    	location.href="pres";

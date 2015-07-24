@@ -48,8 +48,11 @@ $(document).ready(function(){
 					for ( var i in json_obj) {
 						output += "<tr><td>" + json_obj[i].id + "</td>";
 						output += "<td>" + json_obj[i].patient.firstname + " "
-								+ json_obj[i].patient.lastname + "</td></tr>";
+								+ json_obj[i].patient.lastname + "</td>";
 						//alert(json_obj[i].id+" : "+json_obj[i].patient.firstname);
+						
+						//if doctor is logged in then display this as well
+						output += "<c:if test='${ROLETYPE == \'DOC\'}'><td><button id='prescription' type='button' class='btn btn-success' onclick='givePrescription("+json_obj.id+")'>Give Prescription</button></td></tr>";
 					}
 					$('#patientqueueinfo').html(output);
 				}

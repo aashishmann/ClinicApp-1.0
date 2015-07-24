@@ -93,9 +93,9 @@
 </body>
 <script type="text/javascript" src="js/prescription.js"></script>
 <script>
-var x = document.cookie;
-//console.log("cookie : "+JSON.stringify(x));
-console.log("cookie : "+x);
+//receive data about the patient
+var x = window.name;
+console.log("window.name : "+x);
 var split_arr = x.split("+");
 console.log("length : "+split_arr.length);
 var flag=0;
@@ -115,7 +115,6 @@ document.getElementById("mo").innerHTML = split_arr[2];
 var str="";
 
 //patient history will begin with '%#%@&' pattern so break at that point
-
 var old_pres_table="<tr><td class='pres-table'>Revisit Date</td><td class='pres-table'>Medicines</td><td class='pres-table'>Followup Remark</td><td class='pres-table'>Charges</td></tr>";
 for(var i=4;i<flag; i+=5){
 	if(split_arr[i]=='%#%@&'){
