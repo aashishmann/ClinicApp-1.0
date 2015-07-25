@@ -22,12 +22,15 @@
 .pres-table{
 	padding: 5px;
 }
+.patient-visit{
+	padding: 10px;
+}
 </style>
 </head>
 <%@include file="receptionist.jsp"%>
 <body>
 	<div class="wrapper">
-		<table class="wrapper-table">
+		<table class="wrapper-table" style="width:100%">
 			<tr>
 				<td style="vertical-align:top">
 					<div class="add_patient_header">
@@ -50,15 +53,42 @@
 						</table>
 					<!-- patient-information table -->
 				</td>
+				
 				<td style="vertical-align:top">
 					<div class="add_patient_header">
 						<h2>Current Visit Details : </h2>
 					</div>
 					<hr>
 					<form class="patient-visit-form" action="" method="get">
-						<textarea id="" name="" placeholder="Enter Visit Details" class="inputfield" rows="10" cols="90" style="resize: none;" data-role="none"></textarea>
+						<table id="patient-visit-table">
+							<tr>
+								<td class="patient-visit">Patient ID :</td>
+								<td id="patient-id" class="patient-visit"></td>
+							</tr>
+							<tr>
+								<td class="patient-visit">Medicines :</td>
+								<td class="patient-visit"><input type="text" id="medicines" class="inputfield" size="30" name="medicines" placeholder="Enter Medicines"></td>
+							</tr>
+							<tr>
+								<td class="patient-visit">FollowUp Remark :</td>
+								<td class="patient-visit"><textarea id="followUp" class="inputfield"
+									name="followUp" placeholder="Enter Followup Remark" rows="2"
+									cols="33" style="resize: none;" data-role="none"></textarea></td>
+							</tr>
+							<tr>
+								<td class="patient-visit">Revisit Date :</td>
+								<td class="patient-visit"><input type="date" class="inputfield" name="revisitdate" min="2015-07-01"></td>
+							</tr>
+							<tr>
+								<td class="patient-visit">Charges :</td>
+								<td class="patient-visit"><input type="number" class="inputfield" name="charges" min="1"></td>
+							</tr>
+							<tr>
+								<td class="patient-visit"><input type="submit" value="Submit" class="btn btn-info"></td>
+								<td class="patient-visit"></td>
+							</tr>
+						</table>		
 						<br>
-						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
 				</td>
 				<!-- current visit details -->
@@ -108,6 +138,12 @@ for(var i=0; i<split_arr.length; i++){
 		flag=i;
 	}
 }
+
+//setting patient id for current visit details
+//document.getElementById("patient-id").innerHTML = split_arr[0];
+var patientid="<input type='text' id='patientid' class='inputfield' size='30' name='patientid' value='"+split_arr[0]+"' readonly>";
+$('#patient-id').html(patientid);
+
 
 //setting patient personal details
 document.getElementById("id").innerHTML = split_arr[0];
