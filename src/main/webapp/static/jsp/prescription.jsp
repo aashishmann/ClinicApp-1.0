@@ -81,7 +81,7 @@
 							</tr>
 							<tr>
 								<td class="patient-visit">Charges :</td>
-								<td class="patient-visit"><input type="number" class="inputfield" name="charges" min="1"></td>
+								<td class="patient-visit"><input type="number" class="inputfield" name="charges" min="0"></td>
 							</tr>
 							<tr>
 								<td class="patient-visit"><input type="submit" value="Submit" class="btn btn-info"></td>
