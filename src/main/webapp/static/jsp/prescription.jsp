@@ -61,7 +61,7 @@
 						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
 				</td>
-				<!-- medical details -->
+				<!-- current visit details -->
 			</tr>
 			<tr>
 				<td style="vertical-align:top">
@@ -71,21 +71,24 @@
 					<hr>
 					<table id="lastfive" border="1">
 					</table>
+					<div id="no-prescriptions"></div>
 					<br>
 				</td>
 				<!-- last five prescriptions -->
+				
 				<td style="vertical-align:top">
 					<div class="add_patient_header">
 						<h2>Medical Details : </h2>
 					</div>
 					<hr>
 					<form class="patient-history" action="" method="get">
-						<textarea id="" name="" placeholder="Patient History" class="inputfield" rows="10" cols="90" style="resize: none;" data-role="none"></textarea>
+						<table id="patient-history-table" border="1">
+						</table>
+						<div id="no-history"></div>
 						<br>
-						<input type="submit" value="Submit" class="btn btn-info">
 					</form>
 				</td>
-				<!-- current visit details -->
+				<!-- medical details -->
 			</tr>
 		</table>
 	</div>
@@ -112,40 +115,71 @@ document.getElementById("name").innerHTML = split_arr[1];
 document.getElementById("mo").innerHTML = split_arr[2];
 
 //setting last five prescriptions of the patient
-var str="";
-
 //patient history will begin with '%#%@&' pattern so break at that point
-var old_pres_table="<tr><td class='pres-table'>Revisit Date</td><td class='pres-table'>Medicines</td><td class='pres-table'>Followup Remark</td><td class='pres-table'>Charges</td></tr>";
-for(var i=4;i<flag; i+=5){
-	if(split_arr[i]=='%#%@&'){
-		alert("in i : "+i);
-		flag=i;
-		break;
+//if found the pattern just after patient details that means prescriptions also not available
+if(split_arr[3]!='%#%@&'){
+	var old_pres_table="<tr><td class='pres-table'>Revisit Date</td><td class='pres-table'>Medicines</td><td class='pres-table'>Followup Remark</td><td class='pres-table'>Charges</td></tr>";
+	for(var i=4;i<flag; i+=5){
+		if(split_arr[i]=='%#%@&'){
+			alert("in i : "+i);
+			flag=i;
+			break;
+		}
+		if(split_arr[i+1]=='%#%@&'){
+			alert("in i+1 : "+(i+1));
+			flag=i+1;
+			break;
+		}
+		if(split_arr[i+2]=='%#%@&'){
+			alert("in i+2 : "+(i+2));
+			flag=i+2;
+			break;
+		}
+		if(split_arr[i+3]=='%#%@&'){
+			alert("in i+3 : "+(i+3));
+			flag=i+3;
+			break;
+		}
+		old_pres_table += "<tr><td class='pres-table'>" +split_arr[i+2]+ "</td><td class='pres-table'>"+split_arr[i]+"</td><td class='pres-table'>"+split_arr[i+1]+"</td><td class='pres-table'>"+split_arr[i+3]+"</td></tr>";
 	}
-	if(split_arr[i+1]=='%#%@&'){
-		alert("in i+1 : "+(i+1));
-		flag=i+1;
-		break;
-	}
-	if(split_arr[i+2]=='%#%@&'){
-		alert("in i+2 : "+(i+2));
-		flag=i+2;
-		break;
-	}
-	if(split_arr[i+3]=='%#%@&'){
-		alert("in i+3 : "+(i+3));
-		flag=i+3;
-		break;
-	}
-	old_pres_table += "<tr><td class='pres-table'>" +split_arr[i+2]+ "</td><td class='pres-table'>"+split_arr[i]+"</td><td class='pres-table'>"+split_arr[i+1]+"</td><td class='pres-table'>"+split_arr[i+3]+"</td></tr>";
+	$('#lastfive').html(old_pres_table);
+	console.log("flag : "+flag);
+	
 }
-$('#lastfive').html(old_pres_table);
-console.log("flag : "+flag);
-//no history available for this patient
-if(split_arr[flag]=='%#%@&'){
-	console.log("No history available. div will be set when design is fixed");
+else{
+	console.log("prescriptions for the patient are not available");
+	$('#no-prescriptions').html("prescriptions Not Available.");
+	$('#no-prescriptions').css({'color':'red','font':'normal 20px arial','text-align':'center'});
 }
-/* document.getElementById("lastfive-info").innerHTML = str; */
+
+//check if no history available for this patient
+if(split_arr[flag]=='%#%@&' && split_arr[flag+1].length==0){
+	console.log("No history available for this patient");
+	console.log("len"+split_arr[flag+1].length);
+	$('#no-history').html("Patient History Not Available.");
+	$('#no-history').css({'color':'red','font':'normal 20px arial','text-align':'center'});
+}
+else{
+	//set patient history in table
+	var output="";
+	var j = flag+1;
+	output += "<tr><td>ID :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Visit Date :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Visit Purpose :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Chief Complaints :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Mental Symptoms :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Physical Symptoms :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Investigation :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Family History :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Past History :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Thermal :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Desire :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Aversion :</td><td>"+split_arr[j++]+"</td></tr>";
+	/* output += "<tr><td></td><td><input type='submit' value='Submit' class='btn btn-info'></td></tr>"; */
+	
+	//set the table so that it becomes visible
+	$('#patient-history-table').html(output);
+}
 
 </script>
 </html>

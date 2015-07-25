@@ -1,6 +1,7 @@
 package com.springapp.mvc.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -247,6 +248,8 @@ public class ClinicDaoImpl implements IClinicDao {
         criteria.setMaxResults(5);
 
         List<Prescription> prescriptions = criteria.list();
+        if(prescriptions.isEmpty())
+            return null;
         return prescriptions;
     }
 

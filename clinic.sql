@@ -158,7 +158,7 @@ CREATE TABLE `prescription` (
   PRIMARY KEY (`id`),
   KEY `fk_patient_id` (`patient_id`),
   CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
-INSERT INTO `prescription` VALUES (1,'Combiflame','2015-06-26',100,'try again','2015-06-26',1),(2,'Crocin','2015-06-26',50,'try again','2015-06-26',2),(3,'Disprin','2015-06-25',50,'try again','2015-06-26',2),(4,'DCold','2015-06-25',10,'try again','2015-06-26',1),(5,'Aspirin','2015-06-26',100,'try again','2015-06-26',63);
+INSERT INTO `prescription` VALUES (1,'Combiflame','2015-06-26',100,'try again','2015-06-26',1),(2,'Crocin','2015-06-26',50,'try again','2015-06-26',2),(3,'Disprin','2015-06-25',50,'try again','2015-06-26',2),(4,'DCold','2015-06-25',10,'try again','2015-06-26',1),(6,'Durex','2015-07-25',75,'drink milk','2015-07-25',2),(7,'Endura mass','2015-07-25',175,'eat eggs','2015-07-25',2),(8,'Vicks','2015-07-25',5,'vicks ki goli lo kichkich door karo,khao pio jam k','2015-07-25',2),(9,'Cheston 100','2015-07-25',45,'Don\'t eat street food, only haldirams :P','2015-07-25',2);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-24 21:42:12
+-- Dump completed on 2015-07-25 13:02:21

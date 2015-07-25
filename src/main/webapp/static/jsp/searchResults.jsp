@@ -65,17 +65,22 @@
 		    	
 		    	var x=$.parseJSON(data);	//use this to send individual elements
 		    	
-		    	console.log("prescription list : "+x.prescriptionList[0].id+x.prescriptionList[0].medicines);
 		    	//alert("patient history : "+x.patientHistory.id+x.patientHistory.chiefComplaints+x.patientHistory.mentalSymptoms);
 		    	
 		    	//fill necessary patient details
 		    	var str = x.patient.id+"+"+x.patient.firstname+" "+x.patient.lastname+"+"+x.patient.mobile+"+";
 
 		    	//fill prescription details
-		    	for(var i=0; i<x.prescriptionList.length; i++){
-			    	str += x.prescriptionList[i].id + "+" + x.prescriptionList[i].medicines + "+";
-			    	str += x.prescriptionList[i].followupRemark+"+"+x.prescriptionList[i].revisitDate+"+"+x.prescriptionList[i].charges+"+";
-			    	console.log("str : "+str);
+		    	if(x.prescriptionList!=null){
+		    		console.log("prescription list : "+x.prescriptionList[0].id+x.prescriptionList[0].medicines);
+			    	for(var i=0; i<x.prescriptionList.length; i++){
+				    	str += x.prescriptionList[i].id + "+" + x.prescriptionList[i].medicines + "+";
+				    	str += x.prescriptionList[i].followupRemark+"+"+x.prescriptionList[i].revisitDate+"+"+x.prescriptionList[i].charges+"+";
+				    	console.log("str : "+str);
+			    	}
+		    	}
+		    	else{
+		    		console.log("No prescriptions found");
 		    	}
 		    	
 		    	//fill the patient history if history of patient exists
@@ -85,6 +90,7 @@
 			    	str += x.patientHistory.pastHistory+"+"+x.patientHistory.thermal+"+"+x.patientHistory.desire+"+"+x.patientHistory.aversion+"+";
 		    	}
 		    	else{
+		    		console.log("patient history not found");
 		    		str += "%#%@&+";
 		    	}
 		    	//alert("Final str : "+str);
