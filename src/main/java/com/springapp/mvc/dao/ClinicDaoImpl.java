@@ -341,9 +341,8 @@ public class ClinicDaoImpl implements IClinicDao {
 
     @Override
     public void deleteFromQueue() {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientQueue.class);
-        criteria.add(Restrictions.lt("entryTime", new Date()));
-        sessionFactory.getCurrentSession().delete(criteria);
+        Query query = sessionFactory.getCurrentSession().createQuery("delete from PatientQueue where entryTime < current_date");
+        query.executeUpdate();
     }
 
 }

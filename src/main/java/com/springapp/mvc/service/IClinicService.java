@@ -67,4 +67,6 @@ public interface IClinicService {
     public boolean savePatientDetails(Patient patient);
 
     public boolean addPrescription(PrescriptionDTO prescriptionDTO);
+
+    public void deleteFromQueue();
 }
