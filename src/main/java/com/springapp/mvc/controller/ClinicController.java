@@ -21,6 +21,7 @@ import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.PatientProfileDTO;
+import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -342,25 +343,25 @@ public class ClinicController {
         //Fetch patient details
         Patient patient = clinicService.findPatientById(id);
         LOG.info("Patient details : " + patient);
-        
+
         //Fetch list of last five prescriptions
         List<Prescription> prescriptionList = clinicService.getFiveLatestPrescriptions(id);
         LOG.info("Patient Prescription details : " + prescriptionList);
-        
+
         //Fetch patient history
         PatientHistory patientHistory = clinicService.getPatientHistory(id);
-        LOG.info("Patient History : "+patientHistory);
-        
+        LOG.info("Patient History : " + patientHistory);
+
         //Set the response with patient profile and return the response
         PatientProfileDTO patientProfileDTO = new PatientProfileDTO();
         patientProfileDTO.setPatient(patient);
         patientProfileDTO.setPrescriptionList(prescriptionList);
         patientProfileDTO.setPatientHistory(patientHistory);
-        
-        LOG.info("Patient Profile : "+patientProfileDTO);
-        
+
+        LOG.info("Patient Profile : " + patientProfileDTO);
+
         //System.out.println(patientProfileDTO);
-        
+
         Gson gson = new Gson();
         return gson.toJson(patientProfileDTO);
     }
@@ -368,6 +369,19 @@ public class ClinicController {
     //test prescription page
     @RequestMapping(value = "pres", method = RequestMethod.GET)
     public String pres() {
+        return "prescription";
+    }
+
+    @RequestMapping(value = "addPrescription", method = RequestMethod.POST)
+    public String addPrescription(@ModelAttribute("prescription") PrescriptionDTO prescription, Model model) {
+        LOG.info("Adding prescription : {}", prescription);
+        if (clinicService.addPrescription(prescription)) {
+            LOG.info("Prescription successfully added for patient id :{}", prescription.getPatientId());
+            model.addAttribute("prescriptionMessage","Prescription successfully added");
+        } else {
+            LOG.info("Some error occured while adding prescription for patient id : {}", prescription.getPatientId());
+            model.addAttribute("prescriptionMessage","Some error occured while adding prescription");
+        }
         return "prescription";
     }
 }

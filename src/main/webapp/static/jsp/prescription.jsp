@@ -59,7 +59,7 @@
 						<h2>Current Visit Details : </h2>
 					</div>
 					<hr>
-					<form class="patient-visit-form" action="" method="get">
+					<form class="patient-visit-form" action="addPrescription" method="post">
 						<table id="patient-visit-table">
 							<tr>
 								<td class="patient-visit">Patient ID :</td>
@@ -72,12 +72,12 @@
 							<tr>
 								<td class="patient-visit">FollowUp Remark :</td>
 								<td class="patient-visit"><textarea id="followUp" class="inputfield"
-									name="followUp" placeholder="Enter Followup Remark" rows="2"
+									name="followupRemark" placeholder="Enter Followup Remark" rows="2"
 									cols="33" style="resize: none;" data-role="none"></textarea></td>
 							</tr>
 							<tr>
 								<td class="patient-visit">Revisit Date :</td>
-								<td class="patient-visit"><input type="date" class="inputfield" name="revisitdate" min="2015-07-01"></td>
+								<td class="patient-visit"><input type="date" class="inputfield" name="revisitDate" min="2015-07-01"></td>
 							</tr>
 							<tr>
 								<td class="patient-visit">Charges :</td>
@@ -126,6 +126,13 @@
 </body>
 <script type="text/javascript" src="js/prescription.js"></script>
 <script>
+
+//check if prescription is added by checking model attribute
+var prescriptionAdded = '${prescriptionMessage}';
+if(prescriptionAdded.length!=0){
+	alert(prescriptionAdded);
+}
+
 //receive data about the patient
 var x = window.name;
 console.log("window.name : "+x);
@@ -141,7 +148,7 @@ for(var i=0; i<split_arr.length; i++){
 
 //setting patient id for current visit details
 //document.getElementById("patient-id").innerHTML = split_arr[0];
-var patientid="<input type='text' id='patientid' class='inputfield' size='30' name='patientid' value='"+split_arr[0]+"' readonly>";
+var patientid="<input type='text' id='patient-id' class='inputfield' size='30' name='patientId' value='"+split_arr[0]+"' readonly>";
 $('#patient-id').html(patientid);
 
 

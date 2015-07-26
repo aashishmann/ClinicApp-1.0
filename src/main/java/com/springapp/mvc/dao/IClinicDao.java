@@ -63,5 +63,4 @@ public interface IClinicDao {
     public boolean savePatientDetails(Patient existingPatient);
 
     public void deleteFromQueue();
-
 }

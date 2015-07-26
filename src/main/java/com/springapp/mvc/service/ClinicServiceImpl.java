@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -26,8 +29,10 @@ import com.springapp.mvc.entity.Prescription;
 @Service
 public class ClinicServiceImpl implements IClinicService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ClinicServiceImpl.class);
+
     @Autowired
-    IClinicDao clinicDao;
+    IClinicDao                  clinicDao;
 
     @Transactional
     @Override
@@ -75,12 +80,6 @@ public class ClinicServiceImpl implements IClinicService {
     @Override
     public Boolean persistPatientHistory(PatientHistory patientHistory) {
         return clinicDao.persistPatientHistory(patientHistory);
-    }
-
-    @Transactional
-    @Override
-    public Boolean addPrescription(Prescription prescription) {
-        return clinicDao.addPrescription(prescription);
     }
 
     @Transactional
@@ -266,5 +265,22 @@ public class ClinicServiceImpl implements IClinicService {
             return clinicDao.savePatientDetails(existingPatient);
         }
         return false;
+    }
+
+    @Transactional
+    @Override
+    public boolean addPrescription(PrescriptionDTO prescriptionDTO) {
+        //converting prescription dto to prescription
+        Prescription prescription = new Prescription();
+        LOG.info("Converting prescription dto to prescription");
+        prescription.setMedicines(prescriptionDTO.getMedicines());
+        prescription.setFollowupRemark(prescriptionDTO.getFollowupRemark());
+        prescription.setCharges(prescriptionDTO.getCharges());
+        prescription.setPatient(findPatientById(prescriptionDTO.getPatientId()));
+        prescription.setRevisitDate(prescriptionDTO.getRevisitDate());
+        //set current time as entry time
+        prescription.setEntryTime(new Date());
+
+        return clinicDao.addPrescription(prescription);
     }
 }

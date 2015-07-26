@@ -5,6 +5,7 @@ import java.util.List;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
 import com.springapp.mvc.entity.Patient;
@@ -32,8 +33,6 @@ public interface IClinicService {
     public Patient findPatientById(int id);
 
     public Boolean persistPatientHistory(PatientHistory patientHistory);
-
-    public Boolean addPrescription(Prescription prescription);
 
     public List<PatientQueue> getQueueInfo();
 
@@ -66,4 +65,6 @@ public interface IClinicService {
     public boolean updateUserDetails(LoginForm loginForm);
 
     public boolean savePatientDetails(Patient patient);
+
+    public boolean addPrescription(PrescriptionDTO prescriptionDTO);
 }
