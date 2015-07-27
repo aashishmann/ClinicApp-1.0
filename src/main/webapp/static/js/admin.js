@@ -85,16 +85,17 @@ $(document).ready(function() {
 								+"<tr><td><label for='password' class='form-label'>Password :</label></td>"
 									+"<td><input type='text' name='password' value='"+json_obj.password+"' class='inputfield' size='30' required autofocus></td></tr>"
 								+"<tr><td><label for='roletype' class='form-label'>Role :</label></td>"
-									+"<td><select name='roleType'><option value='DOC'>Doctor</option>"
+									+"<td><select id='roleType' name='roleType'><option value='DOC'>Doctor</option>"
 									+"<option value='MED'>Medicine</option>"
 									+"<option value='REC'>Receptionist</option>"
 									+"<option value='ASS'>Assitant</option>"
 									+"<option value='ADM'>Admin</option></select></td></tr>"
 								+"<tr><td></td>"
 								+"<td><input type='submit' value='Save' class='btn btn-info'></td></tr>";
-							
+					
 					$('#updateUserTable').html(output);
-					console.log("submit done");
+					$('#roleType').find('option[value="'+json_obj.roleType+'"]').prop('selected', true);
+					
 				}
 			},
 			error : function(data) {

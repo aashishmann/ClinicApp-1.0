@@ -102,25 +102,10 @@ $(document).ready(function() {
 			
 						+ "<tr><td></td><td><input type='submit' value='Save' class='btn btn-info'></td></tr>";
 					
-					$('#maritalStatus').find('option[value="'+json_obj.maritalStatus+'"]').prop('selected', true);
-					
-					console.log("check : "+json_obj.sex);
-					if(json_obj.sex=='m'){
-						console.log('in male');
-						//$('#sex1').attr('checked',true);
-						//$('input[name="sex1"][value="m"]').prop('checked','checked');
-						//$('#sex1').prop('checked','checked')
-						$('input:radio[name=sex]')[0].checked = true;
-					}
-					else{
-						console.log('in female');
-						//$('#sex2').attr('checked',true);
-						//$('input[name="sex2"][value="f"]').prop('checked','checked');
-						//$('#sex2').prop('checked','checked')
-						$('input:radio[name=sex]')[1].checked = true;
-					}
-					
 					$('#edit-details-table').html(output);
+					$('#maritalStatus').find('option[value="'+json_obj.maritalStatus+'"]').prop('selected', true);
+					$('input[name="sex"][value="'+json_obj.sex+'"]').prop('checked',true);
+
 				}
 		    },
 		    error : function(data) {
