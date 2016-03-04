@@ -62,9 +62,7 @@
 		    'success': function(data) {
 		    	//console.log("returned resposne : "+data);
 		    	console.log("response : "+data);
-		    	
 		    	var x=$.parseJSON(data);	//use this to send individual elements
-		    	
 		    	//alert("patient history : "+x.patientHistory.id+x.patientHistory.chiefComplaints+x.patientHistory.mentalSymptoms);
 		    	
 		    	//fill necessary patient details
@@ -93,8 +91,7 @@
 		    		console.log("patient history not found");
 		    		str += "%#%@&+";
 		    	}
-		    	//alert("Final str : "+str);
-		    	
+				//alert("Final str : "+str);
 		    	//set and send all info through window.name to prescription page
 		    	window.name = str;
 		    	

@@ -339,8 +339,9 @@ public class ClinicController {
     @RequestMapping(value = "givePrescription", method = RequestMethod.POST)
     @ResponseBody
     public String givePrescription(@RequestParam(value = "id") int id, Model model) {
-        //System.out.println("Prescription for id : " + id);
+        System.out.println("Prescription for id : " + id);
         //Fetch patient details
+        LOG.info("Request to give prescription for id : {}", id);
         Patient patient = clinicService.findPatientById(id);
         LOG.info("Patient details : " + patient);
 
@@ -377,10 +378,10 @@ public class ClinicController {
         LOG.info("Adding prescription : {}", prescription);
         if (clinicService.addPrescription(prescription)) {
             LOG.info("Prescription successfully added for patient id :{}", prescription.getPatientId());
-            model.addAttribute("prescriptionMessage","Prescription successfully added");
+            model.addAttribute("prescriptionMessage", "Prescription successfully added");
         } else {
             LOG.info("Some error occured while adding prescription for patient id : {}", prescription.getPatientId());
-            model.addAttribute("prescriptionMessage","Some error occured while adding prescription");
+            model.addAttribute("prescriptionMessage", "Some error occured while adding prescription");
         }
         return "prescription";
     }
