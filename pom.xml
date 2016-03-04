@@ -157,6 +157,13 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.3</version>
 		</dependency>
+		
+		<!-- Tool to read MS Access -->
+		<dependency>
+			<groupId>com.healthmarketscience.jackcess</groupId>
+			<artifactId>jackcess</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 
 	</dependencies>
 
