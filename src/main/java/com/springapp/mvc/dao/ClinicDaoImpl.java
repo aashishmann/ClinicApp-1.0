@@ -1,7 +1,6 @@
 package com.springapp.mvc.dao;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -248,7 +246,7 @@ public class ClinicDaoImpl implements IClinicDao {
         criteria.setMaxResults(5);
 
         List<Prescription> prescriptions = criteria.list();
-        if(prescriptions.isEmpty())
+        if (prescriptions.isEmpty())
             return null;
         return prescriptions;
     }
@@ -343,6 +341,16 @@ public class ClinicDaoImpl implements IClinicDao {
     public void deleteFromQueue() {
         Query query = sessionFactory.getCurrentSession().createQuery("delete from PatientQueue where entryTime < current_date");
         query.executeUpdate();
+    }
+
+    // Getting prescription information for month and year specified to generate monthly report.
+    @Override
+    public List<Prescription> generateMonthlyReport(List<Date> dates) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select pres from Prescription pres where pres.entryTime between :startDate and :endDate");
+        query.setParameter("startDate", dates.get(0));
+        query.setParameter("endDate", dates.get(1));
+        List<Prescription> prescriptions = query.list();
+        return prescriptions;
     }
 
 }

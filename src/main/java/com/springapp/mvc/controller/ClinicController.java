@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.MonthlyReport;
 import com.springapp.mvc.dto.PatientProfileDTO;
 import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
@@ -384,5 +385,19 @@ public class ClinicController {
             model.addAttribute("prescriptionMessage", "Some error occured while adding prescription");
         }
         return "prescription";
+    }
+
+    //Generate Monthly Report
+    @RequestMapping(value = "generateMonthlyReport", method = RequestMethod.GET)
+    @ResponseBody
+    public String generateMonthlyReport(@RequestParam(value = "month") int month, @RequestParam(value = "year") int year, Model model) {
+        LOG.info("Request to generate monthly report for month : {} and year : {}", month, year);
+        List<MonthlyReport> monthlyReports = clinicService.generateMonthlyReport(month, year);
+        if (monthlyReports != null) {
+            return new Gson().toJson(monthlyReports);
+        } else {
+            LOG.info("Monthly Report is empty");
+            return new Gson().toJson(monthlyReports);
+        }
     }
 }

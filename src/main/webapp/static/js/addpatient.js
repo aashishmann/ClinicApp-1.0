@@ -1,10 +1,13 @@
 $(document).ready(function(){
+	
+	// Add new patient
 	$("#patient").click(function(){
 	    $("#add_patient").show();
 	    $('.search_details').hide();
 	    $("#patient_queue").hide();
 	    $('#dailyReport').hide();
 	    $('#displayPatientDetails').hide();
+	    $('#monthlyReport').hide();
 	});
 
 	//display search form
@@ -14,6 +17,7 @@ $(document).ready(function(){
 		$("#patient_queue").hide();
 		$('#dailyReport').hide();
 		$('#displayPatientDetails').hide();
+		$('#monthlyReport').hide();
 	});
 
 	//display queue
@@ -23,6 +27,8 @@ $(document).ready(function(){
 		$("#add_patient").hide();
 		$('#dailyReport').hide();
 		$('#displayPatientDetails').hide();
+		$('#monthlyReport').hide();
+		
 		//ajax call to display queue
 		console.log("making call to getQueueInfo");
 		$.ajax({
@@ -138,6 +144,7 @@ $(document).ready(function(){
 	    $('#displayPatientDetails').hide();
 	    $('#search_results').hide();
 	    $('#updatePatientDetails').hide();
+	    $('#monthlyReport').hide();
 	    
 	    $.ajax({
 			type : "GET",

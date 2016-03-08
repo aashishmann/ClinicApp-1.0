@@ -1,5 +1,8 @@
 package com.springapp.mvc.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -18,6 +21,7 @@ import com.springapp.mvc.dao.IClinicDao;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.MonthlyReport;
 import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -295,5 +299,73 @@ public class ClinicServiceImpl implements IClinicService {
     public void deleteFromQueue() {
         LOG.info("Cron job to delete previous date entries from the patient Queue {}");
         clinicDao.deleteFromQueue();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<MonthlyReport> generateMonthlyReport(int month, int year) {
+        // Get the dates for which report is to be generated
+        List<Date> dates = getDates(month, year);
+        if (dates.isEmpty()) {
+            LOG.info("Date conversion failed.");
+            // TODO:return from here  -- IMPORTANT
+        }
+
+        LOG.info("Calling dao to get prescription info. for month : {} and year : {}", month, year);
+        // Get the data in the range for report generation.
+        List<Prescription> prescriptions = clinicDao.generateMonthlyReport(dates);
+        LOG.info("Prescriptions in range: {} are : {}", dates, prescriptions);
+
+        return getMonthlyReport(prescriptions);
+    }
+
+    // Calculate start and end dates and return them.
+    private List<Date> getDates(int month, int year) {
+
+        // Format in which date is needed.
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        int endDay = 30;
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            endDay = 31;
+        } else if (month == 2 && ((year % 4 == 0 && year != 0) || (year % 400 == 0))) {
+            endDay = 29;
+        } else if (month == 2) {
+            endDay = 28;
+        }
+
+        String startDateString = year + "-0" + month + "-01";
+        String endDateString = year + "-0" + month + "-" + endDay;
+
+        LOG.info("startDateString : {} and endDateString : {}", startDateString, endDateString);
+
+        try {
+            Date startdate = formatter.parse(startDateString);
+            Date endDate = formatter.parse(endDateString);
+            LOG.info("Dates after parsing, startDate : {} and endDate : {}", startdate, endDate);
+            List<Date> dates = new ArrayList<Date>();
+            dates.add(startdate);
+            dates.add(endDate);
+
+            return dates;
+        } catch (ParseException e) {
+            LOG.error("Some error occured while formatting date : ", e);
+        }
+
+        // Don't return null if exception occurs or dates are not converted properly.
+        return new ArrayList<Date>();
+    }
+
+    // This method converts the prescriptions to the Monthly Report format.
+    private List<MonthlyReport> getMonthlyReport(List<Prescription> prescriptions) {
+        if (prescriptions != null && !prescriptions.isEmpty()) {
+            List<MonthlyReport> monthlyReports = new ArrayList<MonthlyReport>();
+            for (Prescription pres : prescriptions) {
+                MonthlyReport mReport = new MonthlyReport(pres.getPatient().getFirstname(), pres.getPatient().getLastname(), pres.getCharges(), pres.getEntryTime());
+                monthlyReports.add(mReport);
+            }
+            return monthlyReports;
+        }
+        return null;
     }
 }
