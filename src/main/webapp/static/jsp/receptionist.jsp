@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,64 @@
 	}
 	
 	console.log('Role : '+'${ROLETYPE}');
+	
+	// Function will make ajax call to get monthly report data.
+	function monthlyReportCall(){
+		var month = document.mReportForm.month.value;
+		var year = document.mReportForm.year.value;
+		console.log("Making ajax call to get monthly report for month : "+month+" and year : "+year);
+		jQuery.ajax({
+			type : "get",
+			url  : "generateMonthlyReport",
+			data : "month="+month+"&year="+year,
+			success : function(data){
+				console.log(data);
+				// Parse the json data.
+				var json_obj = $.parseJSON(data);
+				console.log("after parsing : "+json_obj);
+
+				// If no data to display.
+				if(data=="null"){
+					console.log("handle for null json");
+					var output = "<tr><td style='font:20px normal arial;color : red;'>"
+									+"No data to generate report. Seems no patient arrived.</td></tr>";					
+					$('#monthlyReportCard').html(output);
+				}
+				else{
+                    var totalCharges = 0;
+					var output = "<tr><th class='queue-row'>Date</th>"
+									+"<th class='queue-row'>Patient Name</th>"	
+								    +"<th class='queue-row'>Charges</th>"
+								    +"</tr>";
+					for ( var i in json_obj) {
+						output += "<tr><td>"+ json_obj[i].entryDate + " "
+						output += "<td>" + json_obj[i].firstname + " "
+								+ json_obj[i].lastname + "</td>";
+                        output += "<td class='reportcharges'>" + json_obj[i].charges + "</td></tr>";
+                        totalCharges += json_obj[i].charges;
+
+					}
+					//if total charges are not zero then display charges
+					if(totalCharges!=0){
+	                    output+="<tr><td></td><td></td><td>______</td>"
+	                    output += "<tr><td></td><td>Total Charges : </td><td class='reportcharges'>" + totalCharges + "</td></tr>";
+	                    console.log("total charges "+ totalCharges);
+					}
+					//message if daily report charges are zero
+					else{
+						output = "<tr><td style='font:24px bold arial;color : red;'>Nothing to generate. Try sometime later.</td></tr>";
+					}
+					$('#monthlyReportCard').html(output);
+				} // else ends
+				
+			},
+			error : function(data) {
+				console.log("some error occured :"+data);
+				alert("Some error occured while generating monthly report.");
+				window.location.reload();
+			}
+		});	// ajax call ends
+	}	//function monthlyReportCall ends
 	
 </script>
 </head>
@@ -49,7 +108,7 @@
 								<li class="divider"></li>
 								<li class="dropdown-header">Generate Reports</li>
 								<li><a href="#" id="daily_report_tab">Daily Report</a></li>
-								<li><a href="#">Monthly Report</a></li>
+								<li><a href="#" id="monthly_report_tab">Monthly Report</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
@@ -265,6 +324,9 @@
 			</table>
 		</div>
 
+		<!-- Include monthly report html -->
+		<jsp:include page="monthlyReport.jsp" />
+
 	</div>
 	<!-- /container -->
 
@@ -277,5 +339,6 @@
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/addpatient.js"></script>
+	<script type="text/javascript" src="js/monthlyReportGenerator.js"></script>
 </body>
 </html>
