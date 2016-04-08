@@ -6,6 +6,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.healthmarketscience.jackcess.*;
 
@@ -14,25 +18,74 @@ public class DataTransfer {
     public static void main(String[] args) {
 
         Database db = null;
-        TableBuilder mytabbuild = null;
         Table myTable = null;
+
+        //MySQL  Database credentials
+        final String DB_URL = "jdbc:mysql://localhost/clinic";
+        final String USER = "root";
+        final String PASS = "snap@123";
+
+        Connection conn = null;
+        Statement stmt = null;
+
+        Map<String, String> tables = new HashMap<String, String>();
+        tables.put("Amount Code", "amount");
+        tables.put("Medicine Details", "med_details");
+        tables.put("Medicines", "Medicines");
+        tables.put("Patient", "Patient");
+        tables.put("x", "x");
+        tables.put("xx", "xx");
 
         try {
             File dbFile = new File("/home/arti/Downloads/Clinic_data/DB1.MDB");
 
             db = DatabaseBuilder.open(dbFile);
             System.out.println("tables: " + db.getTableNames());
-            
-            myTable = db.getTable("Medicines");
-            for (Column col : myTable.getColumns()) {
-                System.out.println("column: " + col.getName());
-            }
-            for (Row row : myTable) {
-                System.out.println("Row :" + row);
+
+            //Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+            System.out.println("Creating statement...");
+
+            String sql = "CREATE TABLE Medicines (id INTEGER not NULL AUTO_INCREMENT, m_id INTEGER not NULL, medicine_no VARCHAR(100), medicine_name VARCHAR(100), details  VARCHAR(510), code VARCHAR(400), PRIMARY KEY (id))";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+            sql = "CREATE TABLE amount (id INTEGER not NULL AUTO_INCREMENT, amt_id INTEGER not NULL, amt_code VARCHAR(100), amount BIGINT(20) DEFAULT 0, consult_fee  BIGINT(20) DEFAULT 0, PRIMARY KEY (id))";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+            sql = "CREATE TABLE med_details (id INTEGER not NULL AUTO_INCREMENT, patient_card_no VARCHAR(400), date datetime, medicine VARCHAR(400), amt_code VARCHAR(100), note VARCHAR(255), medicine1 VARCHAR(400), PRIMARY KEY (id))";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+            sql = "CREATE TABLE Patient (id INTEGER not NULL AUTO_INCREMENT, p_id INTEGER not NULL, patient_card_no VARCHAR(400), name VARCHAR(400), address VARCHAR(510), age INTEGER DEFAULT 0, sex VARCHAR(2), problem VARCHAR(500), diagnosis VARCHAR(1500), PRIMARY KEY (id))";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+            for (String tableName : db.getTableNames()) {
+                System.out.println(tableName);
+                myTable = db.getTable(tableName);
+
+                if (!tableName.equals("x") && !tableName.equals("xx") && !tableName.equals("Medicine Details")) {
+                    stmt = conn.createStatement();
+                    for (Row row : myTable) {
+                        sql = getSQLInsertQuery(tables.get(tableName), myTable, row);
+                        stmt.executeUpdate(sql);
+                    }
+                }
             }
 
         } catch (IOException e) {
             System.out.println("ERROR: problem building access db and table!");
+            e.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
             e.printStackTrace();
         }
         System.out.println("successfully created access db");
@@ -71,6 +124,20 @@ public class DataTransfer {
             System.out.println("ERROR: " + err.getStackTrace());
             err.printStackTrace();
         }*/
+    }
+
+    private static String getSQLInsertQuery(String tableName, Table accessTable, Row row) {
+        String value = null;
+        for (Column col : accessTable.getColumns()) {
+            if (StringUtils.isEmpty(value)) {
+                value = row.get(col.getName()) != null ? ("'" + row.get(col.getName()).toString() + "'") : "null";
+            } else {
+                value = value + "," + (row.get(col.getName()) != null ? ("'" + row.get(col.getName()).toString() + "'") : "null");
+            }
+        }
+        String sql = "INSERT INTO " + tableName + " " + "VALUES(null," + value + ")";
+        System.out.println(sql);
+        return sql;
     }
 
 }
