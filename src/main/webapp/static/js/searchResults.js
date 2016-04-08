@@ -122,6 +122,7 @@ $(document).ready(function() {
 	    $("#patient_queue").hide();
 	    $('#dailyReport').hide();
 	    $('#displayPatientDetails').hide();
+	    $('#monthlyReport').hide();
 		
 	    //display the self div
 		$('#updatePatientDetails').show();

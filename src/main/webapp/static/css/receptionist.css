@@ -29,7 +29,7 @@ td {
 	margin: 2% 5%;
 }
 
-.dailyReport {
+.dailyReport, .monthlyReport {
 	background: #fff;
 	opacity: 0.9;
 	box-shadow: 0 0 10px #0cf;

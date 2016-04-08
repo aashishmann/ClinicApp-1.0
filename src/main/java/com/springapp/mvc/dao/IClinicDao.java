@@ -1,5 +1,6 @@
 package com.springapp.mvc.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.springapp.mvc.dto.SearchForm;
@@ -63,4 +64,7 @@ public interface IClinicDao {
     public boolean savePatientDetails(Patient existingPatient);
 
     public void deleteFromQueue();
+
+    List<Prescription> generateMonthlyReport(List<Date> dates);
+
 }

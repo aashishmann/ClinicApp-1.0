@@ -25,6 +25,11 @@
 .patient-visit{
 	padding: 10px;
 }
+#lastfive{
+	table-layout: fixed;
+	width:100%;
+}
+
 </style>
 </head>
 <%@include file="receptionist.jsp"%>

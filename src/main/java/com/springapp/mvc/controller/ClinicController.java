@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.MonthlyReport;
 import com.springapp.mvc.dto.PatientProfileDTO;
 import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
@@ -339,8 +340,9 @@ public class ClinicController {
     @RequestMapping(value = "givePrescription", method = RequestMethod.POST)
     @ResponseBody
     public String givePrescription(@RequestParam(value = "id") int id, Model model) {
-        //System.out.println("Prescription for id : " + id);
+        System.out.println("Prescription for id : " + id);
         //Fetch patient details
+        LOG.info("Request to give prescription for id : {}", id);
         Patient patient = clinicService.findPatientById(id);
         LOG.info("Patient details : " + patient);
 
@@ -377,11 +379,25 @@ public class ClinicController {
         LOG.info("Adding prescription : {}", prescription);
         if (clinicService.addPrescription(prescription)) {
             LOG.info("Prescription successfully added for patient id :{}", prescription.getPatientId());
-            model.addAttribute("prescriptionMessage","Prescription successfully added");
+            model.addAttribute("prescriptionMessage", "Prescription successfully added");
         } else {
             LOG.info("Some error occured while adding prescription for patient id : {}", prescription.getPatientId());
-            model.addAttribute("prescriptionMessage","Some error occured while adding prescription");
+            model.addAttribute("prescriptionMessage", "Some error occured while adding prescription");
         }
         return "prescription";
+    }
+
+    //Generate Monthly Report
+    @RequestMapping(value = "generateMonthlyReport", method = RequestMethod.GET)
+    @ResponseBody
+    public String generateMonthlyReport(@RequestParam(value = "month") int month, @RequestParam(value = "year") int year, Model model) {
+        LOG.info("Request to generate monthly report for month : {} and year : {}", month, year);
+        List<MonthlyReport> monthlyReports = clinicService.generateMonthlyReport(month, year);
+        if (monthlyReports != null) {
+            return new Gson().toJson(monthlyReports);
+        } else {
+            LOG.info("Monthly Report is empty");
+            return new Gson().toJson(monthlyReports);
+        }
     }
 }

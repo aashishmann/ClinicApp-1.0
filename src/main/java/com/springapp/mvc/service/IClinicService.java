@@ -5,6 +5,7 @@ import java.util.List;
 import com.springapp.mvc.dto.DailyReport;
 import com.springapp.mvc.dto.LoginForm;
 import com.springapp.mvc.dto.Medicine;
+import com.springapp.mvc.dto.MonthlyReport;
 import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
 import com.springapp.mvc.entity.Login;
@@ -69,4 +70,6 @@ public interface IClinicService {
     public boolean addPrescription(PrescriptionDTO prescriptionDTO);
 
     public void deleteFromQueue();
+
+    public List<MonthlyReport> generateMonthlyReport(int month,int year);
 }
