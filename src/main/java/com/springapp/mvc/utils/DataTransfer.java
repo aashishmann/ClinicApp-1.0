@@ -4,14 +4,21 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.healthmarketscience.jackcess.*;
+import com.healthmarketscience.jackcess.Column;
+import com.healthmarketscience.jackcess.Database;
+import com.healthmarketscience.jackcess.DatabaseBuilder;
+import com.healthmarketscience.jackcess.Row;
+import com.healthmarketscience.jackcess.Table;
 
 public class DataTransfer {
 
@@ -34,7 +41,7 @@ public class DataTransfer {
         tables.put("Medicines", "Medicines");
         tables.put("Patient", "Patient");
         tables.put("x", "x");
-        tables.put("xx", "xx");
+        tables.put("xx", "med_details");
 
         try {
             File dbFile = new File("/home/arti/Downloads/Clinic_data/DB1.MDB");
@@ -52,19 +59,19 @@ public class DataTransfer {
 
             System.out.println("Creating statement...");
 
-            String sql = "CREATE TABLE Medicines (id INTEGER not NULL AUTO_INCREMENT, m_id INTEGER not NULL, medicine_no VARCHAR(100), medicine_name VARCHAR(100), details  VARCHAR(510), code VARCHAR(400), PRIMARY KEY (id))";
+            String sql = "CREATE TABLE IF NOT EXISTS Medicines (id INTEGER not NULL AUTO_INCREMENT, m_id INTEGER not NULL, medicine_no VARCHAR(100), medicine_name VARCHAR(100), details  VARCHAR(510), code VARCHAR(400), PRIMARY KEY (id))";
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
 
-            sql = "CREATE TABLE amount (id INTEGER not NULL AUTO_INCREMENT, amt_id INTEGER not NULL, amt_code VARCHAR(100), amount BIGINT(20) DEFAULT 0, consult_fee  BIGINT(20) DEFAULT 0, PRIMARY KEY (id))";
+            sql = "CREATE TABLE IF NOT EXISTS  amount (id INTEGER not NULL AUTO_INCREMENT, amt_id INTEGER not NULL, amt_code VARCHAR(100), amount BIGINT(20) DEFAULT 0, consult_fee  BIGINT(20) DEFAULT 0, PRIMARY KEY (id))";
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
 
-            sql = "CREATE TABLE med_details (id INTEGER not NULL AUTO_INCREMENT, patient_card_no VARCHAR(400), date datetime, medicine VARCHAR(400), amt_code VARCHAR(100), note VARCHAR(255), medicine1 VARCHAR(400), PRIMARY KEY (id))";
+            sql = "CREATE TABLE IF NOT EXISTS  med_details (id INTEGER not NULL AUTO_INCREMENT, patient_card_no VARCHAR(400), date datetime, medicine VARCHAR(400), amt_code VARCHAR(100), note VARCHAR(255), medicine1 VARCHAR(400), PRIMARY KEY (id))";
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
 
-            sql = "CREATE TABLE Patient (id INTEGER not NULL AUTO_INCREMENT, p_id INTEGER not NULL, patient_card_no VARCHAR(400), name VARCHAR(400), address VARCHAR(510), age INTEGER DEFAULT 0, sex VARCHAR(2), problem VARCHAR(500), diagnosis VARCHAR(1500), PRIMARY KEY (id))";
+            sql = "CREATE TABLE IF NOT EXISTS Patient (id INTEGER not NULL AUTO_INCREMENT, p_id INTEGER not NULL, patient_card_no VARCHAR(400), name VARCHAR(400), address VARCHAR(510), age INTEGER DEFAULT 0, sex VARCHAR(2), problem VARCHAR(500), diagnosis VARCHAR(1500), PRIMARY KEY (id))";
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
 
@@ -72,7 +79,7 @@ public class DataTransfer {
                 System.out.println(tableName);
                 myTable = db.getTable(tableName);
 
-                if (!tableName.equals("x") && !tableName.equals("xx") && !tableName.equals("Medicine Details")) {
+                if (!tableName.equals("x")) {
                     stmt = conn.createStatement();
                     for (Row row : myTable) {
                         sql = getSQLInsertQuery(tables.get(tableName), myTable, row);
@@ -88,7 +95,6 @@ public class DataTransfer {
             //Handle errors for Class.forName
             e.printStackTrace();
         }
-        System.out.println("successfully created access db");
 
         /*try {
             System.load("/usr/lib/jvm/java-7-oracle/jre/lib/amd64/libJdbcOdbc.so");
@@ -126,15 +132,30 @@ public class DataTransfer {
         }*/
     }
 
-    private static String getSQLInsertQuery(String tableName, Table accessTable, Row row) {
+    private static String getSQLInsertQuery(String tableName, Table accessTable, Row row) throws ParseException {
         String value = null;
         for (Column col : accessTable.getColumns()) {
+
+            DateFormat readFormat = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            DateFormat writeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
             if (StringUtils.isEmpty(value)) {
-                value = row.get(col.getName()) != null ? ("'" + row.get(col.getName()).toString() + "'") : "null";
+                if (col.getType().toString().equals("SHORT_DATE_TIME")) {
+                    Date date = (Date) readFormat.parse(row.get(col.getName()).toString());
+                    value = row.get(col.getName()) != null ? ("'" + writeFormat.format(date) + "'") : "null";
+                } else {
+                    value = row.get(col.getName()) != null ? ("'" + row.get(col.getName()).toString() + "'") : "null";
+                }
             } else {
-                value = value + "," + (row.get(col.getName()) != null ? ("'" + row.get(col.getName()).toString() + "'") : "null");
+                if (col.getType().toString().equals("SHORT_DATE_TIME")) {
+                    Date date = (Date) readFormat.parse(row.get(col.getName()).toString());
+                    value = value + "," + (row.get(col.getName()) != null ? ("'" + writeFormat.format(date) + "'") : "null");
+                } else {
+                    value = value + "," + (row.get(col.getName()) != null ? ("'" + row.get(col.getName()).toString() + "'") : "null");
+                }
             }
         }
+
         String sql = "INSERT INTO " + tableName + " " + "VALUES(null," + value + ")";
         System.out.println(sql);
         return sql;
