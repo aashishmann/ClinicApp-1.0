@@ -1,3 +1,4 @@
+use clinic;
 -- MySQL dump 10.13  Distrib 5.6.19, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: clinic
@@ -37,7 +38,7 @@ CREATE TABLE `login_detail` (
 
 LOCK TABLES `login_detail` WRITE;
 /*!40000 ALTER TABLE `login_detail` DISABLE KEYS */;
-INSERT INTO `login_detail` VALUES (1,'nakul','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED'),(4,'admin','admin','ADM');
+INSERT INTO `login_detail` VALUES (1,'reception','1234','REC'),(2,'doctor','1234','DOC'),(3,'medi','1234','MED'),(4,'admin','admin','ADM');
 /*!40000 ALTER TABLE `login_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 

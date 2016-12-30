@@ -30,7 +30,7 @@
 
 	<footer class="footer">
 		<div class="container">
-			<p class="text-muted">All rights reserved. **** Clinic.</p>
+			<p class="text-muted">All rights reserved. Dahiya Clinic.</p>
 		</div>
 	</footer>
 

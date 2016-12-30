@@ -80,7 +80,7 @@ public class ClinicDaoImpl implements IClinicDao {
 
         Disjunction disjunction = Restrictions.disjunction();
         if (!StringUtils.isEmpty(search.getFirstname()))
-            disjunction.add(Property.forName("firstname").eq(search.getFirstname()));
+            disjunction.add(Property.forName("firstname").like(search.getFirstname()));
         if (!StringUtils.isEmpty(search.getLastname()))
             disjunction.add(Property.forName("lastname").eq(search.getLastname()));
         if (!StringUtils.isEmpty(search.getMobile()))
@@ -117,6 +117,7 @@ public class ClinicDaoImpl implements IClinicDao {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Patient findPatientById(int id) {
         return (Patient) sessionFactory.getCurrentSession().get(Patient.class, id);
@@ -158,6 +159,7 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     //Get list of patients in queue
+    @SuppressWarnings("unchecked")
     @Override
     public List<PatientQueue> getQueueInfo() {
         System.out.println("get queue info at dao");
@@ -209,6 +211,7 @@ public class ClinicDaoImpl implements IClinicDao {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Prescription> getLatestPrescription(List<Integer> patientIds) {
         Query query = sessionFactory.getCurrentSession().createQuery(
@@ -231,6 +234,7 @@ public class ClinicDaoImpl implements IClinicDao {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public PatientHistory getPatientHistory(int patientId) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientHistory.class);
@@ -238,6 +242,7 @@ public class ClinicDaoImpl implements IClinicDao {
         return (PatientHistory) criteria.uniqueResult();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Prescription> getFiveLatestPrescriptions(int patientId) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Prescription.class);
@@ -252,6 +257,7 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     //Daily Report Generation logic
+    @SuppressWarnings("unchecked")
     @Override
     public List<Prescription> generateDailyReport() {
         Query query = sessionFactory.getCurrentSession().createQuery("select pres from Prescription pres where pres.entryTime = current_date() ");
@@ -274,6 +280,7 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     //Get all user credentials
+    @SuppressWarnings("unchecked")
     @Override
     public List<Login> getAllUsers() {
         System.out.println("get users from dao");
@@ -300,6 +307,7 @@ public class ClinicDaoImpl implements IClinicDao {
     }
 
     //get details of the user by id
+    @SuppressWarnings("unchecked")
     @Override
     public Login getUserById(int id) {
         return (Login) sessionFactory.getCurrentSession().get(Login.class, id);
