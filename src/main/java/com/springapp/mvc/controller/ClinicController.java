@@ -347,7 +347,7 @@ public class ClinicController {
         LOG.info("Patient details : " + patient);
 
         //Fetch list of last five prescriptions
-        List<Prescription> prescriptionList = clinicService.getFiveLatestPrescriptions(id);
+        List<PrescriptionDTO> prescriptionList = clinicService.getFiveLatestPrescriptions(id);
         LOG.info("Patient Prescription details : " + prescriptionList);
 
         //Fetch patient history
@@ -399,5 +399,14 @@ public class ClinicController {
             LOG.info("Monthly Report is empty");
             return new Gson().toJson(monthlyReports);
         }
+    }
+
+    @RequestMapping(value = "getAllAmountLabels", method = RequestMethod.GET)
+    @ResponseBody
+    public String getAllAmountLabels(Model model) {
+        List<String> amountLabels =  clinicService.getAllAmountLabels();
+        Gson gson = new Gson();
+        LOG.info(gson.toJson(amountLabels));
+        return gson.toJson(amountLabels);
     }
 }

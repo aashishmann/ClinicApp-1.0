@@ -44,7 +44,7 @@ $(document).ready(function(){
                 var name = '';
 				if(data=="null"){
 					console.log("handle for null json");
-					var output = "<tr><td style='font:20px normal arial;color : red;'>"
+					var output = "<tr><ftd style='font:20px normal arial;color : red;'>"
 									+"Queue is Empty. Please wait for patients to come.</td></tr>";					
 					$('#patientqueueinfo').html(output);
 				}
@@ -55,16 +55,19 @@ $(document).ready(function(){
 					for ( var i in json_obj) {
 						output += "<tr><td>" + json_obj[i].patient.id + "</td>";
 						output += "<td>" + json_obj[i].patient.firstname + " "
-								+ json_obj[i].patient.lastname + "</td>";
+								//+ json_obj[i].patient.lastname + "</td>";
 						//alert(json_obj[i].id+" : "+json_obj[i].patient.firstname);
-						
+                        if(json_obj[i].patient.lastname != "" && json_obj[i].patient.lastname != undefined)
+                            output += " " + json_obj[i].patient.lastname
+                        output += "</td>";
 						// Prescription will be provided to the patient against whose name button is clicked
 						// So saving id and name to be retrieved later
 						id = json_obj[i].patient.id;
 						name = json_obj[i].patient.firstname;
 						
 						//if doctor is logged in then display this as well
-						output += "<c:if test='${ROLETYPE == \'DOC\'}'><td><button id='prescription' type='button' class='btn btn-success'>Give Prescription</button></td></tr>";
+                        console.log('Role : '+'${ROLETYPE}');
+                        output += "<c:if test='${ROLETYPE == \'DOC\'}'><td><button id='prescription' type='button' class='btn btn-success'>Give Prescription</button></td></c:if></tr>";
 						
 					}
 					$('#patientqueueinfo').html(output);

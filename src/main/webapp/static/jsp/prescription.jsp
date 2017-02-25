@@ -85,8 +85,25 @@
 								<td class="patient-visit"><input type="date" class="inputfield" name="revisitDate" min="2015-07-01"></td>
 							</tr>
 							<tr>
-								<td class="patient-visit">Charges :</td>
-								<td class="patient-visit"><input type="number" class="inputfield" name="charges" min="0"></td>
+								<td class="patient-visit"><label for="amount" class="form-label">Charges :</label></td>
+								<%--<td class="patient-visit"><input type="number" class="inputfield" name="charges" min="0"></td>--%>
+                                <td>
+                                    <select id="amount" class="month-year-select" name="charges">
+                                        <option value="1">*</option>
+                                        <option value="2">A</option>
+                                        <option value="3">B</option>
+                                        <option value="4">C</option>
+                                        <option value="5">D</option>
+                                        <option value="6">E</option>
+                                        <option value="7">F</option>
+                                        <option value="8">G</option>
+                                        <option value="9">H</option>
+                                        <option value="10">I</option>
+                                        <option value="11">J</option>
+                                        <option value="12">K</option>
+                                        <option value="13">L</option>
+                                    </select>
+                                </td>
 							</tr>
 							<tr>
 								<td class="patient-visit"><input type="submit" value="Submit" class="btn btn-info"></td>
@@ -228,6 +245,5 @@ else{
 	//set the table so that it becomes visible
 	$('#patient-history-table').html(output);
 }
-
 </script>
 </html>

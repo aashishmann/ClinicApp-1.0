@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Clinic App</title>
+<title>Dahiya Clinic App</title>
 <!-- core css -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <!-- custom css for this file -->

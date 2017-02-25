@@ -22,7 +22,7 @@ public class Prescription {
     private long    id;
     private String  medicines;
     private Date    entryTime;
-    private int     charges;
+    private Charges charges;
     private String  followupRemark;
     private Date    revisitDate;
     private Patient patient;
@@ -57,12 +57,14 @@ public class Prescription {
         this.entryTime = entryTime;
     }
 
-    @Column(name = "charges")
-    public int getCharges() {
+    //@Column(name = "charges")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "code",name = "charges_code", nullable = false)
+    public Charges getCharges() {
         return charges;
     }
 
-    public void setCharges(int charges) {
+    public void setCharges(Charges charges) {
         this.charges = charges;
     }
 

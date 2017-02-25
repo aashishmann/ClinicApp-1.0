@@ -10,7 +10,7 @@ public class PatientProfileDTO {
 
     private Patient            patient;
     private PatientHistory     patientHistory;
-    private List<Prescription> prescriptionList;
+    private List<PrescriptionDTO> prescriptionList;
 
     public Patient getPatient() {
         return patient;
@@ -28,11 +28,11 @@ public class PatientProfileDTO {
         this.patientHistory = patientHistory;
     }
 
-    public List<Prescription> getPrescriptionList() {
+    public List<PrescriptionDTO> getPrescriptionList() {
         return prescriptionList;
     }
 
-    public void setPrescriptionList(List<Prescription> prescriptionList) {
+    public void setPrescriptionList(List<PrescriptionDTO> prescriptionList) {
         this.prescriptionList = prescriptionList;
     }
 

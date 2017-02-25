@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Clinic App</title>
+<title>Dahiya Clinic App</title>
 <!-- core css -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <!-- custom css for this file -->
@@ -91,7 +91,7 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Clinic Name</a>
+					<a class="navbar-brand" href="#">Dahiya Clinic</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">

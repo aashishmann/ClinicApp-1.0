@@ -1,5 +1,6 @@
 package com.springapp.mvc.utils;
 
+import com.springapp.mvc.entity.Charges;
 import com.springapp.mvc.entity.OldDB.OldMedicalDetails;
 import com.springapp.mvc.entity.OldDB.OldPatient;
 import com.springapp.mvc.entity.Patient;
@@ -7,6 +8,7 @@ import com.springapp.mvc.entity.PatientHistory;
 import com.springapp.mvc.entity.Prescription;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.springframework.util.StringUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,6 +37,7 @@ public class DataMigration {
                 .addAnnotatedClass(Prescription.class)
                 .addAnnotatedClass(OldMedicalDetails.class)
                 .addAnnotatedClass(OldPatient.class)
+                .addAnnotatedClass(Charges.class)
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect")
                 .setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver")
                 .setProperty("hibernate.connection.username", "root")
@@ -72,6 +75,13 @@ public class DataMigration {
 
     }
 
+    public static Charges getCharges(Session session, String code) {
+        Query q1 = session.createQuery("select ch from Charges ch where ch.code=:code");
+        q1.setParameter("code",code);
+        Charges  charges = (Charges)q1.uniqueResult();
+        return charges;
+    }
+
     public static void sampleRead() {
         Session session = null;
 
@@ -92,6 +102,7 @@ public class DataMigration {
             List<Object []> result = q1.list();
             System.out.println("Fetched " + result.size() + " rows");
             int i=0;
+            String chargesCode = null;
             while(result != null) {
                 Patient patient = null;
                 for (Object[] row : result) {
@@ -118,9 +129,12 @@ public class DataMigration {
 
                     }
                     prescription.setEntryTime((java.sql.Timestamp) row[8]);
-                    prescription.setMedicines((String) row[10]);
+                    prescription.setMedicines((String) row[9]);
                     prescription.setFollowupRemark((String) row[11]);
-
+                    chargesCode = (String)row[10];
+                    if(!StringUtils.isEmpty(chargesCode)) {
+                        prescription.setCharges(getCharges(session, chargesCode));
+                    }
                     Patient p = new Patient();
                     p.setId((int) row[0]);
                     prescription.setPatient(patient);

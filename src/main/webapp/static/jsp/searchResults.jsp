@@ -1,11 +1,16 @@
+<%--
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+--%>
+
+<%@ page language="java"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Clinic App | Search Results</title>
+<title>Dahiya Clinic App | Search Results</title>
 <script>
 
 	var updateStatus = '${updatePatientStatus}';
@@ -125,9 +130,12 @@
 					$('#displayPatientDetailsTable').html(output);
 				}
 				else{
-					var output = "<tr><td>Name : </td><td>"+json_obj.firstname+json_obj.lastname+"</td></tr>";
-					
-					if(json_obj.sex!="" && json_obj.sex!=undefined)
+					var output = "<tr><td>Name : </td><td>"+json_obj.firstname;
+					if(json_obj.lastname != "" && json_obj.lastname != undefined)
+                        output += " " + json_obj.lastname
+                    output += "</td></tr>"
+
+                    if(json_obj.sex!="" && json_obj.sex!=undefined)
 						output += "<tr><td>Sex : </td><td>"+json_obj.sex+"</td></tr>"
 					if(json_obj.age!="" && json_obj.age!=undefined)
 						output += "<tr><td>Age : </td><td>"+json_obj.age+"</td></tr>"
@@ -196,7 +204,10 @@
 				<tr>
 					<td class="queue-row">${patientList.id}</td>
 					<td class="queue-row">${patientList.firstname}
-						${patientList.lastname}</td>
+                        <c:if test="${not empty patientList.lastname}">
+						    ${patientList.lastname}
+                        </c:if>
+                    </td>
 					<td class="queue-row">
 						<button id="view-patient" type="button" class="btn btn-success" onclick="displayDetails(${patientList.id})">View</button>
 					</td>

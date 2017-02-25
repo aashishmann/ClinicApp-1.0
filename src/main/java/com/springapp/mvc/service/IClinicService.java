@@ -8,11 +8,7 @@ import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.MonthlyReport;
 import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.Patient;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
+import com.springapp.mvc.entity.*;
 
 /**
  * Created by aashish on 3/6/15.
@@ -51,7 +47,7 @@ public interface IClinicService {
 
     public PatientHistory getPatientHistory(int patientId);
 
-    public List<Prescription> getFiveLatestPrescriptions(int patientId);
+    public List<PrescriptionDTO> getFiveLatestPrescriptions(int patientId);
 
     public List<DailyReport> generateDailyReport();
 
@@ -72,4 +68,8 @@ public interface IClinicService {
     public void deleteFromQueue();
 
     public List<MonthlyReport> generateMonthlyReport(int month,int year);
+
+    public List<String> getAllAmountLabels();
+
+    public Charges findChargesByCode(String code);
 }

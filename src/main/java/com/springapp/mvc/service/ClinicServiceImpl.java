@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.springapp.mvc.entity.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springapp.mvc.dao.IClinicDao;
@@ -24,11 +26,6 @@ import com.springapp.mvc.dto.Medicine;
 import com.springapp.mvc.dto.MonthlyReport;
 import com.springapp.mvc.dto.PrescriptionDTO;
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.Patient;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
 
 /**
  * Created by aashish on 3/6/15.
@@ -159,7 +156,7 @@ public class ClinicServiceImpl implements IClinicService {
                 medicine.setFirstname(prescription.getPatient().getFirstname());
                 medicine.setLastname(prescription.getPatient().getLastname());
                 medicine.setMedicines(prescription.getMedicines());
-                medicine.setCharges(prescription.getCharges());
+                medicine.setCharges(prescription.getCharges().getFixedCharges() + prescription.getCharges().getConsultationCharges());
 
                 medicines.add(medicine);
             }
@@ -194,8 +191,13 @@ public class ClinicServiceImpl implements IClinicService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Prescription> getFiveLatestPrescriptions(int patientId) {
-        return clinicDao.getFiveLatestPrescriptions(patientId);
+    public List<PrescriptionDTO> getFiveLatestPrescriptions(int patientId) {
+        List<Prescription> presList = clinicDao.getFiveLatestPrescriptions(patientId);
+        List<PrescriptionDTO> presDTOList = new ArrayList<>();
+        for(Prescription pres : presList) {
+            presDTOList.add(getPrescriptionDTO(pres));
+        }
+        return presDTOList;
     }
 
     @Transactional(readOnly = true)
@@ -212,7 +214,7 @@ public class ClinicServiceImpl implements IClinicService {
                 DailyReport dailyReport = new DailyReport();
                 dailyReport.setFirstname(prescription.getPatient().getFirstname());
                 dailyReport.setLastname(prescription.getPatient().getLastname());
-                dailyReport.setCharges(prescription.getCharges());
+                dailyReport.setCharges(prescription.getCharges().getFixedCharges() + prescription.getCharges().getConsultationCharges());
                 dailyReportList.add(dailyReport);
             }
         }
@@ -277,6 +279,20 @@ public class ClinicServiceImpl implements IClinicService {
         return false;
     }
 
+    private PrescriptionDTO getPrescriptionDTO(Prescription pres) {
+        PrescriptionDTO presDTO = new PrescriptionDTO();
+        presDTO.setPatientId((int) pres.getId());
+        if(pres.getCharges() != null)
+            presDTO.setCharges(new Integer(pres.getCharges().getFixedCharges() + pres.getCharges().getConsultationCharges()).toString());
+        presDTO.setFollowupRemark(pres.getFollowupRemark());
+        if(pres.getEntryTime() != null)
+            presDTO.setEntryTime(new java.sql.Date(pres.getEntryTime().getTime()));
+        presDTO.setMedicines(pres.getMedicines());
+        if(pres.getRevisitDate() != null)
+            presDTO.setRevisitDate(new java.sql.Date(pres.getRevisitDate().getTime()));
+        return presDTO;
+    }
+
     @Transactional
     @Override
     public boolean addPrescription(PrescriptionDTO prescriptionDTO) {
@@ -285,7 +301,7 @@ public class ClinicServiceImpl implements IClinicService {
         LOG.info("Converting prescription dto to prescription");
         prescription.setMedicines(prescriptionDTO.getMedicines());
         prescription.setFollowupRemark(prescriptionDTO.getFollowupRemark());
-        prescription.setCharges(prescriptionDTO.getCharges());
+        prescription.setCharges(findChargesByCode(prescriptionDTO.getCharges()));
         prescription.setPatient(findPatientById(prescriptionDTO.getPatientId()));
         prescription.setRevisitDate(prescriptionDTO.getRevisitDate());
         //set current time as entry time
@@ -361,11 +377,23 @@ public class ClinicServiceImpl implements IClinicService {
         if (prescriptions != null && !prescriptions.isEmpty()) {
             List<MonthlyReport> monthlyReports = new ArrayList<MonthlyReport>();
             for (Prescription pres : prescriptions) {
-                MonthlyReport mReport = new MonthlyReport(pres.getPatient().getFirstname(), pres.getPatient().getLastname(), pres.getCharges(), pres.getEntryTime());
+                MonthlyReport mReport = new MonthlyReport(pres.getPatient().getFirstname(), pres.getPatient().getLastname(), pres.getCharges().getFixedCharges() + pres.getCharges().getConsultationCharges(), pres.getEntryTime());
                 monthlyReports.add(mReport);
             }
             return monthlyReports;
         }
         return null;
+    }
+
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    @Override
+    public List<String> getAllAmountLabels() {
+        return clinicDao.getAllAmountLabels();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Charges findChargesByCode(String code) {
+        return clinicDao.findChargesByCode(code);
     }
 }

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class PrescriptionDTO {
     private String medicines;
     private Date   entryTime;
-    private int    charges;
+    private String charges;
     private String followupRemark;
     private Date   revisitDate;
     private int    patientId;
@@ -26,11 +26,11 @@ public class PrescriptionDTO {
         this.entryTime = entryTime;
     }
 
-    public int getCharges() {
+    public String getCharges() {
         return charges;
     }
 
-    public void setCharges(int charges) {
+    public void setCharges(String charges) {
         this.charges = charges;
     }
 

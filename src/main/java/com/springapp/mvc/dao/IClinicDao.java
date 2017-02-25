@@ -4,11 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.Patient;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
+import com.springapp.mvc.entity.*;
 
 /**
  * Created by aashish on 3/6/15.
@@ -66,5 +62,9 @@ public interface IClinicDao {
     public void deleteFromQueue();
 
     List<Prescription> generateMonthlyReport(List<Date> dates);
+
+    public List<String> getAllAmountLabels();
+
+    public Charges findChargesByCode(String code);
 
 }

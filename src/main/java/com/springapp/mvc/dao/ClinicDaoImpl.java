@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.springapp.mvc.entity.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -19,11 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.Patient;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
 
 /**
  * Created by aashish on 3/6/15.
@@ -252,7 +248,7 @@ public class ClinicDaoImpl implements IClinicDao {
 
         List<Prescription> prescriptions = criteria.list();
         if (prescriptions.isEmpty())
-            return null;
+            return new ArrayList<>();
         return prescriptions;
     }
 
@@ -359,6 +355,19 @@ public class ClinicDaoImpl implements IClinicDao {
         query.setParameter("endDate", dates.get(1));
         List<Prescription> prescriptions = query.list();
         return prescriptions;
+    }
+
+    @Override
+    public List<String> getAllAmountLabels() {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select amt_code from amount");
+        List<String> labels = query.list();
+        return labels;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Charges findChargesByCode(String code) {
+        return (Charges) sessionFactory.getCurrentSession().get(Charges.class, code);
     }
 
 }
