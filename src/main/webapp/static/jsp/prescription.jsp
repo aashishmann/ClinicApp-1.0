@@ -89,19 +89,19 @@
 								<%--<td class="patient-visit"><input type="number" class="inputfield" name="charges" min="0"></td>--%>
                                 <td>
                                     <select id="amount" class="month-year-select" name="charges">
-                                        <option value="1">*</option>
-                                        <option value="2">A</option>
-                                        <option value="3">B</option>
-                                        <option value="4">C</option>
-                                        <option value="5">D</option>
-                                        <option value="6">E</option>
-                                        <option value="7">F</option>
-                                        <option value="8">G</option>
-                                        <option value="9">H</option>
-                                        <option value="10">I</option>
-                                        <option value="11">J</option>
-                                        <option value="12">K</option>
-                                        <option value="13">L</option>
+                                        <option value="*">*</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                        <option value="H">H</option>
+                                        <option value="I">I</option>
+                                        <option value="J">J</option>
+                                        <option value="K">K</option>
+                                        <option value="L">L</option>
                                     </select>
                                 </td>
 							</tr>

@@ -367,7 +367,10 @@ public class ClinicDaoImpl implements IClinicDao {
     @SuppressWarnings("unchecked")
     @Override
     public Charges findChargesByCode(String code) {
-        return (Charges) sessionFactory.getCurrentSession().get(Charges.class, code);
+        Query query = sessionFactory.getCurrentSession().createQuery("select ch from Charges ch where ch.code = :code");
+        query.setParameter("code",code);
+        return (Charges) query.uniqueResult();
+        //return (Charges) sessionFactory.getCurrentSession().get (Charges.class, code);
     }
 
 }

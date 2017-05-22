@@ -1,4 +1,4 @@
-use clinic;
+use snap_temp;
 -- MySQL dump 10.13  Distrib 5.6.19, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: clinic
@@ -145,10 +145,29 @@ UNLOCK TABLES;
 -- Table structure for table `prescription`
 --
 
+DROP TABLE IF EXISTS `charges`;
+CREATE TABLE `snap_temp`.`charges` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(15) NULL,
+  `fixed_charges` INT NULL,
+  `consultation_charges` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `code_UNIQUE` (`code` ASC))
+  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into charges(code,fixed_charges,consultation_charges) values('*',0,0);
+insert into charges(code,fixed_charges,consultation_charges) values('A',50,10);
+insert into charges(code,fixed_charges,consultation_charges) values('B',50,20);
+insert into charges(code,fixed_charges,consultation_charges) values('C',50,30);
+insert into charges(code,fixed_charges,consultation_charges) values('D',50,40);
+insert into charges(code,fixed_charges,consultation_charges) values('E',50,50);
+insert into charges(code,fixed_charges,consultation_charges) values('F',50,60);
+
+
 DROP TABLE IF EXISTS `prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `prescription` (
+/*CREATE TABLE `prescription` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `medicines` longtext,
   `entry_time` date DEFAULT NULL,
@@ -159,8 +178,22 @@ CREATE TABLE `prescription` (
   PRIMARY KEY (`id`),
   KEY `fk_patient_id` (`patient_id`),
   CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;*/
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+CREATE TABLE snap_temp.`prescription` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `medicines` longtext,
+  `entry_time` date DEFAULT NULL,
+  `charges_code` varchar(5) NOT NULL,
+  `followup_remark` longtext,
+  `revisit_date` date DEFAULT NULL,
+  `patient_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_patient_id` (`patient_id`),
+  KEY `fk_charges_code` (`charges_code`),
+  CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `prescription`
@@ -168,7 +201,7 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
-INSERT INTO `prescription` VALUES (1,'Combiflame','2015-06-26',100,'try again','2015-06-26',1),(2,'Crocin','2015-06-26',50,'try again','2015-06-26',2),(3,'Disprin','2015-06-25',50,'try again','2015-06-26',2),(4,'DCold','2015-06-25',10,'try again','2015-06-26',1),(6,'Durex','2015-07-25',75,'drink milk','2015-07-25',2),(7,'Endura mass','2015-07-25',175,'eat eggs','2015-07-25',2),(8,'Vicks','2015-07-25',5,'vicks ki goli lo kichkich door karo,khao pio jam k','2015-07-25',2),(9,'Cheston 100','2015-07-25',45,'Don\'t eat street food, only haldirams :P','2015-07-25',2);
+INSERT INTO `prescription` VALUES (1,'Combiflame','2015-06-26','A','try again','2015-06-26',1),(2,'Crocin','2015-06-26','B','try again','2015-06-26',2),(3,'Disprin','2015-06-25','B','try again','2015-06-26',2),(4,'DCold','2015-06-25','*','try again','2015-06-26',1),(6,'Durex','2015-07-25','C','drink milk','2015-07-25',2),(7,'Endura mass','2015-07-25','D','eat eggs','2015-07-25',2),(8,'Vicks','2015-07-25','D','vicks ki goli lo kichkich door karo,khao pio jam k','2015-07-25',2),(9,'Cheston 100','2015-07-25','A','Don\'t eat street food, only haldirams :P','2015-07-25',2);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 
