@@ -132,7 +132,8 @@ public class ClinicDaoImpl implements IClinicDao {
     @Override
     public Boolean persistPatientHistory(PatientHistory patientHistory) {
         try {
-            sessionFactory.getCurrentSession().persist(patientHistory);
+            //sessionFactory.getCurrentSession().persist(patientHistory);
+            sessionFactory.getCurrentSession().saveOrUpdate(patientHistory);
             System.out.println(patientHistory);
             LOG.info("Patient history inserted into db");
             return Boolean.TRUE;

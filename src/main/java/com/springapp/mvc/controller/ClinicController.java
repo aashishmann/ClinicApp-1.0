@@ -1,36 +1,23 @@
 package com.springapp.mvc.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import com.google.gson.Gson;
+import com.springapp.mvc.dto.*;
+import com.springapp.mvc.entity.Login;
+import com.springapp.mvc.entity.Patient;
+import com.springapp.mvc.entity.PatientHistory;
+import com.springapp.mvc.entity.PatientQueue;
+import com.springapp.mvc.service.IClinicService;
+import com.springapp.mvc.utils.ClinicUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.google.gson.Gson;
-import com.springapp.mvc.dto.DailyReport;
-import com.springapp.mvc.dto.LoginForm;
-import com.springapp.mvc.dto.Medicine;
-import com.springapp.mvc.dto.MonthlyReport;
-import com.springapp.mvc.dto.PatientProfileDTO;
-import com.springapp.mvc.dto.PrescriptionDTO;
-import com.springapp.mvc.dto.SearchForm;
-import com.springapp.mvc.entity.Login;
-import com.springapp.mvc.entity.Patient;
-import com.springapp.mvc.entity.PatientHistory;
-import com.springapp.mvc.entity.PatientQueue;
-import com.springapp.mvc.entity.Prescription;
-import com.springapp.mvc.service.IClinicService;
-import com.springapp.mvc.utils.ClinicUtils;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by aashish on 13/6/15.
@@ -41,7 +28,7 @@ public class ClinicController {
     private static final Logger LOG = LoggerFactory.getLogger(ClinicController.class);
 
     @Autowired
-    private IClinicService      clinicService;
+    private IClinicService  clinicService;
 
     //To take to the login screen
     @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.HEAD })
@@ -384,6 +371,20 @@ public class ClinicController {
             LOG.info("Some error occured while adding prescription for patient id : {}", prescription.getPatientId());
             model.addAttribute("prescriptionMessage", "Some error occured while adding prescription");
         }
+        return "prescription";
+    }
+
+    @RequestMapping(value = "savePatientHistory", method = RequestMethod.POST)
+    public String savePatientHistory(@ModelAttribute("patientHistory") PatientHistory patientHistory, Model model) {
+        System.out.println("patient history to be updated : " + patientHistory);
+        //String role = (String) session.getAttribute("ROLETYPE");
+        if (clinicService.persistPatientHistory(patientHistory)) {
+            model.addAttribute("updatePatientStatus", "Patient history details updated succesfully!");
+
+        } else {
+            model.addAttribute("updatePatientStatus", "Unable to update details. Try again later.");
+        }
+
         return "prescription";
     }
 

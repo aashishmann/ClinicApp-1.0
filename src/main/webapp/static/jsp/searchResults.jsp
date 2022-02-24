@@ -74,7 +74,7 @@
 		    	var str = x.patient.id+"+"+x.patient.firstname+" "+x.patient.lastname+"+"+x.patient.mobile+"+";
 
 		    	//fill prescription details
-		    	if(x.prescriptionList!=null){
+		    	if(x.prescriptionList!=null && x.prescriptionList.length > 0){
 		    		console.log("prescription list : "+x.prescriptionList[0].id+x.prescriptionList[0].medicines);
 			    	for(var i=0; i<x.prescriptionList.length; i++){
 				    	str += x.prescriptionList[i].id + "+" + x.prescriptionList[i].medicines + "+";

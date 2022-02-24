@@ -55,7 +55,7 @@
 								<td>Mobile:</td>
 								<td id="mo"></td>
 							</tr>
-						</table>
+							</table>
 					<!-- patient-information table -->
 				</td>
 				
@@ -82,7 +82,7 @@
 							</tr>
 							<tr>
 								<td class="patient-visit">Revisit Date :</td>
-								<td class="patient-visit"><input type="date" class="inputfield" name="revisitDate" min="2015-07-01"></td>
+								<td class="patient-visit"><input type="date" class="inputfield" name="revisitDate" min="2018-11-01"></td>
 							</tr>
 							<tr>
 								<td class="patient-visit"><label for="amount" class="form-label">Charges :</label></td>
@@ -133,7 +133,7 @@
 						<h2>Medical Details : </h2>
 					</div>
 					<hr>
-					<form class="patient-history" action="" method="get">
+					<form class="patient-history" action="savePatientHistory" method="post">
 						<table id="patient-history-table" border="1">
 						</table>
 						<div id="no-history"></div>
@@ -218,17 +218,17 @@ else{
 }
 
 //check if no history available for this patient
-if(split_arr[flag]=='%#%@&' && split_arr[flag+1].length==0){
+/*if(split_arr[flag]=='%#%@&' && split_arr[flag+1].length==0){
 	console.log("No history available for this patient");
 	console.log("len"+split_arr[flag+1].length);
 	$('#no-history').html("Patient History Not Available.");
 	$('#no-history').css({'color':'red','font':'normal 20px arial','text-align':'center'});
 }
-else{
+else{*/
 	//set patient history in table
 	var output="";
 	var j = flag+1;
-	output += "<tr><td>ID :</td><td>"+split_arr[j++]+"</td></tr>";
+	/*output += "<tr><td>ID :</td><td>"+split_arr[j++]+"</td></tr>";
 	output += "<tr><td>Visit Date :</td><td>"+split_arr[j++]+"</td></tr>";
 	output += "<tr><td>Visit Purpose :</td><td>"+split_arr[j++]+"</td></tr>";
 	output += "<tr><td>Chief Complaints :</td><td>"+split_arr[j++]+"</td></tr>";
@@ -239,11 +239,27 @@ else{
 	output += "<tr><td>Past History :</td><td>"+split_arr[j++]+"</td></tr>";
 	output += "<tr><td>Thermal :</td><td>"+split_arr[j++]+"</td></tr>";
 	output += "<tr><td>Desire :</td><td>"+split_arr[j++]+"</td></tr>";
-	output += "<tr><td>Aversion :</td><td>"+split_arr[j++]+"</td></tr>";
+	output += "<tr><td>Aversion :</td><td>"+split_arr[j++]+"</td></tr>";*/
+
+	//j++; // we dont need id so increment the j
+    output += "<tr><td>ID :</td><td><input type='text' name='id' value='"+split_arr[j++]+"' class='inputfield' size='30' readonly></td></tr>";
+    //output += "<tr><td>Visit Date :</td><td><input type='text' name='dateOfVisit' value='"+split_arr[j++]+"' class='inputfield' size='30' readonly></td></tr>";
+    output += "<tr><td>Visit Purpose :</td><td><input type='text' name='purposeOfVisit' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Chief Complaints :</td><td><input type='text' name='chiefComplaints' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Mental Symptoms :</td><td><input type='text' name='mentalSymptoms' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Physical Symptoms :</td><td><input type='text' name='physicalSymptoms' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Investigation :</td><td><input type='text' name='investigation' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Family History :</td><td><input type='text' name='familyHistory' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Past History :</td><td><input type='text' name='pastHistory' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Thermal :</td><td><input type='text' name='thermal' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Desire :</td><td><input type='text' name='desire' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td>Aversion :</td><td><input type='text' name='aversion' value='"+split_arr[j++]+"' class='inputfield' size='30' required autofocus></td></tr>";
+    output += "<tr><td><\td><input type='submit' value='Save' class='btn btn-info'></td></tr>"
+
 	/* output += "<tr><td></td><td><input type='submit' value='Submit' class='btn btn-info'></td></tr>"; */
 	
 	//set the table so that it becomes visible
 	$('#patient-history-table').html(output);
-}
+//}
 </script>
 </html>

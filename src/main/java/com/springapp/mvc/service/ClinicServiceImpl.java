@@ -84,7 +84,11 @@ public class ClinicServiceImpl implements IClinicService {
     @Transactional
     @Override
     public Boolean persistPatientHistory(PatientHistory patientHistory) {
+        // TODO : pass patient id in patient History from JSP(prescrpition.jsp)
+        patientHistory.setPatient(findPatientById(64));
+        patientHistory.setDateOfVisit(new Date());
         return clinicDao.persistPatientHistory(patientHistory);
+        //return clinicDao.updatePatientHistory(patientHistory);
     }
 
     @Transactional

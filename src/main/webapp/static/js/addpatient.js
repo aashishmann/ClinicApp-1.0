@@ -67,13 +67,14 @@ $(document).ready(function(){
 						
 						//if doctor is logged in then display this as well
                         console.log('Role : '+'${ROLETYPE}');
-                        output += "<c:if test='${ROLETYPE == \'DOC\'}'><td><button id='prescription' type='button' class='btn btn-success'>Give Prescription</button></td></c:if></tr>";
+                        output += "<c:if test='${ROLETYPE == \'DOC\'}'><td><input id='prescription' type='button' class='btn btn-success' data-selector='GP' value='Give Prescription'/></td></c:if></tr>";
 						
 					}
 					$('#patientqueueinfo').html(output);
 					
 					$("#prescription").click(function(){
 				    	console.log('Giving prescription for :'+id + ' and patient : '+name);
+				    	id=$(this).data('selector');
 				    	
 				    	jQuery.ajax({
 							'type':'POST',
